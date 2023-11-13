@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Teresa Correa &amp; Nicolás Tobar">
+
+<title>Descriptive comparation between 2015 and 2018 results</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="01_descriptive_report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="01_descriptive_report_files/libs/quarto-html/quarto.js"></script>
+<script src="01_descriptive_report_files/libs/quarto-html/popper.min.js"></script>
+<script src="01_descriptive_report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="01_descriptive_report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="01_descriptive_report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="01_descriptive_report_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="01_descriptive_report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="01_descriptive_report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="01_descriptive_report_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Descriptive comparation between 2015 and 2018 results</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Teresa Correa &amp; Nicolás Tobar </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(haven, <span class="co"># read_sav</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               psych, <span class="co"># Cronbach</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               readxl, <span class="co"># read_xlsx</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>               tidyverse, <span class="co"># Data manipulation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               janitor, <span class="co"># clean_names</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               sjPlot, <span class="co"># view_df</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               sjlabelled,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>               labelled,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               tidyverse,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               hrbrthemes,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>               scalesextra,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>               knitr,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>               gt</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>               ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The next document have a little presentation about the tendencies of digital inclusion on rural areas in Chile. For that, it was analyzed the 2015 survey of digital conectivity from the Diego Portales University and the 2023 survey of digital inclusion made by NUDOS, specifically by Teresa Correa, with support of the rest of the team.</p>
+<p>Both surveys share some questions and variables, because the 2023 questionnaire extracted a great part of the items measured on 2015. The items shared by both studies are the next one:</p>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Obtener base 2023 comparable</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_2023 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"../01_input/01_raw_data/2023_survey_raw.sav"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>comparable_2023 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_xlsx</span>(<span class="st">"../01_input/04_codebook/codebook.xlsx"</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(comparability_2015<span class="sc">==</span><span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>comparable_2023 <span class="ot">&lt;-</span> comparable_2023<span class="sc">$</span>code</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>data_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span> (tipo_zona<span class="sc">==</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(comparable_2023)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>data_2023[data_2023<span class="sc">==</span><span class="dv">99</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtener base 2015 comparable</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>data_2015 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"../01_input/01_raw_data/2015_survey_raw.sav"</span>) <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>data_2015[data_2015<span class="sc">==</span><span class="dv">99</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>nudos_color_binary <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#5f5758"</span>,<span class="st">"#ff3057"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="b-module-internet-acces" class="level1">
+<h1>B Module: Internet Acces</h1>
+<section id="use-of-technological-devices-b1" class="level3">
+<h3 class="anchored" data-anchor-id="use-of-technological-devices-b1">Use of technological devices (b1)</h3>
+<p>The <a href="#fig-plotb1">Figure&nbsp;1</a> shows that the majority of the participants has adopted smartphones in rural areas, in deterioration of basic cellphones. The acquisition of other devices do not present major variations. Nearly the 80% of the people interviewed have a smartphone in 2023. In addition to the above, results interesting that in 2015 the percentage of participants with PC is more than in 2023, but it’s explains probably because of the migration of users from notebooks, that increased with the passage of time.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>b1_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"b1_"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b1_2023[b1_2023 <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>b1_2023 <span class="ot">&lt;-</span> <span class="fu">round</span>(b1_2023 <span class="sc">%&gt;%</span> <span class="fu">colSums</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span><span class="dv">100</span><span class="sc">/</span><span class="dv">449</span>,<span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>b1_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"p002_"</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>b1_2015[b1_2015 <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(b1_2015) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(b1_2023)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>b1_2015 <span class="ot">&lt;-</span> <span class="fu">round</span>(b1_2015 <span class="sc">%&gt;%</span> <span class="fu">colSums</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span><span class="dv">100</span><span class="sc">/</span><span class="dv">1000</span>,<span class="dv">2</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b1_2015,b1_2023)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(b1) <span class="ot">&lt;-</span> <span class="cn">NULL</span>  </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(b1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">2023</span>))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> b1 <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"b1"</span>),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                    <span class="at">names_to =</span> <span class="st">"variables"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values_to =</span> <span class="st">"prop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">as.factor</span>(year),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">variables=</span><span class="fu">set_labels</span>(variables, <span class="at">labels =</span> <span class="fu">c</span> (</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"PC"</span><span class="ot">=</span><span class="st">"b1_1"</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Notebook"</span><span class="ot">=</span><span class="st">"b1_2"</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Tablet"</span><span class="ot">=</span><span class="st">"b1_3"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Basic cellphone"</span><span class="ot">=</span><span class="st">"b1_4"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Smartphone"</span><span class="ot">=</span><span class="st">"b1_5"</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Videogame console"</span><span class="ot">=</span><span class="st">"b1_6"</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Others"</span><span class="ot">=</span><span class="st">"b1_8"</span>)))</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b1,<span class="fu">aes</span>(<span class="at">x=</span>prop,<span class="at">y=</span><span class="fu">to_label</span>(variables),<span class="at">color=</span>year))<span class="sc">+</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Percentage"</span>,<span class="at">y=</span><span class="st">"Devices"</span>,<span class="at">color=</span><span class="st">"Year of measure"</span>)<span class="sc">+</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>nudos_color_binary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: ¿Cuáles de los siguientes dispositivos electrónicos usan los miembros de este hogar?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="home-adoption-of-internet-b2" class="level3">
+<h3 class="anchored" data-anchor-id="home-adoption-of-internet-b2">Home adoption of internet (b2)</h3>
+<p>The <a href="#fig-plotb2">Figure&nbsp;2</a> indicates the adoptions of internet in the house tends to grow up considerably across the time in rural areas of the country. The plot shows that the proportion of homes with connection rise more than a 30%</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>b2_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">select</span>(p004)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b2_2015[b2_2015 <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>b2_2015 <span class="ot">&lt;-</span> <span class="fu">round</span>(b2_2015 <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span><span class="dv">100</span><span class="sc">/</span><span class="dv">1000</span>,<span class="dv">2</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>b2_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">select</span>(b2)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>b2_2023[b2_2023 <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>b2_2023 <span class="ot">&lt;-</span> <span class="fu">round</span>(b2_2023 <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span><span class="dv">100</span><span class="sc">/</span><span class="dv">449</span>,<span class="dv">2</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b2_2015,b2_2023)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(b2) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(b2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">2023</span>),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">year=</span><span class="fu">as_factor</span>(year)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b2=</span>V1)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b2, <span class="fu">aes</span>(<span class="at">x=</span>year,<span class="at">y=</span>b2))<span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>,<span class="at">width =</span> <span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">fill=</span><span class="st">"#ff3057"</span>)<span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Year of measure"</span>,<span class="at">y=</span><span class="st">"Percentage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: ¿Podría decirme si en este hogar tienen o no conexión a internet?: Ya sea mediante una conexión fija o a través de un teléfono móvil</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="home-system-connection-b4" class="level3">
+<h3 class="anchored" data-anchor-id="home-system-connection-b4">Home system connection (b4)</h3>
+<p>Data illustrated in <a href="#fig-plotb4">Figure&nbsp;3</a> suggest, in contradiction of intuitive thinking, the fixed bandwith mantains the proportion of user. Instead, rise slightly the satelital connection and mobile broadband. Results strange the “other” option rise up more than a 60%, what probably should be a <em>measure error</em> of the question.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>b4_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"p007_"</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>p007_03) <span class="sc">%&gt;%</span><span class="fu">rename</span>(<span class="at">b4_1=</span>p007_01,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                                                                                     <span class="at">b4_8=</span>p007_02,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                                                                     <span class="at">b4_6=</span>p007_04,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                                                                     <span class="at">b4_7=</span>p007_05)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>b4_2015[b4_2015<span class="sc">==</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>b4_2015 <span class="ot">&lt;-</span> <span class="fu">round</span>(b4_2015 <span class="sc">%&gt;%</span> <span class="fu">colSums</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span> <span class="dv">100</span><span class="sc">/</span><span class="dv">1000</span>,<span class="dv">2</span>) </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>b4_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"b4_"</span>)) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">b4_8=</span><span class="fu">ifelse</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  b4_3 <span class="sc">|</span> b4_4 <span class="sc">|</span> b4_5 <span class="sc">==</span> <span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(b4_3,b4_4,b4_5))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>b4_2023[b4_2023<span class="sc">==</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>b4_2023 <span class="ot">&lt;-</span> <span class="fu">round</span>(b4_2023 <span class="sc">%&gt;%</span> <span class="fu">colSums</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span> <span class="dv">100</span><span class="sc">/</span><span class="dv">449</span>,<span class="dv">2</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>b4 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b4_2015,b4_2023)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(b4) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>b4 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(b4) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">2023</span>))</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>b4 <span class="ot">&lt;-</span> b4 <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"b4"</span>),</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                    <span class="at">names_to =</span> <span class="st">"variables"</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values_to =</span> <span class="st">"prop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">as.factor</span>(year),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>             <span class="at">variables=</span><span class="fu">set_labels</span>(variables, <span class="at">labels =</span> <span class="fu">c</span> (</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Fixed broadband"</span><span class="ot">=</span><span class="st">"b4_1"</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Mobile broadband"</span><span class="ot">=</span><span class="st">"b4_8"</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Satelital connection"</span><span class="ot">=</span><span class="st">"b4_6"</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Other"</span><span class="ot">=</span><span class="st">"b4_7"</span>)))</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b4,<span class="fu">aes</span>(<span class="at">x=</span>prop,<span class="at">y=</span><span class="fu">to_label</span>(variables),<span class="at">color=</span>year))<span class="sc">+</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Percentage"</span>,<span class="at">y=</span><span class="st">"System of connection"</span>,<span class="at">color=</span><span class="st">"Year of measure"</span>)<span class="sc">+</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>nudos_color_binary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: ¿Mediante cuál de los siguientes sistemas se conectan a internet en el hogar?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="frequent-use-of-electronic-devices-b5" class="level3">
+<h3 class="anchored" data-anchor-id="frequent-use-of-electronic-devices-b5">Frequent use of electronic devices (b5)</h3>
+<p><a href="#fig-plotb5">Figure&nbsp;4</a> display the frequency of use of electronic devices. <em>It’s important to say the 2023 measure add a new category to the question (“Several times a day”)</em>. Data shows the tendencies do not have changed importantly during time. Inclusive, it’s striking the decrease of computer use, but no increase use of other devices.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>b5_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">select</span>(p009_01,p009_03,p009_04) <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(p009_01) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">b5_1=</span><span class="fu">sum</span>(p009_01,<span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(p009_03) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">b5_2=</span><span class="fu">sum</span>(p009_03,<span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(p009_04) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">b5_3=</span><span class="fu">sum</span>(p009_04,<span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>b5_2015 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>           b5_2015 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(p009_01) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">b5_1=</span><span class="fu">mean</span>(b5_1,<span class="at">na.rm=</span>T)),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>           b5_2015 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(p009_03) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">b5_2=</span><span class="fu">mean</span>(b5_2,<span class="at">na.rm=</span>T)),</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>           b5_2015 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(p009_04) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">b5_3=</span><span class="fu">mean</span>(b5_3,<span class="at">na.rm=</span>T)))<span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>           <span class="fu">rename</span>(<span class="at">Computador=</span>p009_01,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smartphone=</span>p009_03,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Tablet=</span>p009_04) <span class="sc">%&gt;%</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">slice</span>(<span class="sc">-</span><span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">year=</span><span class="dv">2015</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>b5_2023 <span class="ot">&lt;-</span> <span class="fu">rename</span>(data_2023,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Computador=</span>b5_1,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Smartphone=</span>b5_2,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">Tablet=</span>b5_3)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>b5_2023 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>           b5_2023 <span class="sc">%&gt;%</span> <span class="fu">count</span>(Computador) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b5_1=</span>n),</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>           b5_2023 <span class="sc">%&gt;%</span> <span class="fu">count</span>(Smartphone) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b5_2=</span>n),</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>           b5_2023 <span class="sc">%&gt;%</span> <span class="fu">count</span>(Tablet) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b5_3=</span>n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">year=</span><span class="dv">2023</span>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(b5_2015) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(b5_2023) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>b5_2015 <span class="ot">&lt;-</span> <span class="fu">mutate_all</span>(b5_2015,as.numeric)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>b5_2023 <span class="ot">&lt;-</span> <span class="fu">mutate_all</span>(b5_2023,as.numeric)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>b5 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b5_2015,b5_2023)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>b5 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  b5 <span class="sc">%&gt;%</span> <span class="fu">select</span>(year,<span class="at">response=</span>Computador,<span class="at">n=</span>b5_1) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dispositivo=</span><span class="st">"Computer"</span>),</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>  b5 <span class="sc">%&gt;%</span> <span class="fu">select</span>(year,<span class="at">response=</span>Smartphone,<span class="at">n=</span>b5_2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dispositivo=</span><span class="st">"Smartphone"</span>),</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>  b5 <span class="sc">%&gt;%</span> <span class="fu">select</span>(year,<span class="at">response=</span>Tablet,<span class="at">n=</span>b5_3) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">dispositivo=</span><span class="st">"Tablet"</span>))</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>b5 <span class="ot">&lt;-</span> b5 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(year,dispositivo) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop=</span>n<span class="sc">*</span><span class="dv">100</span><span class="sc">/</span><span class="fu">sum</span>(n),</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">response=</span><span class="fu">as_factor</span>(response),</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">response=</span>dplyr<span class="sc">::</span><span class="fu">recode</span>(response,</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"1"</span><span class="ot">=</span><span class="st">"I have never use it"</span>,</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"2"</span><span class="ot">=</span><span class="st">"I haven't used it in over three months"</span>,</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"3"</span><span class="ot">=</span><span class="st">"Between one and three times a month"</span>,</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"4"</span><span class="ot">=</span><span class="st">"All weeks"</span>,</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"5"</span><span class="ot">=</span><span class="st">"All days"</span>,</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>                                                   <span class="st">"6"</span><span class="ot">=</span><span class="st">"Several times a day"</span>))</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b5,<span class="fu">aes</span>(<span class="at">x=</span>response,<span class="at">y=</span>prop, <span class="at">fill=</span>response))<span class="sc">+</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(dispositivo<span class="sc">~</span>year)<span class="sc">+</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Percentage"</span>,<span class="at">fill=</span><span class="st">"Answer"</span>)<span class="sc">+</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>)<span class="sc">+</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#5f5758"</span>,<span class="st">"#ff3057"</span>,<span class="st">"#fdffde"</span>,<span class="st">"#ffffff"</span>,<span class="st">"#f43111"</span>,<span class="st">"#fff822"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: ¿Con qué frecuencia utiliza usted los siguientes aparatos o sistemas electrónicos?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="user-of-internet-b6" class="level3">
+<h3 class="anchored" data-anchor-id="user-of-internet-b6">User of internet (b6)</h3>
+<p>The user of internet have increased consistently. The <a href="#fig-plotb6">Figure&nbsp;5</a> shows a rise of more than 30% about the total participants that use internet personally.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>b6_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">select</span>(p018)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>b6_2015[b6_2015 <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>b6_2015 <span class="ot">&lt;-</span> <span class="fu">round</span>(b6_2015 <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span><span class="dv">100</span><span class="sc">/</span><span class="dv">1000</span>,<span class="dv">2</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>b6_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">select</span>(b6)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>b6_2023[b6_2023 <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>b6_2023 <span class="ot">&lt;-</span> <span class="fu">round</span>(b6_2023 <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span><span class="dv">100</span><span class="sc">/</span><span class="dv">449</span>,<span class="dv">2</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>b6 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b6_2015,b6_2023)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(b6) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>b6 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(b6) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">2023</span>),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">year=</span><span class="fu">as_factor</span>(year)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b6=</span>V1)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b6, <span class="fu">aes</span>(<span class="at">x=</span>year,<span class="at">y=</span>b6))<span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>,<span class="at">width =</span> <span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"black"</span>,<span class="at">fill=</span><span class="st">"#ff3057"</span>)<span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Year of measure"</span>,<span class="at">y=</span><span class="st">"Percentage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Independientemente del acceso en el hogar ¿Usted ha usado internet alguna vez?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="first-internet-access-b7" class="level3">
+<h3 class="anchored" data-anchor-id="first-internet-access-b7">First internet access (b7)</h3>
+<p>The question of <a href="#fig-plotb7">Figure&nbsp;6</a> was calculated only with participants who declared being <em>users of internet</em> in the preview question (See <a href="#fig-plotb6">Figure&nbsp;5</a>). Data is emphatic. In 2023 the majority of surveyed are user of internet from more than 9 years. This is contradictory with 2015 results, where the distribution of network access is more homogeneus.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>b7_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(p018<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(p020)<span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b7=</span>p020) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(b7) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarise</span>(<span class="at">prop=</span><span class="fu">sum</span>(b7,<span class="at">na.rm=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">prop=</span>prop<span class="sc">/</span><span class="fu">sum</span>(prop,<span class="at">na.rm=</span>T),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">prop=</span><span class="fu">round</span>(prop,<span class="dv">2</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span><span class="dv">2015</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">drop_na</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_all</span>(as.numeric)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>b7_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(b6<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(b7)<span class="sc">%&gt;%</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(b7) <span class="sc">%&gt;%</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarise</span>(<span class="at">prop=</span><span class="fu">sum</span>(b7,<span class="at">na.rm=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">prop=</span>prop<span class="sc">/</span><span class="fu">sum</span>(prop,<span class="at">na.rm=</span>T),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">prop=</span><span class="fu">round</span>(prop,<span class="dv">2</span>),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span><span class="dv">2023</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>           <span class="fu">drop_na</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_all</span>(as.numeric)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>b7 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b7_2015,b7_2023) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">response=</span><span class="fu">recode</span>(b7,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                                                  <span class="st">"1"</span><span class="ot">=</span><span class="st">"Less than one year"</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>                                                  <span class="st">"2"</span><span class="ot">=</span><span class="st">"Between one and three years"</span>,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                                                  <span class="st">"3"</span><span class="ot">=</span><span class="st">"Between three and five years"</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                                                  <span class="st">"4"</span><span class="ot">=</span><span class="st">"Between five and seven years"</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                                                  <span class="st">"5"</span><span class="ot">=</span><span class="st">"Between seven and nine years"</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                                                  <span class="st">"6"</span><span class="ot">=</span><span class="st">"More than 9 years"</span>),</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">year=</span><span class="fu">as.factor</span>(year),</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">response=</span><span class="fu">as_factor</span>(response),</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">response=</span><span class="fu">factor</span>(response,<span class="at">levels=</span><span class="fu">c</span>(</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Less than one year"</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Between one and three years"</span>,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Between three and five years"</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Between five and seven years"</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"Between seven and nine years"</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"More than 9 years"</span>  </span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>                                        )))</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b7,<span class="fu">aes</span>(<span class="at">x=</span>response,<span class="at">y=</span>prop,<span class="at">fill=</span>year))<span class="sc">+</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>,<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)<span class="sc">+</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Answer"</span>,<span class="at">y=</span><span class="st">"Percentage"</span>,<span class="at">fill=</span><span class="st">"Year of measure"</span>)<span class="sc">+</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> nudos_color_binary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb7" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: ¿Hace cuánto tiempo fue la primera vez que accedió a internet?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="speed-of-internet-service-b9" class="level3">
+<h3 class="anchored" data-anchor-id="speed-of-internet-service-b9">Speed of internet service (b9)</h3>
+<p>Results in <a href="#fig-plotb9">Figure&nbsp;7</a> were also calculated only with <em>users of internet</em> sample. There is a little increase of users who self-report a very fast connection during 2023.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>b9_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(p018<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(p022)<span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b9=</span>p022) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(b9) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarise</span>(<span class="at">prop=</span><span class="fu">sum</span>(b9,<span class="at">na.rm=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">prop=</span>prop<span class="sc">/</span><span class="fu">sum</span>(prop,<span class="at">na.rm=</span>T),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">prop=</span><span class="fu">round</span>(prop,<span class="dv">2</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span><span class="dv">2015</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">drop_na</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_all</span>(as.numeric)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>b9_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(b6<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(b9)<span class="sc">%&gt;%</span> </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(b9) <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarise</span>(<span class="at">prop=</span><span class="fu">sum</span>(b9,<span class="at">na.rm=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">prop=</span>prop<span class="sc">/</span><span class="fu">sum</span>(prop,<span class="at">na.rm=</span>T),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">prop=</span><span class="fu">round</span>(prop,<span class="dv">2</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span><span class="dv">2023</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>           <span class="fu">drop_na</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_all</span>(as.numeric)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>b9 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b9_2015,b9_2023) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">response=</span><span class="fu">recode</span>(b9,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"1"</span><span class="ot">=</span><span class="st">"Slow"</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"2"</span><span class="ot">=</span><span class="st">"Fast"</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"3"</span><span class="ot">=</span><span class="st">"Really fast"</span>),</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">year=</span><span class="fu">as_factor</span>(year),</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">response=</span><span class="fu">factor</span>(response,<span class="at">levels=</span><span class="fu">c</span>(</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"Slow"</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"Fast"</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>                                                        <span class="st">"Really fast"</span>)))</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b9,<span class="fu">aes</span>(<span class="at">x=</span>response,<span class="at">y=</span>prop,<span class="at">fill=</span>year))<span class="sc">+</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>,<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)<span class="sc">+</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Answer"</span>,<span class="at">y=</span><span class="st">"Percentage"</span>,<span class="at">fill=</span><span class="st">"Year of measure"</span>)<span class="sc">+</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>nudos_color_binary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb9" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb9-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;7: ¿Cómo calificaría la velocidad del servicio de internet para la forma de acceso que usa frecuentemente?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="signal-connection-quality-b10" class="level3">
+<h3 class="anchored" data-anchor-id="signal-connection-quality-b10">Signal connection quality (b10)</h3>
+<p><a href="#fig-plotb10">Figure&nbsp;8</a> was also calculated by the same method of the preview two plots. Results shows 2015 participants tends to concentrate in intermedial values, but in the last measure, tends to go to extreme values. Anyway, it is mantained the concentration of answers in low signal quality.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>b10_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(p018<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(p023)<span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b10=</span>p023) <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(b10) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarise</span>(<span class="at">prop=</span><span class="fu">sum</span>(b10,<span class="at">na.rm=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">prop=</span>prop<span class="sc">/</span><span class="fu">sum</span>(prop,<span class="at">na.rm=</span>T),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">prop=</span><span class="fu">round</span>(prop,<span class="dv">2</span>),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span><span class="dv">2015</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">drop_na</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_all</span>(as.numeric)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>b10_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(b6<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(b10)<span class="sc">%&gt;%</span> </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">group_by</span>(b10) <span class="sc">%&gt;%</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">summarise</span>(<span class="at">prop=</span><span class="fu">sum</span>(b10,<span class="at">na.rm=</span>T))<span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ungroup</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate</span>(<span class="at">prop=</span>prop<span class="sc">/</span><span class="fu">sum</span>(prop,<span class="at">na.rm=</span>T),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                  <span class="at">prop=</span><span class="fu">round</span>(prop,<span class="dv">2</span>),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                  <span class="at">year=</span><span class="dv">2023</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>           <span class="fu">drop_na</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>           <span class="fu">mutate_all</span>(as.numeric)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>b10 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b10_2015,b10_2023) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">response=</span><span class="fu">recode</span>(b10,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                                                           <span class="st">"1"</span><span class="ot">=</span><span class="st">"Really good"</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                                                           <span class="st">"2"</span><span class="ot">=</span><span class="st">"Good"</span>,</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                                                           <span class="st">"3"</span><span class="ot">=</span><span class="st">"Neither good nor bad"</span>,</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                                                           <span class="st">"4"</span><span class="ot">=</span><span class="st">"Bad"</span>,</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                                                           <span class="st">"5"</span><span class="ot">=</span><span class="st">"Really bad"</span>),</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">response=</span><span class="fu">factor</span>(response,<span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Really bad"</span>,</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Bad"</span>,</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Neither good nor bad"</span>,</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Good"</span>,</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Really good"</span>)),</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">year=</span><span class="fu">as_factor</span>(year)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>                                           )</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b10,<span class="fu">aes</span>(<span class="at">x=</span>response,<span class="at">y=</span>prop,<span class="at">fill=</span>year))<span class="sc">+</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>,<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)<span class="sc">+</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Answer"</span>,<span class="at">y=</span><span class="st">"Percentage"</span>,<span class="at">fill=</span><span class="st">"Year of measure"</span>)<span class="sc">+</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> nudos_color_binary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb10" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb10-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;8: ¿Cómo calificaría la calidad de la señal para la forma de acceso que usted usa con mayor frecuencia?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="causes-internet-signal-problems-b11" class="level3">
+<h3 class="anchored" data-anchor-id="causes-internet-signal-problems-b11">Causes internet signal problems (b11)</h3>
+<p>Percentages of <a href="#fig-plotb11">Figure&nbsp;9</a> were calculated only for whom reported bad or neither bad signal quality. Results suggests majority of participants identify three alternatives like principals causes of bad conectivity. In 2023 increase participants saying singal level down by the place where is the user.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>b11_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(p023<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(p024_01,p024_02,p024_03)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>b11_2015[b11_2015<span class="sc">==</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>b11_2015 <span class="ot">&lt;-</span> <span class="fu">round</span>(b11_2015 <span class="sc">%&gt;%</span> <span class="fu">colSums</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span> <span class="dv">100</span><span class="sc">/</span><span class="dv">216</span>,<span class="dv">2</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>b11_2023 <span class="ot">&lt;-</span> data_2023 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(b10<span class="sc">%in%</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="sc">%&gt;%</span> <span class="fu">select</span>(b11_1,b11_2,b11_3)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>b11_2023[b11_2023<span class="sc">==</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>b11_2023 <span class="ot">&lt;-</span> <span class="fu">round</span>(b11_2023 <span class="sc">%&gt;%</span> <span class="fu">colSums</span>(<span class="at">na.rm=</span>T) <span class="sc">*</span> <span class="dv">100</span><span class="sc">/</span><span class="dv">257</span>,<span class="dv">2</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>b11 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(b11_2015,b11_2023)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(b11) <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>b11 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(b11) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">2023</span>)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">b11_1=</span>p024_01,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                                                                   <span class="at">b11_2=</span>p024_02,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                                                                   <span class="at">b11_3=</span>p024_03)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>b11 <span class="ot">&lt;-</span> b11 <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"b11"</span>),</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                    <span class="at">names_to =</span> <span class="st">"variables"</span>,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values_to =</span> <span class="st">"prop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">as.factor</span>(year),</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">variables=</span><span class="fu">set_labels</span>(variables, <span class="at">labels =</span> <span class="fu">c</span> (</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"In some moments works better, in others the signal drops or slow down"</span><span class="ot">=</span><span class="st">"b11_1"</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Bad weather affects signal"</span><span class="ot">=</span><span class="st">"b11_2"</span>,</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"I receive signal in some point, but not in others"</span><span class="ot">=</span><span class="st">"b11_3"</span>)))</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(b11,<span class="fu">aes</span>(<span class="at">x=</span>prop,<span class="at">y=</span><span class="fu">to_label</span>(variables),<span class="at">color=</span>year))<span class="sc">+</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">6</span>)<span class="sc">+</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>()<span class="sc">+</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Percentage"</span>,<span class="at">y=</span><span class="st">"Answer"</span>,<span class="at">color=</span><span class="st">"Year of measure"</span>)<span class="sc">+</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">12</span>))<span class="sc">+</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> nudos_color_binary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-plotb11" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="01_descriptive_report_files/figure-html/fig-plotb11-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;9: De acuerdo a su experiencia ¿Por qué no funciona bien la señal de internet?</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="c-module-digital-habilities" class="level1">
+<h1>C Module: Digital Habilities</h1>
+<section id="insecurity-in-use-of-technologies-c1" class="level3">
+<h3 class="anchored" data-anchor-id="insecurity-in-use-of-technologies-c1">Insecurity in use of technologies (c1)</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>usage_2015 <span class="ot">&lt;-</span> data_2015 <span class="sc">%&gt;%</span> <span class="fu">select</span>(p034_02,p034_03,p034_04,p034_05,p034_06,p034_07,p034_08,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                                   p034_10,p035_01,p035_02, <span class="co">#Recodificar e2_3_2, e2_3_3 y e2_3_4,</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                                   p035_03,p035_04,p035_05,p035_06,p035_07,p035_08)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(usage_2015) <span class="ot">&lt;-</span> <span class="fu">var_label</span>(usage_2015) <span class="sc">%&gt;%</span> <span class="fu">substring</span>(<span class="dv">76</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">descr</span>(usage_2015,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">show =</span> <span class="fu">c</span>(<span class="st">"label"</span>,<span class="st">"range"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"n"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">var=</span><span class="fu">recode</span>(var,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_02"</span><span class="ot">=</span><span class="st">"Adquirir información"</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_03"</span><span class="ot">=</span><span class="st">"Adquirir información"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_04"</span><span class="ot">=</span><span class="st">"Adquirir información"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_05"</span><span class="ot">=</span><span class="st">"Adquirir información"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_06"</span><span class="ot">=</span><span class="st">"Comunicación"</span>,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_07"</span><span class="ot">=</span><span class="st">"Comunicación"</span>,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_08"</span><span class="ot">=</span><span class="st">"Comunicación"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p034_10"</span><span class="ot">=</span><span class="st">"Comunicación"</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_01"</span><span class="ot">=</span><span class="st">"Recreación"</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_02"</span><span class="ot">=</span><span class="st">"Recreación"</span>,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_03"</span><span class="ot">=</span><span class="st">"Comercio electrónico y emprendimiento"</span>,</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_04"</span><span class="ot">=</span><span class="st">"Comercio electrónico y emprendimiento"</span>,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_05"</span><span class="ot">=</span><span class="st">"Comercio electrónico y emprendimiento"</span>,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_06"</span><span class="ot">=</span><span class="st">"Comercio electrónico y emprendimiento"</span>,</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_07"</span><span class="ot">=</span><span class="st">"Comercio electrónico y emprendimiento"</span>,</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"p035_08"</span><span class="ot">=</span><span class="st">"Comercio electrónico y emprendimiento"</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>                        ),</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>             <span class="at">mean=</span><span class="fu">round</span>(mean,<span class="dv">2</span>),</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>             <span class="at">sd=</span><span class="fu">round</span>(sd,<span class="dv">2</span>))<span class="sc">%&gt;%</span> </span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">gt</span>(</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">groupname_col =</span> <span class="st">"var"</span>,</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">rowname_col =</span> <span class="st">"label"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div id="ispxfyxdke" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ispxfyxdke table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ispxfyxdke thead, #ispxfyxdke tbody, #ispxfyxdke tfoot, #ispxfyxdke tr, #ispxfyxdke td, #ispxfyxdke th {
+  border-style: none;
+}
+
+#ispxfyxdke p {
+  margin: 0;
+  padding: 0;
+}
+
+#ispxfyxdke .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ispxfyxdke .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ispxfyxdke .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ispxfyxdke .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ispxfyxdke .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ispxfyxdke .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ispxfyxdke .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ispxfyxdke .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ispxfyxdke .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ispxfyxdke .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ispxfyxdke .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ispxfyxdke .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ispxfyxdke .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ispxfyxdke .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ispxfyxdke .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ispxfyxdke .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ispxfyxdke .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ispxfyxdke .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ispxfyxdke .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ispxfyxdke .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ispxfyxdke .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ispxfyxdke .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ispxfyxdke .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ispxfyxdke .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ispxfyxdke .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ispxfyxdke .gt_left {
+  text-align: left;
+}
+
+#ispxfyxdke .gt_center {
+  text-align: center;
+}
+
+#ispxfyxdke .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ispxfyxdke .gt_font_normal {
+  font-weight: normal;
+}
+
+#ispxfyxdke .gt_font_bold {
+  font-weight: bold;
+}
+
+#ispxfyxdke .gt_font_italic {
+  font-style: italic;
+}
+
+#ispxfyxdke .gt_super {
+  font-size: 65%;
+}
+
+#ispxfyxdke .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ispxfyxdke .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ispxfyxdke .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ispxfyxdke .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ispxfyxdke .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ispxfyxdke .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ispxfyxdke .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="n">n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="mean">mean</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="sd">sd</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="range">range</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr class="gt_group_heading_row">
+      <th colspan="5" class="gt_group_heading" scope="colgroup" id="Adquirir información">Adquirir información</th>
+    </tr>
+    <tr class="gt_row_group_first"><th id="stub_1_1" scope="row" class="gt_row gt_left gt_stub">ACERCA DE OPORTUNIDADES LABORALES</th>
+<td headers="Adquirir información stub_1_1 n" class="gt_row gt_right">367</td>
+<td headers="Adquirir información stub_1_1 mean" class="gt_row gt_right">1.80</td>
+<td headers="Adquirir información stub_1_1 sd" class="gt_row gt_right">1.09</td>
+<td headers="Adquirir información stub_1_1 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_2" scope="row" class="gt_row gt_left gt_stub">SOBRE MI ACTIVIDAD LABORAL</th>
+<td headers="Adquirir información stub_1_2 n" class="gt_row gt_right">367</td>
+<td headers="Adquirir información stub_1_2 mean" class="gt_row gt_right">1.90</td>
+<td headers="Adquirir información stub_1_2 sd" class="gt_row gt_right">1.25</td>
+<td headers="Adquirir información stub_1_2 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_3" scope="row" class="gt_row gt_left gt_stub">PARA MI EDUCACIÓN</th>
+<td headers="Adquirir información stub_1_3 n" class="gt_row gt_right">364</td>
+<td headers="Adquirir información stub_1_3 mean" class="gt_row gt_right">2.37</td>
+<td headers="Adquirir información stub_1_3 sd" class="gt_row gt_right">1.49</td>
+<td headers="Adquirir información stub_1_3 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_4" scope="row" class="gt_row gt_left gt_stub">SOBRE ASUNTOS DE SALUD</th>
+<td headers="Adquirir información stub_1_4 n" class="gt_row gt_right">365</td>
+<td headers="Adquirir información stub_1_4 mean" class="gt_row gt_right">2.19</td>
+<td headers="Adquirir información stub_1_4 sd" class="gt_row gt_right">1.31</td>
+<td headers="Adquirir información stub_1_4 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="5" class="gt_group_heading" scope="colgroup" id="Comunicación">Comunicación</th>
+    </tr>
+    <tr class="gt_row_group_first"><th id="stub_1_5" scope="row" class="gt_row gt_left gt_stub">REALIZAR UNA LLAMADA TELEFÓNICA (SKYPE)</th>
+<td headers="Comunicación stub_1_5 n" class="gt_row gt_right">364</td>
+<td headers="Comunicación stub_1_5 mean" class="gt_row gt_right">1.56</td>
+<td headers="Comunicación stub_1_5 sd" class="gt_row gt_right">1.07</td>
+<td headers="Comunicación stub_1_5 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_6" scope="row" class="gt_row gt_left gt_stub">ENVIAR O RECIBIR CORREOS ELECTRÓNICOS</th>
+<td headers="Comunicación stub_1_6 n" class="gt_row gt_right">367</td>
+<td headers="Comunicación stub_1_6 mean" class="gt_row gt_right">2.72</td>
+<td headers="Comunicación stub_1_6 sd" class="gt_row gt_right">1.45</td>
+<td headers="Comunicación stub_1_6 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_7" scope="row" class="gt_row gt_left gt_stub">UTILIZAR REDES SOCIALES (FACEBOOK, TWITTER, INSTAGRAM)</th>
+<td headers="Comunicación stub_1_7 n" class="gt_row gt_right">367</td>
+<td headers="Comunicación stub_1_7 mean" class="gt_row gt_right">3.59</td>
+<td headers="Comunicación stub_1_7 sd" class="gt_row gt_right">1.52</td>
+<td headers="Comunicación stub_1_7 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_8" scope="row" class="gt_row gt_left gt_stub">COMPARTIR CONTENIDO (NOTICIAS, MEMES) EN REDES SOCIALES</th>
+<td headers="Comunicación stub_1_8 n" class="gt_row gt_right">367</td>
+<td headers="Comunicación stub_1_8 mean" class="gt_row gt_right">2.73</td>
+<td headers="Comunicación stub_1_8 sd" class="gt_row gt_right">1.61</td>
+<td headers="Comunicación stub_1_8 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="5" class="gt_group_heading" scope="colgroup" id="Recreación">Recreación</th>
+    </tr>
+    <tr class="gt_row_group_first"><th id="stub_1_9" scope="row" class="gt_row gt_left gt_stub">JUGAR EN LÍNEA</th>
+<td headers="Recreación stub_1_9 n" class="gt_row gt_right">363</td>
+<td headers="Recreación stub_1_9 mean" class="gt_row gt_right">1.64</td>
+<td headers="Recreación stub_1_9 sd" class="gt_row gt_right">1.14</td>
+<td headers="Recreación stub_1_9 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_10" scope="row" class="gt_row gt_left gt_stub">DESCARGAR Y VER O ESCUCHAR MÚSICA, PELÍCULAS Y JUEGOS</th>
+<td headers="Recreación stub_1_10 n" class="gt_row gt_right">365</td>
+<td headers="Recreación stub_1_10 mean" class="gt_row gt_right">2.39</td>
+<td headers="Recreación stub_1_10 sd" class="gt_row gt_right">1.35</td>
+<td headers="Recreación stub_1_10 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr class="gt_group_heading_row">
+      <th colspan="5" class="gt_group_heading" scope="colgroup" id="Comercio electrónico y emprendimiento">Comercio electrónico y emprendimiento</th>
+    </tr>
+    <tr class="gt_row_group_first"><th id="stub_1_11" scope="row" class="gt_row gt_left gt_stub">DESCARGAR Y / O LLENAR FORMULARIOS</th>
+<td headers="Comercio electrónico y emprendimiento stub_1_11 n" class="gt_row gt_right">364</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_11 mean" class="gt_row gt_right">1.50</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_11 sd" class="gt_row gt_right">0.97</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_11 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_12" scope="row" class="gt_row gt_left gt_stub">REALIZAR TRANSACCIONES BANCARIAS</th>
+<td headers="Comercio electrónico y emprendimiento stub_1_12 n" class="gt_row gt_right">364</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_12 mean" class="gt_row gt_right">1.39</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_12 sd" class="gt_row gt_right">0.91</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_12 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_13" scope="row" class="gt_row gt_left gt_stub">COMPRAR Y / O PAGAR EN LÍNEA</th>
+<td headers="Comercio electrónico y emprendimiento stub_1_13 n" class="gt_row gt_right">365</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_13 mean" class="gt_row gt_right">1.33</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_13 sd" class="gt_row gt_right">0.86</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_13 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_14" scope="row" class="gt_row gt_left gt_stub">CONTACTAR CLIENTES Y / O PROVEEDORES A TRAVÉS DE INTERNET</th>
+<td headers="Comercio electrónico y emprendimiento stub_1_14 n" class="gt_row gt_right">364</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_14 mean" class="gt_row gt_right">1.28</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_14 sd" class="gt_row gt_right">0.81</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_14 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_15" scope="row" class="gt_row gt_left gt_stub">POSTULAR A TRABAJOS</th>
+<td headers="Comercio electrónico y emprendimiento stub_1_15 n" class="gt_row gt_right">366</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_15 mean" class="gt_row gt_right">1.33</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_15 sd" class="gt_row gt_right">0.79</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_15 range" class="gt_row gt_right">4 (1-5)</td></tr>
+    <tr><th id="stub_1_16" scope="row" class="gt_row gt_left gt_stub">REALIZAR CURSOS / CAPACITACIÓN</th>
+<td headers="Comercio electrónico y emprendimiento stub_1_16 n" class="gt_row gt_right">360</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_16 mean" class="gt_row gt_right">1.19</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_16 sd" class="gt_row gt_right">0.58</td>
+<td headers="Comercio electrónico y emprendimiento stub_1_16 range" class="gt_row gt_right">4 (1-5)</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

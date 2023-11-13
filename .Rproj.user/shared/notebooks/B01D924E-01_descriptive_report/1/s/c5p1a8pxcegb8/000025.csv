@@ -1,0 +1,8 @@
+"0",""
+"0","# 1. Obtener base 2023 comparable"
+"0",""
+"0","data_2023 <- read_sav(""../01_input/01_raw_data/2023_survey_raw.sav"")"
+"0",""
+"0","comparable_2023 <- readxl::read_xlsx(""../01_input/01_raw_data/codebook.xlsx"") %>% filter(comparability_2015==1)"
+"2","Error: `path` does not exist: ‘../01_input/01_raw_data/codebook.xlsx’
+"

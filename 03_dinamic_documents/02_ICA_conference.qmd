@@ -1,0 +1,491 @@
+---
+title: "Beyond access: Prediction of internet users 2015-2023"
+author: "Teresa Correa & Nicolás Tobar"
+format:
+  html:
+    code-fold: true
+execute: 
+  error: false
+  warning: false
+  message: false
+bibliography: ../01_input/03_bib/references.bib
+csl: ../01_input/03_bib/apa.csl  
+editor: visual
+---
+
+# Method
+
+## Data
+
+```{r}
+#0. Preparation ----
+
+# Load packages
+pacman::p_load(haven, #Read sav database
+               tidyverse, #Data manipulation
+               janitor, #Clean columns
+               sjlabelled, #Labels manipulation
+               ltm, #Cronbach alpha
+               summarytools, #Descriptive tables
+               gt, #Tables
+               sjPlot,
+               labelled 
+               )
+
+options(digits = 1) #round results to 2 digits
+
+# Read 
+raw_2015 <- read_sav("../01_input/01_raw_data/2015_survey_raw.sav") %>% clean_names()
+raw_2023 <- read_sav("../01_input/01_raw_data/2023_survey_raw.sav") %>% clean_names()
+
+#Recode 2015 communities
+raw_2015$comuna <- add_labels(raw_2015$comuna, labels = c(`LA TIRANA` = 23))
+raw_2015$comuna <- add_labels(raw_2015$comuna, labels = c(`LA POBLACIÓN` = 9))
+                              
+#To upper 2023 zones labels
+raw_2023 <- raw_2023 %>% mutate(zona_rural=toupper(to_label(zona_rural)))
+
+# Filter zones measured in both studies
+raw_2023 <- raw_2023 %>% filter(tipo_zona==2)
+comunas_2023<-get_labels(raw_2023$zona_rural) 
+raw_2015 <- raw_2015 %>% filter(to_label(comuna)%in%comunas_2023)
+
+# 99 to NA
+raw_2015[raw_2015==99]<-NA
+raw_2023[raw_2023==99]<-NA
+```
+
+The data compared in this study are derived from two surveys on digital inclusion in Chile. The first survey was conducted between March and April 2015, covering 22 rural communities, and comprises `r nrow(read_sav("../01_input/01_raw_data/2015_survey_raw.sav"))` cases. Meanwhile, the second survey was carried out between August and September 2023, encompassing 11 rural communes and 6 urban centers, and contains `r nrow(read_sav("../01_input/01_raw_data/2023_survey_raw.sav"))` cases. The 11 rural communities visited in 2023 were part of the 2015 survey sample, originating from the northern, central, and southern regions of Chile, with less than 1000 inhabitants (averaging 40-50 households per village). These communities are isolated villages that, between September 2010 and December 2011, benefited from the "Todo Chile Comunicado" initiative, a public-private program that provided subsidies for the installation of 3G wireless infrastructure. For this research, cases from these communities were extracted from both databases to enable a comparison of digital inclusion trends over time. [^02_ica_conference-1]
+
+[^02_ica_conference-1]: The 11 rural zones studied are referred to as `r comunas_2023`
+
+In both surveys, the data collection technique employed was route sampling, as the residences in the villages are geographically dispersed and no sampling frame lists were available. The measures used do not form part of a panel survey; therefore, while the analyses reveal longitudinal trends, there is a possibility that the observed changes could be attributed to participant turnover.
+
+The 2015 sample comprises `r nrow(raw_2015)` cases, while the 2023 sample comprises `r nrow(raw_2023)`. Table @tbl-communities presents the distribution by zone for both years.
+
+```{r, results='asis'}
+#| label: tbl-communities
+#| tbl-cap: Total cases by rural community
+
+inner_join(
+count(to_label(raw_2015),comuna) %>% rename(Comuna=comuna),
+count(to_label(raw_2023),zona_rural) %>% rename(Comuna=zona_rural),
+      by="Comuna") %>% rename(N_2015=n.x,N_2023=n.y) %>% 
+  rbind(.,as.list(c(Comuna="TOTAL",N_2015=sum(.$N_2015),N_2023=sum(.$N_2023))))%>%
+  
+  
+
+ gt()%>%
+  tab_spanner(label = "N por año", columns = c(N_2015,N_2023))%>%
+  cols_label(N_2015="2015",
+             N_2023="2023")
+
+
+
+```
+
+## Variables
+
+```{r, results='hide'}
+#1. Construction of database ----
+
+## Home Income (only 2023)
+ingresos <- raw_2023%>%dplyr::select(starts_with("g3_")) %>% mutate_all(as.integer)
+raw_2023$ingresos <- coalesce(ingresos$g3_1,ingresos$g3_2,ingresos$g3_3,
+                              ingresos$g3_4,ingresos$g3_5,ingresos$g3_6,
+                              ingresos$g3_7,ingresos$g3_8,ingresos$g3_9,
+                              ingresos$g3_10)
+
+## Innovative personality both
+innovative_variables_2015 <- raw_2015 %>% dplyr::select(p046_01, p046_02, p046_03) %>%
+                             mutate(across(everything(),~case_when(.==1~4,
+                                                          .==2~3,
+                                                          .==3~2,
+                                                          .==4~1,
+                                                          TRUE ~ NA_real_)))
+      
+raw_2015$innovative <- innovative_variables_2015 %>% mutate_all(as.integer)%>%
+                       rowMeans(na.rm=T)
+
+innovative_variables_2023 <- raw_2023 %>% dplyr::select(starts_with("f2_"))%>%
+                             mutate(across(everything(),~case_when(.==1~4,
+                                                          .==2~3,
+                                                          .==3~2,
+                                                          .==4~1,
+                                                          TRUE ~ NA_real_)))
+raw_2023$innovative <- innovative_variables_2023 %>% mutate_all(as.integer)%>%
+                       rowMeans(na.rm=T)
+
+alpha_2015_innovative<-cronbach.alpha(innovative_variables_2015%>%drop_na()) #Save alpha
+alpha_2023_innovative<-cronbach.alpha(innovative_variables_2023%>%drop_na()) #Save alpha
+ 
+#Social networks
+raw_2015$soc_net <- raw_2015%>%dplyr::select(starts_with("p047_"))%>%
+                    mutate_all(as.integer)%>%
+                    mutate(across(everything(),~case_when(.==2~0,
+                                                          .==1~1,
+                                                          TRUE ~ NA_real_)))%>%
+                    rowSums(na.rm=T)
+
+raw_2023$soc_net <- raw_2023%>%dplyr::select(starts_with("f6_"))%>%
+  mutate_all(as.integer)%>%
+  mutate(across(everything(),~case_when(.==2~0,
+                                        .==1~1,
+                                        TRUE~NA_real_)))%>%
+  rowSums(na.rm=T)
+
+#Get childs in the house
+raw_2015$childs <- raw_2015 %>% dplyr::select(starts_with("p061_"))%>%
+                         mutate_all(~case_when(.<=18~1,.>18~0,
+                                           TRUE~NA_real_))%>%
+                         rowSums(.,na.rm = T)%>%as.numeric()
+
+raw_2023$childs <- raw_2023 %>% dplyr::select(starts_with("edad")) %>%
+                         mutate_all(~case_when(.<=18~1,.>18~0,TRUE~NA_real_)) %>%
+                         rowSums(.,na.rm = T)%>%as.numeric()
+
+
+#Dichotomize user of internet (only 2023)
+raw_2015 <- raw_2015 %>% mutate(p018=ifelse(p018==2,0,p018))
+raw_2023 <- raw_2023 %>% mutate(b6=ifelse(b6==2,0,b6))
+
+#Dichotomize house net adoption
+raw_2015 <- raw_2015 %>% mutate(p004=ifelse(p004==2,0,p004))
+raw_2023 <- raw_2023 %>% mutate(b2=ifelse(b2==2,0,b2))
+
+#Dichotomize women
+raw_2015 <- raw_2015 %>% mutate(sexo=ifelse(sexo==2,1,0))
+raw_2023 <- raw_2023 %>% mutate(a1=ifelse(a1==2,1,0))
+
+#Manipulate education levels and factors
+raw_2015 <- raw_2015 %>% mutate(p069 = case_when(p069 == 7 ~ 6,
+                                                TRUE ~ p069))
+
+val_labels(raw_2015$p069) <- c("Incomplete primary"= 1, 
+                               "Complete primary"=2,
+                               "Incomplete high school"=3,
+                               "Complete high school"=4,
+                               "Incomplete college"=5,
+                               "College education"=6)
+
+raw_2023 <- raw_2023 %>% mutate(g7 = case_when(g7 %in% c(1,2) ~ 1,
+                                               g7 == 3 ~ 2,
+                                               g7 == 4 ~ 3,
+                                               g7 == 5 ~ 4,
+                                               g7 %in% c(6,8) ~ 5,
+                                               g7 %in% c(7,9,10) ~ 6,
+                                              TRUE ~ g7))
+
+val_labels(raw_2023$g7) <- c("Incomplete primary"= 1, 
+                               "Complete primary"=2,
+                               "Incomplete high school"=3,
+                               "Complete high school"=4,
+                               "Incomplete college"=5,
+                               "College education"=6)
+
+#Manipulate transport factors
+val_labels(raw_2015$p053) <- c("No public transportation"= 1, 
+                               "Once a week or less"=2,
+                               "Two to three times a week"=3,
+                               "Once a day"=4,
+                               "Only mornings and afternoon"=5,
+                               "Several times a day"=6)
+
+val_labels(raw_2023$f14) <- c("No public transportation"= 1, 
+                               "Once a week or less"=2,
+                               "Two to three times a week"=3,
+                               "Once a day"=4,
+                               "Only mornings and afternoon"=5,
+                               "Several times a day"=6)
+
+
+# Seleccionar variables
+beyond_2015 <- raw_2015 %>% dplyr::select(
+                                age=edad, #Age
+                                education=p069, #Education personal
+                                sex=sexo, #Gender
+                                income=p075, #Income
+                                innovative, #Innovative
+                                transport=p053, #Transport frequency
+                                user=p018, #Internet user
+                                soc_net, #Social Network
+                                adoption=p004, #Internet house adoption
+                                childs) #Childs in the house
+
+beyond_2023 <- raw_2023 %>% dplyr::select(
+                                age=a2, #Age
+                                education=g7, #Education personal
+                                sex=a1, #Gender
+                                income=ingresos, #Income
+                                innovative, #Innovative
+                                transport=f14, #Transport frequency
+                                user=b6, #Internet user
+                                soc_net, #Social Network
+                                adoption=b2, #Internet house adoption
+                                childs) #Childs in the house
+
+```
+
+### Personal variables
+
+The personal factors under examination include gender, age, and innovativeness. Age is treated as a continuous variable (M_2015= (M_2015=`r mean(beyond_2015$age)`, M_2023=`r mean(beyond_2023$age)`, SD_2015=`r sd(beyond_2015$age)`, SD_2023=`r sd(beyond_2023$age)`). Gender was recoded as a binary variable (man/other=0, woman=1). Innovativeness is assessed using a four-point frequency Likert scale proposed by @meuterInfluenceTechnologyAnxiety2003 to gauge risk-taking attitudes. In essence, this variable pertains to how individual's personalities tend to respond to change, risk, and uncertainty [@rogersDiffusionInnovations4th2010]. The index comprises three items:
+
+-   "Fear to face new situations in my daily life" (M_2015=`r mean(raw_2015$p046_01, na.rm=T)`, M_2023=`r mean(raw_2023$f2_1, na.rm=T)`, SD_2015=`r sd(raw_2015$p046_01, na.rm=T)`, SD_2023=`r sd(raw_2023$f2_1, na.rm=T)`).
+-   "Anxiety when I have to learn how to use a new object" (M_2015=`r mean(raw_2015$p046_02, na.rm=T)`, M_2023=`r mean(raw_2023$f2_2, na.rm=T)`, SD_2015=`r sd(raw_2015$p046_02, na.rm=T)`, SD_2023=`r sd(raw_2023$f2_2, na.rm=T)`).
+-   "I prefer routines and avoid changes or new situations" (M_2015=`r mean(raw_2015$p046_03, na.rm=T)`, M_2023=`r mean(raw_2023$f2_3, na.rm=T)`, SD_2015=`r sd(raw_2015$p046_03, na.rm=T)`, SD_2023=`r sd(raw_2023$f2_3, na.rm=T)`).
+
+### Positional variables
+
+The model incorporates the participant's education as a predictor. The raw categories differ between measurements due to changes in the questionnaire. In 2015, there were 6 categories, whereas in 2023, there are 11. For the comparative analysis, the 2023 database categories were consolidated into the six categories used in the 2015 study: Incomplete primary (1), Complete primary (2), Incomplete high school (3), Complete high school (4), Incomplete college (5), and College education (6).
+
+### Material resources
+
+Household income and transport accessibility were considered as material resources. The measurement of household income varied between years; in 2015, participants were asked about the total monthly income, while in 2023, they were asked about the average income of family members. Additionally, the categories and the wording of the question changed between measurements, both due to modifications in the questionnaire structure and shifts in the value of the Chilean currency in the economic market[^02_ica_conference-2].The income variable had 8 categories in 2015, but only 7 in 2023. Transport connectivity is a singular item indicating the frequency of public transport to and from the community. Participants were asked: "What is the approximate frequency of public transport to get from the municipality to the nearest urban centre?". The response options included 1) "there is no public transportation", 2) "once a week or less", 3) "two to three times a week", 4) "once a day only", 5) "only in the mornings and afternoons", and 6) "several times a day."
+
+[^02_ica_conference-2]: In 2015 the participants were asked: *"Approximately, which of the following categories is the total household income in a typical month?"*. The options were divided into 6 categories ranging from *"less than 200.000 pesos pesos chilenos"* (less than 214USD) to *"more than 1.600.000 pesos chilenos"* (more than 1700USD aprox). In 2023 the categories changed depending on the total members of the house. For example, for homes with one member, the lower value was *0 a 129 mil pesos chilenos* (0 to 138USD aprox.) and the highest *more than de 2.100.000 pesos chilenos* (more than USD2.150 aprox.), but for homes with five members the lower value was *0 to 399.000 pesos chilenos* (0 to 428USD aprox.) and the highest *more than 6.500.000 pesos chilenos* (more than 7000USD aprox.).
+
+### Social resources
+
+The number of children in the household and the availability of social networks for support provide insights into the social resources individuals have for facilitating digital interaction. The number of children is treated as a continuous variable, ranging from 0-5, derived from participant's responses regarding the composition of members residing in the household. Social network strength was measured using the position generator scale developed by @vandergaagResourceGeneratorSocial2005. It is a summative index composed of 13 dummy items in which respondents were asked:*"I'm going to ask you about people you might know. That is, someone you know and he/she knows you (if you meet him/her in the street, you recognise each other and say hello), but you don't necessarily have to be friends. Please indicate whether you personally know someone who..."*. The response categories are yes (1) and no (0). The range of the additive index is therefore from 0 to 13 (M_2015=`r mean(raw_2015$soc_net,na.rm=T)`, M_2023= `r mean(raw_2023$soc_net,na.rm=T)`, SD_2015=`r sd(raw_2015$soc_net,na.rm=T)`, SD_2023=`r sd(raw_2023$soc_net,na.rm=T)`).
+
+### Dependent variables
+
+The logistic models predict household internet connection and lifetime internet use. Internet household connection is a binary (yes/no) variable, assessed with the question: *"Does this household have an Internet connection (either via broadband access or mobile phone)?"*. Lifetime Internet user is also binary (yes/no) and was measured with the following question: *"Regardless of access at home, have you ever used the Internet?"*.
+
+## Descriptive table
+
+@tbl-descriptive provides a summary of the data analyzed. It appears that the 2023 sample exhibits a higher proportion of females, an older age distribution, and higher levels of education compared to the 2015 sample. Surprisingly, the mean score on the innovative personality index in 2023 is lower than in 2015, with greater dispersion. In terms of material resources, there is little change in transport accessibility; in 2023, more respondents indicated the most frequent option. There were no relevant changes in the variables related to social resources. Finally, both dependent variables pertaining to Internet access have shown an increase of over thirty-five percent.
+
+```{r, results='asis'}
+#| label: tbl-descriptive
+#| tbl-cap: Descriptive statistics
+rbind(
+  
+  data.frame(Variable="Gender (Women)",
+             Categories=NA,
+             M_Prop_2015=sum(beyond_2015$sex)/nrow(beyond_2015),
+             M_Prop_2023=sum(beyond_2023$sex)/nrow(beyond_2023),
+             SD_2015=NA,
+             SD_2023=NA,
+             N_2015=nrow(beyond_2015%>%drop_na(sex)),
+             N_2023=nrow(beyond_2023%>%drop_na(sex)),
+             Cronbach_2015=NA,
+             Cronbach_2023=NA)%>%
+    mutate(M_Prop_2015=paste0(round(M_Prop_2015,2),"%"),
+           M_Prop_2023=paste0(round(M_Prop_2023,2),"%")),
+  
+  data.frame(Variable="Age",
+             Categories=NA,
+             M_Prop_2015=mean(beyond_2015$age,na.rm=T)%>%round(2),
+             M_Prop_2023=mean(beyond_2023$age,na.rm=T)%>%round(2),
+             SD_2015=sd(beyond_2015$age,na.rm=T),
+             SD_2023=sd(beyond_2023$age,na.rm=T),
+             N_2015=nrow(beyond_2015%>%drop_na(age)),
+             N_2023=nrow(beyond_2023%>%drop_na(age)),
+             Cronbach_2015=NA,
+             Cronbach_2023=NA),
+  
+  data.frame(Variable="Innovative personality (1-4)",
+             Categories=NA,
+             M_Prop_2015=mean(beyond_2015$innovative,na.rm=T)%>%round(2),
+             M_Prop_2023=mean(beyond_2023$innovative,na.rm=T)%>%round(2),
+             SD_2015=sd(beyond_2015$innovative,na.rm=T),
+             SD_2023=sd(beyond_2023$innovative,na.rm=T),
+             N_2015=nrow(beyond_2015%>%drop_na(innovative)),
+             N_2023=nrow(beyond_2023%>%drop_na(innovative)),
+             Cronbach_2015=alpha_2015_innovative$alpha,
+             Cronbach_2023=alpha_2023_innovative$alpha),
+  
+  inner_join(count(beyond_2015,education),
+        count(beyond_2023,education),
+        by="education")%>%drop_na() %>% rename(n_2015=n.x,n_2023=n.y)%>%
+    mutate(education=to_label(education),
+           Variable="Level of education",
+           N_2015=c(nrow(beyond_2015%>%drop_na(education)),
+                    nrow(beyond_2015%>%drop_na(education)),
+                    nrow(beyond_2015%>%drop_na(education)),
+                    nrow(beyond_2015%>%drop_na(education)),
+                    nrow(beyond_2015%>%drop_na(education)),
+                    nrow(beyond_2015%>%drop_na(education))),
+           N_2023=c(nrow(beyond_2023%>%drop_na(education)),
+                    nrow(beyond_2023%>%drop_na(education)),
+                    nrow(beyond_2023%>%drop_na(education)),
+                    nrow(beyond_2023%>%drop_na(education)),
+                    nrow(beyond_2023%>%drop_na(education)),
+                    nrow(beyond_2023%>%drop_na(education))),
+           SD_2015=NA,
+           SD_2023=NA,
+           Cronbach_2015=NA,
+           Cronbach_2023=NA,
+           M_Prop_2015=n_2015/N_2015,
+           M_Prop_2023=n_2023/N_2023) %>%
+    rename(Categories=education)%>%
+    dplyr::select(Variable,Categories,M_Prop_2015,M_Prop_2023,
+                  SD_2015,SD_2023,N_2015,N_2023,Cronbach_2015,Cronbach_2023)%>%
+    mutate(M_Prop_2015=paste0(round(M_Prop_2015,2),"%"),
+           M_Prop_2023=paste0(round(M_Prop_2023,2),"%")),
+  
+  inner_join(count(beyond_2015,transport),
+        rbind(as.list(c(transport=1,n=0)),
+        count(beyond_2023,transport)),
+        by="transport")%>%drop_na()%>% rename(n_2015=n.x,n_2023=n.y)%>%
+    mutate(transport=to_label(transport),
+           Variable="Transport connectivity (frequency of public transportation)",
+           N_2015=c(nrow(beyond_2015%>%drop_na(transport)),
+                    nrow(beyond_2015%>%drop_na(transport)),
+                    nrow(beyond_2015%>%drop_na(transport)),
+                    nrow(beyond_2015%>%drop_na(transport)),
+                    nrow(beyond_2015%>%drop_na(transport)),
+                    nrow(beyond_2015%>%drop_na(transport))),
+           N_2023=c(nrow(beyond_2023%>%drop_na(transport)),
+                    nrow(beyond_2023%>%drop_na(transport)),
+                    nrow(beyond_2023%>%drop_na(transport)),
+                    nrow(beyond_2023%>%drop_na(transport)),
+                    nrow(beyond_2023%>%drop_na(transport)),
+                    nrow(beyond_2023%>%drop_na(transport))),
+           SD_2015=NA,
+           SD_2023=NA,
+           Cronbach_2015=NA,
+           Cronbach_2023=NA,
+           M_Prop_2015=n_2015/N_2015,
+           M_Prop_2023=n_2023/N_2023) %>%
+    rename(Categories=transport)%>%
+    dplyr::select(Variable,Categories,M_Prop_2015,M_Prop_2023,SD_2015,SD_2023,
+                  N_2015,N_2023,Cronbach_2015,Cronbach_2023)%>%
+    mutate(M_Prop_2015=paste0(round(M_Prop_2015,2),"%"),
+           M_Prop_2023=paste0(round(M_Prop_2023,2),"%")),
+  
+  data.frame(Variable="Number of children in the household",
+             Categories=NA,
+             M_Prop_2015=mean(beyond_2015$childs,na.rm=T)%>%round(2),
+             M_Prop_2023=mean(beyond_2023$childs,na.rm=T)%>%round(2),
+             SD_2015=sd(beyond_2015$childs,na.rm=T),
+             SD_2023=sd(beyond_2023$childs,na.rm=T),
+             N_2015=nrow(beyond_2015%>%drop_na(childs)),
+             N_2023=nrow(beyond_2023%>%drop_na(childs)),
+             Cronbach_2015=NA,
+             Cronbach_2023=NA),
+  
+  data.frame(Variable="Social Network (0-13)",
+             Categories=NA,
+             M_Prop_2015=mean(beyond_2015$soc_net,na.rm=T)%>%round(2),
+             M_Prop_2023=mean(beyond_2023$soc_net,na.rm=T)%>%round(2),
+             SD_2015=sd(beyond_2015$soc_net,na.rm=T),
+             SD_2023=sd(beyond_2023$soc_net,na.rm=T),
+             N_2015=nrow(beyond_2015%>%drop_na(soc_net)),
+             N_2023=nrow(beyond_2023%>%drop_na(soc_net)),
+             Cronbach_2015=NA,
+             Cronbach_2023=NA),
+  
+  data.frame(Variable="Household Internet connection (Yes)",
+             Categories=NA,
+             M_Prop_2015=sum(beyond_2015$adoption)/nrow(beyond_2015),
+             M_Prop_2023=sum(beyond_2023$adoption)/nrow(beyond_2023),
+             SD_2015=NA,
+             SD_2023=NA,
+             N_2015=nrow(beyond_2015%>%drop_na(adoption)),
+             N_2023=nrow(beyond_2023%>%drop_na(adoption)),
+             Cronbach_2015=NA,
+             Cronbach_2023=NA)%>%
+    mutate(M_Prop_2015=paste0(round(M_Prop_2015,2),"%"),
+           M_Prop_2023=paste0(round(M_Prop_2023,2),"%")),
+  
+  data.frame(Variable="Lifetime Internet User (Yes)",
+             Categories=NA,
+             M_Prop_2015=sum(beyond_2015$user)/nrow(beyond_2015),
+             M_Prop_2023=sum(beyond_2023$user)/nrow(beyond_2023),
+             SD_2015=NA,
+             SD_2023=NA,
+             N_2015=nrow(beyond_2015%>%drop_na(user)),
+             N_2023=nrow(beyond_2023%>%drop_na(user)),
+             Cronbach_2015=NA,
+             Cronbach_2023=NA)%>%
+    mutate(M_Prop_2015=paste0(round(M_Prop_2015,2),"%"),
+           M_Prop_2023=paste0(round(M_Prop_2023,2),"%"))
+  
+) %>%
+  
+  
+  gt(groupname_col = "Variable") %>%
+  tab_header(title = "Descriptive statistics") %>%
+  sub_missing(
+    columns = everything(),
+    missing_text = "") %>%
+  tab_spanner(label="M or %",columns = starts_with("M_Prop"))%>%
+  tab_spanner(label="SD",columns = starts_with("SD_"))%>%
+  tab_spanner(label="N",columns = starts_with("N_"))%>%
+  tab_spanner(label="Cronbach's Alpha",columns = starts_with("Cronbach"))%>%
+  cols_label(ends_with("15")~"2015",
+             ends_with("23")~"2023")
+```
+
+# Modelo Logístico
+
+## Household Internet connection
+
+```{r,results='asis'}
+
+
+glm_2015 <- glm(adoption~age+sex+innovative+education+income+transport+soc_net+childs,
+                data = beyond_2015%>%mutate_all(as.numeric),family = "binomial")
+
+glm_2023 <- glm(adoption~age+sex+innovative+education+income+transport+soc_net+childs,
+                data = beyond_2023%>%mutate_all(as.numeric),family = "binomial")
+
+texreg::htmlreg(l=list(glm_2015,glm_2023),
+                custom.coef.names=c("Intercept",
+                  
+                                    #Personal factors
+                                    "Age (Continous)",
+                                    "Sex (1=Woman)",
+                                    "Innovative personality (1-4)",
+                                    
+                                    #Positional factors
+                                    "Level of education (1-6)",
+                                    
+                                    #Material resources
+                                    "House income (1-8)/(1-7)", 
+                                    "Transport conectivity (1-6)",
+                                    
+                                    #Social resources
+                                    "Social network (1-13)",
+                                    "Childrens in the house (1-5)"
+                                    ),
+                custom.model.names = c("2015","2023"))
+
+```
+
+## Lifetime internet User
+
+```{r,results='asis'}
+
+glm_2015 <- glm(user~age+sex+innovative+education+income+transport+soc_net+childs,
+                data = beyond_2015%>%mutate_all(as.numeric),family = "binomial")
+
+glm_2023 <- glm(user~age+sex+innovative+education+income+transport+soc_net+childs,
+                data = beyond_2023%>%mutate_all(as.numeric),family = "binomial")
+
+texreg::htmlreg(l=list(glm_2015,glm_2023),
+                custom.coef.names=c("Intercept",
+                  
+                                    #Personal factors
+                                    "Age (Continous)",
+                                    "Sex (1=Woman)",
+                                    "Innovative personality (1-4)",
+                                    
+                                    #Positional factors
+                                    "Level of education (1-7)/(1-10)",
+                                    
+                                    #Material resources
+                                    "House income (1-8)/(1-7)", 
+                                    "Transport conectivity (1-6)",
+                                    
+                                    #Social resources
+                                    "Social network (1-13)",
+                                    "Childrens in the house (1-5)"
+                                    ),
+                custom.model.names = c("2015","2023"))
+
+```
+
+# References
