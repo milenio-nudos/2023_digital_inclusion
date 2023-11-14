@@ -1,0 +1,370 @@
+---
+title: "Heidelberg Conference Report"
+author: "Teresa Correa & Nicolás Tobar"
+date: 14-11-2023
+format:
+  html:
+    code-fold: true
+execute: 
+  error: false
+  warning: false
+  message: false
+editor: visual
+---
+
+# Introduction
+
+The next report contains a first exploration of the digital inclusion 2023 survey, that is oriented for the presentation of Teresa Correa on Heidelberg University. In this case, the exploration is about some constructed index from the database to predict items related to attitudes to false information on the internet. The predictors index are:
+
+-   Self-efficacy index
+-   Digital skills index
+    -   Operational skills index
+    -   Informative skills index
+    -   Social skills index
+    -   Creative skills index
+-   Digital literacy index          
+    -   Social media literacy index
+    -   Algorithmic literacy index
+-   Algorithmic awareness index
+-   Political polar position index
+
+The items to predict comes from the next question: *"When you surf the internet or use social media, how often have the following situations occurred to you?"*
+
+And the items are:
+
+-   "I have shared information that subsequently turned out to be false or misleading"
+-   "I have criticised someone for spreading false or misleading information"
+-   "When I have received false or misleading news, I have and made it clear that it is false."
+-   "I have blocked or unfollowed people because they they post false information"
+-   "I have believed news that later turned out to be false or misleading"
+-   "I have seen or read false or misleading news"
+
+Also, there's another item comes from other battery:
+-   "I feel I have a good understanding of important public issues in Chile."
+
+# Descriptive table
+
+The table show the different variables, how they were created or calculated, some descriptive statistics and the Cronbach alpha (only for index's). Some results:
+
+-   All alpha's, with at least 95 of confidence, have a score more than 0.70, so have internal consistency.
+-   Political polar position and Algorithmic awareness have a large number of missing cases.
+
+```{r,results='hide',error=FALSE,echo=FALSE}
+# 0. Preparation ----
+
+pacman::p_load(
+  tidyverse, #Data manipulation
+  haven, #Read sav
+  janitor, #Clean names
+  ltm, #Cronbach alpha
+  skimr, #Descriptive table
+  gt, #Render tables
+  labelled, #col_labes
+  corrplot, #Corrplot
+  sjPlot #Tab models
+  )
+
+raw_2023 <- read_sav("../01_input/01_raw_data/2023_survey_raw.sav") %>% clean_names()
+
+options(digits = 2)
+
+# 1. Index creation ----
+
+# Technological Self-efficacy
+
+
+raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(starts_with("c2_")),
+                                   .funs=list(~ifelse(.==99,NA,.)))
+
+c2 <-cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c2_")) %>%
+                 drop_na(), CI=TRUE) #Alpha of index
+
+raw_2023$i_tech_self_efficacy <- raw_2023 %>% dplyr::select(starts_with("c2_"))%>%
+                                   mutate_all(as.integer)%>%rowMeans(na.rm=T)
+
+# Digital skills
+
+raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(starts_with("c3_")),
+                                   .funs=list(~ifelse(.==2,0,.)))
+## Operational skills
+raw_2023$i_operational_skills <- raw_2023 %>% dplyr::select(starts_with("c3_1"))%>%
+                               mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
+                               mutate_all(as.integer)%>% rowSums(na.rm = T)
+
+c3_1 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c3_1")) %>%
+                 drop_na(), CI=TRUE)
+
+## Informative skills
+raw_2023$i_informative_skills <- raw_2023 %>% dplyr::select(starts_with("c3_2"))%>%
+                               mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
+                               mutate_all(as.integer)%>% rowSums(na.rm = T)
+
+c3_2<- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c3_2")) %>%
+                 drop_na(), CI=TRUE)
+
+## Social skills
+raw_2023$i_social_skills <- raw_2023 %>% dplyr::select(starts_with("c3_3"))%>%
+                          mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
+                          mutate_all(as.integer)%>% rowSums(na.rm = T)
+
+c3_3 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c3_3")) %>%
+                 drop_na(), CI=TRUE)
+
+## Creative skills
+raw_2023$i_creative_skills <- raw_2023 %>% dplyr::select(starts_with("c3_4"))%>%
+                            mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
+                            mutate_all(as.integer)%>% rowSums(na.rm = T)
+
+c3_4 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c3_4")) %>%
+                 drop_na(), CI=TRUE)
+
+## Digital skills (total)
+raw_2023$i_digital_skills <- raw_2023$operational_skills <- raw_2023 %>% dplyr::select(starts_with("c3"))%>%
+                           mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
+                           mutate_all(as.integer)%>% rowSums(na.rm = T)
+
+c3 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c3")) %>%
+                 drop_na(), CI=TRUE)
+
+# Digital Literacy
+
+## Social media literacy
+
+raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18),
+                                   .funs=list(~ ifelse(.==99,NA,.)))
+
+c4_a <- cronbach.alpha(raw_2023 %>% dplyr::select(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18) %>%
+                 drop_na(), CI=TRUE) #Alpha of index
+
+raw_2023$i_social_media_literacy <- raw_2023 %>% 
+  dplyr::select(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18)%>%
+  mutate_all(as.integer)%>%rowMeans(na.rm=T)
+
+## Algorithmic literacy
+
+raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(c4_10,c4_9,c4_14,c4_1,d1),
+                                   .funs=list(~ifelse(.==99,NA,.)))
+
+c4_b <- cronbach.alpha(raw_2023 %>% dplyr::select(c4_10,c4_9,c4_14,c4_1,d1) %>%
+                 drop_na(), CI=TRUE) #Alpha of index
+
+raw_2023$i_algorithmic_literacy <- raw_2023 %>% dplyr::select(starts_with("c4_"))%>%
+  mutate_all(as.integer)%>%rowMeans(na.rm=T)
+
+## Digital literacy (total)
+
+raw_2023 <- raw_2023 %>% mutate(across(starts_with("c4_"),~ifelse(.==99,NA,.)))
+
+c4 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c4_")) %>%
+                 drop_na(), CI=TRUE) #Alpha of index
+
+raw_2023$i_digital_literacy <- raw_2023 %>% dplyr::select(starts_with("c4_"))%>%
+                             mutate_all(as.integer)%>%rowMeans(na.rm=T)
+
+# Algorithmic awareness
+
+raw_2023 <- raw_2023 %>% mutate(across(starts_with("d2"),~ifelse(.==99,NA,.)))
+
+d2 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("d2")) %>%
+                 drop_na(), CI=TRUE) #Alpha of index
+
+raw_2023$i_algorithmic_awareness <- raw_2023 %>% dplyr::select(starts_with("d2"))%>%
+                             mutate_all(as.integer)%>%rowMeans(na.rm=T)
+
+# Extreme political position index
+
+raw_2023<-raw_2023 %>% 
+  mutate(i_extreme_politics=case_when(f18%in%c(1,10)~5,
+                                      f18%in%c(2,9)~4,
+                                      f18%in%c(3,8)~3,
+                                      f18%in%c(4,7)~2,
+                                      f18%in%c(5,6)~1))
+
+# List of Cronbach's alphas
+
+Cronbach<-c(c2["alpha"],c3["alpha"],c3_1["alpha"],c3_2["alpha"],c3_3["alpha"],c3_4["alpha"],
+  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],NA,NA,NA,NA,NA,NA,NA,NA)
+
+ci<-c(c2["ci"],c3["ci"],c3_1["ci"],c3_2["ci"],c3_3["ci"],c3_4["ci"],
+            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],NA,NA,NA,NA,NA,NA,NA,NA)
+
+```
+
+```{r,results='asis'}
+raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2) %>% 
+  mutate_all(~ifelse(.==99,NA,.)) %>% skim() %>% as.data.frame()%>%
+  mutate(Label= c("Self-efficacy index",
+                  "Operational skills index",
+                  "Informative skills index",
+                  "Social skills index",
+                  "Creative skills index",
+                  "Digital skills index (total)",
+                  "Social media literacy index",
+                  "Algorithmic literacy index",
+                  "Digital literacy index (total)",
+                  "Algorithmic awareness index",
+                  "Political polar position index",
+                  "I have shared information that subsequently turned out to be false or misleading",
+                  "I have criticised someone for spreading false or misleading information.",
+                  "When I have received false or misleading news, I have and made it clear that it is false.",
+                  "I have blocked or unfollowed people because they they post false information",
+                  "I have believed news that later turned out to be false or misleading",
+                  "I have seen or read false or misleading news",
+                  "I feel I have a good understanding of important public issues in Chile."
+                  ),
+         Estimation=c("By means",
+                      "Sumative",
+                      "Sumative",
+                      "Sumative",
+                      "Sumative",
+                      "Sumative",
+                      "By means",
+                      "By means",
+                      "By means",
+                      "By means",
+                      "Polar recodification",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data"))%>%
+    dplyr::select(Variable=skim_variable,
+                Label,
+                Estimation,
+                Mean=numeric.mean,
+                SD=numeric.sd,
+                N_Missing=n_missing,
+                Complete_rate=complete_rate,
+                Hist=numeric.hist) %>%
+  mutate(Mean=round(Mean,2),
+         SD=round(SD,2),
+         Complete_rate=paste0(round(Complete_rate*100,2),"%"),
+         Cronbach=Cronbach,
+         "C.I. [2.5%;97.5%]"=ci)%>%
+
+  gt() %>%
+  sub_missing(missing_text = "")
+```
+
+# Correlations
+
+About the relationships between variables, we see all the dependent varianles have negative correlation with all the index's. In other words, more is the knowledge about digital technologies, less are the genuine attitudes to false information on the internet. But the effect size is slow, don't overpass 0.3 in all cases.
+
+All index's have strong positive correlation between them.
+
+*Political polar position was eliminated because the large missing cases it have.*
+
+```{r, results='markup'}
+
+model_data <- raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2,
+                                         gender=a1,age=a2,ses=nse)%>%
+              mutate(gender=ifelse(gender==2,1,0))%>%
+              mutate_all(as.numeric)
+
+var_label(model_data)<-c("Self-efficacy index",
+                     "Operational skills index",
+                     "Informative skills index",
+                     "Social skills index",
+                     "Creative skills index",
+                     "Digital skills index (total)",
+                     "Social media literacy index",
+                     "Algorithmic literacy index",
+                     "Digital literacy index (total)",
+                     "Algorithmic awareness index",
+                     "Political polar position index",
+                     "I have shared information that subsequently turned out to be false or misleading",
+                     "I have criticised someone for spreading false or misleading information.",
+                     "When I have received false or misleading news, I have and made it clear that it is false.",
+                     "I have blocked or unfollowed people because they they post false information",
+                     "I have believed news that later turned out to be false or misleading",
+                     "I have seen or read false or misleading news",
+                     "I feel I have a good understanding of important public issues in Chile",
+                     "Gender (Women=1)",
+                     "Age",
+                     "Socioeconomical Status")
+
+corr_matrix<-cor(model_data%>%dplyr::select(-c(i_extreme_politics,gender,age,ses))%>%
+                   drop_na())
+
+testRes = cor.mtest(model_data%>%dplyr::select(-c(i_extreme_politics,gender,age,ses))%>%
+                      drop_na(), conf.level = 0.95)
+
+
+corrplot(corr_matrix, method = 'circle', type = 'lower',p.mat = testRes$p, insig = 'blank',order = 'AOE', diag=FALSE)
+```
+
+# Models
+
+By correlation heatmap it seen there are not major differences between sub-indexs of digital skills and digital literacy, so for the models only total index's are selected as predictors. Also, dependent variables f5_2 was eliminated because the little size effects the other predictors have with it.
+
+In the next dashboard you can explore three index's. The first only have Algorithmic awareness as an importante predictor, the second only digital literacy (Hargittai scale), and the third one have all index's presented as aggregated ones.
+
+::: panel-tabset
+
+### Algorithmic awareness + control
+```{r}
+c5_1_a<-lm(c5_1 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
+c5_2_a<-lm(c5_2 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
+c5_3_a<-lm(c5_3 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
+c5_4_a<-lm(c5_4 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
+c5_6_a<-lm(c5_6 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
+c5_7_a<-lm(c5_7 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
+
+tab_model(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a, 
+          show.ci = FALSE, auto.label = TRUE,
+          p.style = "stars",collapse.se = TRUE,
+          show.re.var = FALSE,show.icc = FALSE,
+          show.obs = FALSE,show.ngroups = FALSE)
+```
+
+
+### Digital literacy + control
+
+```{r}
+c5_1_b<-lm(c5_1 ~ i_digital_literacy + age + gender + ses, data = model_data)
+c5_2_b<-lm(c5_2 ~ i_digital_literacy + age + gender + ses, data = model_data)
+c5_3_b<-lm(c5_3 ~ i_digital_literacy + age + gender + ses, data = model_data)
+c5_4_b<-lm(c5_4 ~ i_digital_literacy + age + gender + ses, data = model_data)
+c5_6_b<-lm(c5_6 ~ i_digital_literacy + age + gender + ses, data = model_data)
+c5_7_b<-lm(c5_7 ~ i_digital_literacy + age + gender + ses, data = model_data)
+
+tab_model(c5_1_b, c5_2_b,c5_3_b,c5_4_b,c5_6_b,c5_7_b, 
+          show.ci = FALSE, auto.label = TRUE,
+          p.style = "stars",collapse.se = TRUE,
+          show.re.var = FALSE,show.icc = FALSE,
+          show.obs = FALSE,show.ngroups = FALSE)
+```
+
+### Great model
+```{r}
+c5_1_c<-lm(c5_1 ~ i_digital_literacy + i_digital_skills +
+             i_algorithmic_awareness + i_tech_self_efficacy +
+             age + gender + ses, data = model_data)
+c5_2_c<-lm(c5_2 ~ i_digital_literacy + i_digital_skills +
+             i_algorithmic_awareness + i_tech_self_efficacy +
+             age + gender + ses, data = model_data)
+c5_3_c<-lm(c5_3 ~ i_digital_literacy + i_digital_skills +
+             i_algorithmic_awareness + i_tech_self_efficacy +
+             age + gender + ses, data = model_data)
+c5_4_c<-lm(c5_4 ~ i_digital_literacy + i_digital_skills +
+             i_algorithmic_awareness + i_tech_self_efficacy +
+             age + gender + ses, data = model_data)
+c5_6_c<-lm(c5_6 ~ i_digital_literacy + i_digital_skills +
+             i_algorithmic_awareness + i_tech_self_efficacy +
+             age + gender + ses, data = model_data)
+c5_7_c<-lm(c5_7 ~ i_digital_literacy + i_digital_skills +
+             i_algorithmic_awareness + i_tech_self_efficacy +
+             age + gender + ses, data = model_data)
+
+tab_model(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c, 
+          show.ci = FALSE, auto.label = TRUE,
+          p.style = "stars",collapse.se = TRUE,
+          show.re.var = FALSE,show.icc = FALSE,
+          show.obs = FALSE,show.ngroups = FALSE)
+```
+
+:::
+
+Tables says algorithmic awareness and digital literacy have a negative effect to all the dependent variables for separated. But when Digital Skills enter as a control, the last two index mentioned start to have a positive effect. Also, the effects of algorithmic awareness are small.

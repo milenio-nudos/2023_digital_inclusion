@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Encuesta de Inclusión Digital NUDOS 2023",
     "section": "",
-    "text": "Presentación\nEl año 2023 se conforma el Núcleo Milenio Desigualdades y Oportunidades Digitales 1, una asociación de académicos y académicas provenientes de Chile que buscan investigar el impacto de los procesos de digitalización en la sociedad. NUDOS tiene tres líneas de trabajo: Una línea comunicativa, una línea política y una línea social. Esta última se encarga de examinar brechas y asimetrías de acceso y uso de las tecnologías digitales en la población. El proyecto presentado a continuación se enmarca en esta línea social.\nLa &lt;&lt;Encuesta de Inclusión Digital Chile 2023&gt;&gt; tiene como objetivo conocer la familiaridad que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información. Para esto, se propone medir el nivel de acceso, consciencia y uso de elementos relacionados con el internet y el espacio digital.\nLa encuesta fue diseñada y dirigida por Teresa Correa2 e implementada por la empresa consultora Feedback Research durante agosto y septiembre de 2023."
+    "text": "Presentación\nEl año 2023 se conforma el Núcleo Milenio Desigualdades y Oportunidades Digitales 1, una asociación de académicos y académicas provenientes de Chile que buscan investigar el impacto de los procesos de digitalización en la sociedad. NUDOS tiene tres líneas de trabajo: Una línea comunicativa, una línea política y una línea social. Esta última se encarga de examinar brechas y asimetrías de acceso y uso de las tecnologías digitales en la población. El proyecto presentado a continuación se enmarca en esta línea social.\nLa &lt;&lt;Encuesta de Inclusión Digital Chile 2023&gt;&gt; tiene como objetivo conocer la familiaridad que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información. Para esto, se propone medir el nivel de acceso, consciencia y uso de elementos relacionados con el internet y el espacio digital.\nLa encuesta fue diseñada y dirigida por Teresa Correa2 e implementada por la empresa consultora Feedback Research durante agosto y septiembre de 2023. El libro fue creado con Quarto Markdown, a través de un código abierto y reproducible que se encuentra en el repositorio Github de NUDOS."
   },
   {
     "objectID": "index.html#footnotes",
@@ -16,9 +16,16 @@
   {
     "objectID": "intro.html",
     "href": "intro.html",
-    "title": "1  Introduction",
+    "title": "1  Ficha Técnica",
     "section": "",
-    "text": "This is a book created from markdown and executable code.\nSee @knuth84 for additional discussion of literate programming.\n\n1 + 1\n\n[1] 2"
+    "text": "2 Implementación\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "intro.html#diseño",
+    "href": "intro.html#diseño",
+    "title": "1  Ficha Técnica",
+    "section": "1.1 Diseño",
+    "text": "1.1 Diseño\n\n1.1.1 Diseño muestral\nSe utilizó un diseño muestral probabilístico por comunas, aunque no proporcional a nivel regional. En ese sentido, el universo representado son hombres y mujeres mayores de 14 años que son residentes permanentes en las comunas que fueron seleccionadas. La muestra cuenta con localidades rurales y urbanas. Para el caso rural, los hogares fueron seleccionado según rutas aleatorias, para el caso urbano se establecieron cuotas a la muestra de género, nivel socioeconómico y edad.\nEl error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza.\n\n\n1.1.2 Diseño del instrumento de medición\nEl instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple divididas en siete módulos, que abordan las siguientes dimensiones:\n\nMódulo A: Caracterización del hogar.\nMódulo B: Acceso y uso de internet.\n\nUso de dispositivos personales y del hogar.\nAdopción de internet en el hogar.\nSistemas de conexión del hogar.\nAcceso personal a internet.\nUso de redes sociales.\n\nMódulo C: Habilidades digitales\n\nAutoeficacia e inseguridad con las tecnologías.\nHabilidades digitales operacionales.\nHabilidades digitales de navegación.\nHabilidades digitales sociales.\nHabilidades digitales creativas.\nAlfabetización digital.\n\nMódulo D: Consciencia Algorítmica\n\nAlfabetización algorítmica.\nFiltración de contenidos.\nInterpelación humana.\nConsideraciones éticas.\n\nMódulo E: Actividades digitales.\n\nRedes de apoyo digital\nAdquirir información en internet.\nComunicación a través de internet.\nRecreación en internet.\nComercio electrónico y emprendimiento online.\nTrámites digitales.\n\nMódulo F: Caracterización personal.\n\nEl usuario puede descargar el cuestionaro haciendo click en el botón a continuación:\n\nDescargar Cuestionario"
   },
   {
     "objectID": "summary.html",

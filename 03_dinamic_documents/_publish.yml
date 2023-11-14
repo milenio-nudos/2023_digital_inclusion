@@ -1,0 +1,4 @@
+- source: 03_heidelberg_conference.qmd
+  netlify:
+    - id: 7599df0e-d021-4fb3-8f5f-11073d5951b1
+      url: 'https://playful-cendol-f206b1.netlify.app'

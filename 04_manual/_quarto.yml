@@ -12,8 +12,8 @@ book:
     - summary.qmd
     - references.qmd
   language: es
-  cover-image: images/logo.png
   sharing: [twitter, facebook, linkedin]
+  repo-url: https://github.com/milenio-nudos/2023_digital_inclusion
 
 format:
   html:

@@ -1,8 +1,67 @@
-# Introduction
+# Ficha Técnica
 
-This is a book created from markdown and executable code.
+La Estudio de inclusión Digital 2023 es una investigación cuantitativa que se enmarca en el desarrollo de la línea social de NUDOS. Tiene como objetivo conocer los niveles de acceso, uso y consciencia que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información asociadas al internet y los espacios digitales. 
 
-See @knuth84 for additional discussion of literate programming.
+En el siguiente apartado se presentan los detalles metodológicos respecto al diseño y la implementación del estudio en cuestión.
+
+## Diseño
+
+
+### Diseño muestral
+
+Se utilizó un diseño muestral probabilístico por comunas, aunque no proporcional a nivel regional. En ese sentido, el universo representado son hombres y mujeres mayores de 14 años que son residentes permanentes en las comunas que fueron seleccionadas. La muestra cuenta con localidades rurales y urbanas. Para el caso rural, los hogares fueron seleccionado según rutas aleatorias, para el caso urbano se establecieron cuotas a la muestra de género, nivel socioeconómico y edad.
+
+El error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza.
+
+### Diseño del instrumento de medición
+
+El instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple divididas en siete módulos, que abordan las siguientes dimensiones:
+
+-   **Módulo A:** *Caracterización del hogar.*
+-   **Módulo B:** *Acceso y uso de internet.*
+    -   Uso de dispositivos personales y del hogar.
+    -   Adopción de internet en el hogar.
+    -   Sistemas de conexión del hogar.
+    -   Acceso personal a internet.
+    -   Uso de redes sociales.
+-   **Módulo C:** *Habilidades digitales*
+    -   Autoeficacia e inseguridad con las tecnologías.
+    -   Habilidades digitales operacionales.
+    -   Habilidades digitales de navegación.
+    -   Habilidades digitales sociales.
+    -   Habilidades digitales creativas.
+    -   Alfabetización digital.
+-   **Módulo D:** *Consciencia Algorítmica*
+    -   Alfabetización algorítmica.
+    -   Filtración de contenidos.
+    -   Interpelación humana.
+    -   Consideraciones éticas.
+-   **Módulo E:** *Actividades digitales.*
+    -   Redes de apoyo digital
+    -   Adquirir información en internet.
+    -   Comunicación a través de internet.
+    -   Recreación en internet.
+    -   Comercio electrónico y emprendimiento online.
+    -   Trámites digitales.
+-   **Módulo F:** *Caracterización personal.*
+    -   Distancia social.
+    -   Personalidad innovadora.
+    -   Sentimientos sobre internet.
+    -   Sentimientos sobre la comunidad.
+    -   Autoeficacia política.
+    -   Capital social.
+    -   Características de la localidad.
+
+El usuario puede descargar el cuestionaro haciendo click en el botón a continuación:
+
+<div style="text-align: center;">
+  <a href="../01_input/04_codebook/questionnaire.pdf" download class="button">Descargar Cuestionario</a>
+</div>
+
+# Implementación
+
+
+
 
 ```{r}
 1 + 1
