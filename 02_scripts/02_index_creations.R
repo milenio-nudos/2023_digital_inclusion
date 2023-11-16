@@ -117,26 +117,18 @@ d2 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("d2")) %>%
 raw_2023$i_algorithmic_awareness <- raw_2023 %>% dplyr::select(starts_with("d2"))%>%
                              mutate_all(as.integer)%>%rowMeans(na.rm=T)
 
-# Extreme political position index
-
-raw_2023<-raw_2023 %>% 
-  mutate(i_extreme_politics=case_when(f18%in%c(1,10)~5,
-                                      f18%in%c(2,9)~4,
-                                      f18%in%c(3,8)~3,
-                                      f18%in%c(4,7)~2,
-                                      f18%in%c(5,6)~1))
 
 # List of Cronbach's alphas
 
 Cronbach<-c(c2["alpha"],c3["alpha"],c3_1["alpha"],c3_2["alpha"],c3_3["alpha"],c3_4["alpha"],
-  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],NA,NA,NA,NA,NA,NA,NA,NA)
+  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"])
 
 ci<-c(c2["ci"],c3["ci"],c3_1["ci"],c3_2["ci"],c3_3["ci"],c3_4["ci"],
-            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],NA,NA,NA,NA,NA,NA,NA,NA)
+            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"])
 
 # 2. Descriptive table ----
 
-raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2) %>% 
+raw_2023 %>% dplyr::select(starts_with("i_")) %>% 
   mutate_all(~ifelse(.==99,NA,.)) %>% skim() %>% as.data.frame()%>%
   mutate(Label= c("Self-efficacy index",
                   "Operational skills index",
@@ -147,15 +139,7 @@ raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2) %>%
                   "Social media literacy index",
                   "Algorithmic literacy index",
                   "Digital literacy index (total)",
-                  "Algorithmic awareness index",
-                  "Political polar position index",
-                  "I have shared information that subsequently turned out to be false or misleading",
-                  "I have criticised someone for spreading false or misleading information.",
-                  "When I have received false or misleading news, I have and made it clear that it is false.",
-                  "I have blocked or unfollowed people because they they post false information",
-                  "I have believed news that later turned out to be false or misleading",
-                  "I have seen or read false or misleading news",
-                  "I feel I have a good understanding of important public issues in Chile."
+                  "Algorithmic awareness index"
                   ),
          Estimation=c("By means",
                       "Sumative",
@@ -166,15 +150,7 @@ raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2) %>%
                       "By means",
                       "By means",
                       "By means",
-                      "By means",
-                      "Polar recodification",
-                      "Raw data",
-                      "Raw data",
-                      "Raw data",
-                      "Raw data",
-                      "Raw data",
-                      "Raw data",
-                      "Raw data"))%>%
+                      "By means"))%>%
     dplyr::select(Variable=skim_variable,
                 Label,
                 Estimation,
@@ -187,107 +163,5 @@ raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2) %>%
          SD=round(SD,2),
          Complete_rate=paste0(round(Complete_rate*100,2),"%"),
          Cronbach=Cronbach,
-         "C.I. [2.5%;97.5%]"=ci)%>%
-
-  gt() %>%
-  sub_missing(missing_text = "")
-
-
-# 3. Correlations ----
-
-model_data <- raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2,
-                                         gender=a1,age=a2,ses=nse)%>%
-              mutate(gender=ifelse(gender==2,1,0))%>%
-              mutate_all(as.numeric)
-
-var_label(model_data)<-c("Self-efficacy index",
-                     "Operational skills index",
-                     "Informative skills index",
-                     "Social skills index",
-                     "Creative skills index",
-                     "Digital skills index (total)",
-                     "Social media literacy index",
-                     "Algorithmic literacy index",
-                     "Digital literacy index (total)",
-                     "Algorithmic awareness index",
-                     "Political polar position index",
-                     "I have shared information that subsequently turned out to be false or misleading",
-                     "I have criticised someone for spreading false or misleading information.",
-                     "When I have received false or misleading news, I have and made it clear that it is false.",
-                     "I have blocked or unfollowed people because they they post false information",
-                     "I have believed news that later turned out to be false or misleading",
-                     "I have seen or read false or misleading news",
-                     "I feel I have a good understanding of important public issues in Chile",
-                     "Gender (Women=1)",
-                     "Age",
-                     "Socioeconomical Status")
-
-corr_matrix<-cor(model_data%>%dplyr::select(-c(i_extreme_politics,gender,age,ses))%>%
-                   drop_na())
-
-testRes = cor.mtest(model_data%>%dplyr::select(-c(i_extreme_politics,gender,age,ses))%>%
-                      drop_na(), conf.level = 0.95)
-
-
-corrplot(corr_matrix, method = 'circle', type = 'lower',p.mat = testRes$p, insig = 'blank',
-         addCoef.col = "black",order = 'AOE', diag=FALSE,number.cex = 0.5)
-
-tab_corr(model_data)
-
-# 4. Models ----
-
-# Algorithmic awareness + control
-c5_1_a<-lm(c5_1 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_2_a<-lm(c5_2 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_3_a<-lm(c5_3 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_4_a<-lm(c5_4 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_6_a<-lm(c5_6 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_7_a<-lm(c5_7 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-
-# Digital literacy + control
-c5_1_b<-lm(c5_1 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_2_b<-lm(c5_2 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_3_b<-lm(c5_3 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_4_b<-lm(c5_4 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_6_b<-lm(c5_6 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_7_b<-lm(c5_7 ~ i_digital_literacy + age + gender + ses, data = model_data)
-
-# Great model
-c5_1_c<-lm(c5_1 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_2_c<-lm(c5_2 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_3_c<-lm(c5_3 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_4_c<-lm(c5_4 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_6_c<-lm(c5_6 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_7_c<-lm(c5_7 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-
-# Tables
-tab_model(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a, 
-          show.ci = FALSE, auto.label = TRUE,
-          p.style = "stars",collapse.se = TRUE,
-          show.re.var = FALSE,show.icc = FALSE,
-          show.obs = FALSE,show.ngroups = FALSE)
-
-tab_model(c5_1_b, c5_2_b,c5_3_b,c5_4_b,c5_6_b,c5_7_b, 
-          show.ci = FALSE, auto.label = TRUE,
-          p.style = "stars",collapse.se = TRUE,
-          show.re.var = FALSE,show.icc = FALSE,
-          show.obs = FALSE,show.ngroups = FALSE)
-
-tab_model(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c, 
-          show.ci = FALSE, auto.label = TRUE,
-          p.style = "stars",collapse.se = TRUE,
-          show.re.var = FALSE,show.icc = FALSE,
-          show.obs = FALSE,show.ngroups = FALSE)
+         "C.I. [2.5%;97.5%]"=ci)
 

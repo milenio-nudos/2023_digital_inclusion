@@ -19,5 +19,10 @@ format:
   html:
     theme: cosmo
 
+execute: 
+  echo: false
+  warning: false
+  error: false
+  
 editor: visual
 

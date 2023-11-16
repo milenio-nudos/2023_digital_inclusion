@@ -112,21 +112,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Introduction</h1>
 <p>The next report contains a first exploration of the digital inclusion 2023 survey, that is oriented for the presentation of Teresa Correa on Heidelberg University. In this case, the exploration is about some constructed index from the database to predict items related to attitudes to false information on the internet. The predictors index are:</p>
 <ul>
-<li>Self-efficacy index</li>
-<li>Digital skills index
+<li>Self-efficacy index<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li>Digital skills index (Van Deuersen)
 <ul>
-<li>Operational skills index</li>
-<li>Informative skills index</li>
-<li>Social skills index</li>
-<li>Creative skills index</li>
+<li>Operational skills index<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>Informative skills index<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
+<li>Social skills index<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></li>
+<li>Creative skills index<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
 </ul></li>
-<li>Digital literacy index
+<li>Digital literacy index (Hargittai)<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>
 <ul>
 <li>Social media literacy index</li>
 <li>Algorithmic literacy index</li>
 </ul></li>
-<li>Algorithmic awareness index</li>
-<li>Political polar position index</li>
+<li>Algorithmic awareness index (Zarouali)<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
+<li>Political polar position [Categorical]</li>
 </ul>
 <p>The items to predict comes from the next question: <em>“When you surf the internet or use social media, how often have the following situations occurred to you?”</em></p>
 <p>And the items are:</p>
@@ -138,10 +138,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>“I have believed news that later turned out to be false or misleading”</li>
 <li>“I have seen or read false or misleading news”</li>
 </ul>
-<p>Also, there’s another item comes from other battery: - “I feel I have a good understanding of important public issues in Chile.”</p>
 </section>
-<section id="descriptive-table" class="level1">
-<h1>Descriptive table</h1>
+<section id="data-description" class="level1">
+<h1>Data description</h1>
 <p>The table show the different variables, how they were created or calculated, some descriptive statistics and the Cronbach alpha (only for index’s). Some results:</p>
 <ul>
 <li>All alpha’s, with at least 95 of confidence, have a score more than 0.70, so have internal consistency.</li>
@@ -149,81 +148,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"c5"</span>)),f5_2) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">ifelse</span>(.<span class="sc">==</span><span class="dv">99</span>,<span class="cn">NA</span>,.)) <span class="sc">%&gt;%</span> <span class="fu">skim</span>() <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Label=</span> <span class="fu">c</span>(<span class="st">"Self-efficacy index"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Operational skills index"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Informative skills index"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Social skills index"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Creative skills index"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Digital skills index (total)"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Social media literacy index"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Algorithmic literacy index"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Digital literacy index (total)"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Algorithmic awareness index"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Political polar position index"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have criticised someone for spreading false or misleading information."</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"When I have received false or misleading news, I have and made it clear that it is false."</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have blocked or unfollowed people because they they post false information"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have believed news that later turned out to be false or misleading"</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have seen or read false or misleading news"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I feel I have a good understanding of important public issues in Chile."</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                  ),</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">Estimation=</span><span class="fu">c</span>(<span class="st">"By means"</span>,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative"</span>,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative"</span>,</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative"</span>,</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative"</span>,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative"</span>,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means"</span>,</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means"</span>,</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means"</span>,</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means"</span>,</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Polar recodification"</span>,</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"extreme"</span>,<span class="st">"c5"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">ifelse</span>(.<span class="sc">==</span><span class="dv">99</span>,<span class="cn">NA</span>,.)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>() <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Label=</span> <span class="fu">c</span>(<span class="st">"Self-efficacy index"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Operational skills index [Van Deuersen]"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Informative skills index [Van Deuersen]"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Social skills index [Van Deuersen]"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Creative skills index [Van Deuersen]"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Van Deursen's Digital skills index (total)"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Social media literacy index [Hargittai]"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Algorithmic literacy index [Hargittai]"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Hargittai's Digital literacy index (total)"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Zarouali's Algorithmic awareness index"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Political polarization [Categorical]"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have seen or read false or misleading news"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have believed news that later turned out to be false or misleading"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have blocked or unfollowed people because they they post false information"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"When I have received false or misleading news, I have and made it clear that it is                          false."</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have criticised someone for spreading false or misleading information."</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">Estimation=</span><span class="fu">c</span>(<span class="st">"By means (1 - 3)"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 6)"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 5)"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 6)"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 3)"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 20)"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Categorical recodification"</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">Variable=</span>skim_variable,</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                Label,</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                Estimation,</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                <span class="at">Mean=</span>numeric.mean,</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                <span class="at">SD=</span>numeric.sd,</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                <span class="at">N_Missing=</span>n_missing,</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                <span class="at">Complete_rate=</span>complete_rate,</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>                <span class="at">Hist=</span>numeric.hist) <span class="sc">%&gt;%</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mean=</span><span class="fu">round</span>(Mean,<span class="dv">2</span>),</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD=</span><span class="fu">round</span>(SD,<span class="dv">2</span>),</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>         <span class="at">Complete_rate=</span><span class="fu">paste0</span>(<span class="fu">round</span>(Complete_rate<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>),<span class="st">"%"</span>),</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>         <span class="at">Cronbach=</span>Cronbach,</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>         <span class="st">"C.I. [2.5%;97.5%]"</span><span class="ot">=</span>ci)<span class="sc">%&gt;%</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sub_missing</span>(<span class="at">missing_text =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">Variable=</span>skim_variable,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                Label,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                Estimation,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                <span class="at">Mean=</span>numeric.mean,</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                <span class="at">SD=</span>numeric.sd,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                <span class="at">N_Missing=</span>n_missing,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                <span class="at">Complete_rate=</span>complete_rate,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                <span class="at">Hist=</span>numeric.hist) <span class="sc">%&gt;%</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mean=</span><span class="fu">round</span>(Mean,<span class="dv">2</span>),</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD=</span><span class="fu">round</span>(SD,<span class="dv">2</span>),</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>         <span class="at">Complete_rate=</span><span class="fu">paste0</span>(<span class="fu">round</span>(Complete_rate<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>),<span class="st">"%"</span>),</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>         <span class="at">Cronbach=</span>Cronbach,</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>         <span class="st">"C.I. [2.5%;97.5%]"</span><span class="ot">=</span>ci)<span class="sc">%&gt;%</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sub_missing</span>(<span class="at">missing_text =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
-<div id="hhresfojit" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hhresfojit table {
+<div id="xelpmrakly" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xelpmrakly table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hhresfojit thead, #hhresfojit tbody, #hhresfojit tfoot, #hhresfojit tr, #hhresfojit td, #hhresfojit th {
+#xelpmrakly thead, #xelpmrakly tbody, #xelpmrakly tfoot, #xelpmrakly tr, #xelpmrakly td, #xelpmrakly th {
   border-style: none;
 }
 
-#hhresfojit p {
+#xelpmrakly p {
   margin: 0;
   padding: 0;
 }
 
-#hhresfojit .gt_table {
+#xelpmrakly .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -249,12 +246,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#hhresfojit .gt_caption {
+#xelpmrakly .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hhresfojit .gt_title {
+#xelpmrakly .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -266,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#hhresfojit .gt_subtitle {
+#xelpmrakly .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -278,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#hhresfojit .gt_heading {
+#xelpmrakly .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -290,13 +287,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hhresfojit .gt_bottom_border {
+#xelpmrakly .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hhresfojit .gt_col_headings {
+#xelpmrakly .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -311,7 +308,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hhresfojit .gt_col_heading {
+#xelpmrakly .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -331,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#hhresfojit .gt_column_spanner_outer {
+#xelpmrakly .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -343,15 +340,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#hhresfojit .gt_column_spanner_outer:first-child {
+#xelpmrakly .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hhresfojit .gt_column_spanner_outer:last-child {
+#xelpmrakly .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hhresfojit .gt_column_spanner {
+#xelpmrakly .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -363,11 +360,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#hhresfojit .gt_spanner_row {
+#xelpmrakly .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hhresfojit .gt_group_heading {
+#xelpmrakly .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -393,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#hhresfojit .gt_empty_group_heading {
+#xelpmrakly .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -408,15 +405,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#hhresfojit .gt_from_md > :first-child {
+#xelpmrakly .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hhresfojit .gt_from_md > :last-child {
+#xelpmrakly .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hhresfojit .gt_row {
+#xelpmrakly .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -435,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#hhresfojit .gt_stub {
+#xelpmrakly .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -448,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hhresfojit .gt_stub_row_group {
+#xelpmrakly .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -462,15 +459,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#hhresfojit .gt_row_group_first td {
+#xelpmrakly .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hhresfojit .gt_row_group_first th {
+#xelpmrakly .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hhresfojit .gt_summary_row {
+#xelpmrakly .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -480,16 +477,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hhresfojit .gt_first_summary_row {
+#xelpmrakly .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hhresfojit .gt_first_summary_row.thick {
+#xelpmrakly .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hhresfojit .gt_last_summary_row {
+#xelpmrakly .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -499,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#hhresfojit .gt_grand_summary_row {
+#xelpmrakly .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -509,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hhresfojit .gt_first_grand_summary_row {
+#xelpmrakly .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -519,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#hhresfojit .gt_last_grand_summary_row_top {
+#xelpmrakly .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -529,11 +526,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#hhresfojit .gt_striped {
+#xelpmrakly .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hhresfojit .gt_table_body {
+#xelpmrakly .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -542,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#hhresfojit .gt_footnotes {
+#xelpmrakly .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -556,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hhresfojit .gt_footnote {
+#xelpmrakly .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -565,7 +562,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hhresfojit .gt_sourcenotes {
+#xelpmrakly .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -579,7 +576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hhresfojit .gt_sourcenote {
+#xelpmrakly .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -587,63 +584,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hhresfojit .gt_left {
+#xelpmrakly .gt_left {
   text-align: left;
 }
 
-#hhresfojit .gt_center {
+#xelpmrakly .gt_center {
   text-align: center;
 }
 
-#hhresfojit .gt_right {
+#xelpmrakly .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hhresfojit .gt_font_normal {
+#xelpmrakly .gt_font_normal {
   font-weight: normal;
 }
 
-#hhresfojit .gt_font_bold {
+#xelpmrakly .gt_font_bold {
   font-weight: bold;
 }
 
-#hhresfojit .gt_font_italic {
+#xelpmrakly .gt_font_italic {
   font-style: italic;
 }
 
-#hhresfojit .gt_super {
+#xelpmrakly .gt_super {
   font-size: 65%;
 }
 
-#hhresfojit .gt_footnote_marks {
+#xelpmrakly .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hhresfojit .gt_asterisk {
+#xelpmrakly .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hhresfojit .gt_indent_1 {
+#xelpmrakly .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hhresfojit .gt_indent_2 {
+#xelpmrakly .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hhresfojit .gt_indent_3 {
+#xelpmrakly .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hhresfojit .gt_indent_4 {
+#xelpmrakly .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hhresfojit .gt_indent_5 {
+#xelpmrakly .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -666,7 +663,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <tbody class="gt_table_body">
     <tr><td headers="Variable" class="gt_row gt_left">i_tech_self_efficacy</td>
 <td headers="Label" class="gt_row gt_left">Self-efficacy index</td>
-<td headers="Estimation" class="gt_row gt_left">By means</td>
+<td headers="Estimation" class="gt_row gt_left">By means (1 - 3)</td>
 <td headers="Mean" class="gt_row gt_right">1.98</td>
 <td headers="SD" class="gt_row gt_right">0.75</td>
 <td headers="N_Missing" class="gt_row gt_right">29</td>
@@ -675,8 +672,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center">0.91</td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.90, 0.92</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_operational_skills</td>
-<td headers="Label" class="gt_row gt_left">Operational skills index</td>
-<td headers="Estimation" class="gt_row gt_left">Sumative</td>
+<td headers="Label" class="gt_row gt_left">Operational skills index [Van Deuersen]</td>
+<td headers="Estimation" class="gt_row gt_left">Sumative (0 - 6)</td>
 <td headers="Mean" class="gt_row gt_right">3.17</td>
 <td headers="SD" class="gt_row gt_right">2.73</td>
 <td headers="N_Missing" class="gt_row gt_right">0</td>
@@ -685,18 +682,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center">0.91</td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.86, 0.93</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_informative_skills</td>
-<td headers="Label" class="gt_row gt_left">Informative skills index</td>
-<td headers="Estimation" class="gt_row gt_left">Sumative</td>
+<td headers="Label" class="gt_row gt_left">Informative skills index [Van Deuersen]</td>
+<td headers="Estimation" class="gt_row gt_left">Sumative (0 - 5)</td>
 <td headers="Mean" class="gt_row gt_right">2.54</td>
 <td headers="SD" class="gt_row gt_right">1.93</td>
 <td headers="N_Missing" class="gt_row gt_right">0</td>
 <td headers="Complete_rate" class="gt_row gt_right">100%</td>
 <td headers="Hist" class="gt_row gt_left">▇▂▅▃▅</td>
 <td headers="Cronbach" class="gt_row gt_center">0.9</td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.78, 0.95</td></tr>
+<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.77, 0.95</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_social_skills</td>
-<td headers="Label" class="gt_row gt_left">Social skills index</td>
-<td headers="Estimation" class="gt_row gt_left">Sumative</td>
+<td headers="Label" class="gt_row gt_left">Social skills index [Van Deuersen]</td>
+<td headers="Estimation" class="gt_row gt_left">Sumative (0 - 6)</td>
 <td headers="Mean" class="gt_row gt_right">3.69</td>
 <td headers="SD" class="gt_row gt_right">2.63</td>
 <td headers="N_Missing" class="gt_row gt_right">0</td>
@@ -705,8 +702,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center">0.76</td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.68, 0.82</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_creative_skills</td>
-<td headers="Label" class="gt_row gt_left">Creative skills index</td>
-<td headers="Estimation" class="gt_row gt_left">Sumative</td>
+<td headers="Label" class="gt_row gt_left">Creative skills index [Van Deuersen]</td>
+<td headers="Estimation" class="gt_row gt_left">Sumative (0 - 3)</td>
 <td headers="Mean" class="gt_row gt_right">0.78</td>
 <td headers="SD" class="gt_row gt_right">1.14</td>
 <td headers="N_Missing" class="gt_row gt_right">0</td>
@@ -715,18 +712,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center">0.92</td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.89, 0.94</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_digital_skills</td>
-<td headers="Label" class="gt_row gt_left">Digital skills index (total)</td>
-<td headers="Estimation" class="gt_row gt_left">Sumative</td>
+<td headers="Label" class="gt_row gt_left">Van Deursen's Digital skills index (total)</td>
+<td headers="Estimation" class="gt_row gt_left">Sumative (0 - 20)</td>
 <td headers="Mean" class="gt_row gt_right">10.19</td>
 <td headers="SD" class="gt_row gt_right">7.44</td>
 <td headers="N_Missing" class="gt_row gt_right">0</td>
 <td headers="Complete_rate" class="gt_row gt_right">100%</td>
 <td headers="Hist" class="gt_row gt_left">▇▂▃▅▇</td>
 <td headers="Cronbach" class="gt_row gt_center">0.89</td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.82, 0.93</td></tr>
+<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.82, 0.94</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_social_media_literacy</td>
-<td headers="Label" class="gt_row gt_left">Social media literacy index</td>
-<td headers="Estimation" class="gt_row gt_left">By means</td>
+<td headers="Label" class="gt_row gt_left">Social media literacy index [Hargittai]</td>
+<td headers="Estimation" class="gt_row gt_left">By means (1 - 5)</td>
 <td headers="Mean" class="gt_row gt_right">2.78</td>
 <td headers="SD" class="gt_row gt_right">1.56</td>
 <td headers="N_Missing" class="gt_row gt_right">14</td>
@@ -735,8 +732,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center">0.96</td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.95, 0.96</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_algorithmic_literacy</td>
-<td headers="Label" class="gt_row gt_left">Algorithmic literacy index</td>
-<td headers="Estimation" class="gt_row gt_left">By means</td>
+<td headers="Label" class="gt_row gt_left">Algorithmic literacy index [Hargittai]</td>
+<td headers="Estimation" class="gt_row gt_left">By means (1 - 5)</td>
 <td headers="Mean" class="gt_row gt_right">2.80</td>
 <td headers="SD" class="gt_row gt_right">3.43</td>
 <td headers="N_Missing" class="gt_row gt_right">14</td>
@@ -745,37 +742,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center">0.92</td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.91, 0.93</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_digital_literacy</td>
-<td headers="Label" class="gt_row gt_left">Digital literacy index (total)</td>
-<td headers="Estimation" class="gt_row gt_left">By means</td>
+<td headers="Label" class="gt_row gt_left">Hargittai's Digital literacy index (total)</td>
+<td headers="Estimation" class="gt_row gt_left">By means (1 - 5)</td>
 <td headers="Mean" class="gt_row gt_right">2.51</td>
 <td headers="SD" class="gt_row gt_right">1.39</td>
 <td headers="N_Missing" class="gt_row gt_right">14</td>
 <td headers="Complete_rate" class="gt_row gt_right">98.83%</td>
 <td headers="Hist" class="gt_row gt_left">▇▂▃▂▃</td>
 <td headers="Cronbach" class="gt_row gt_center">0.98</td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.98, 0.98</td></tr>
+<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.97, 0.98</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_algorithmic_awareness</td>
-<td headers="Label" class="gt_row gt_left">Algorithmic awareness index</td>
-<td headers="Estimation" class="gt_row gt_left">By means</td>
-<td headers="Mean" class="gt_row gt_right">2.61</td>
-<td headers="SD" class="gt_row gt_right">1.56</td>
-<td headers="N_Missing" class="gt_row gt_right">207</td>
-<td headers="Complete_rate" class="gt_row gt_right">82.75%</td>
-<td headers="Hist" class="gt_row gt_left">▇▂▃▂▅</td>
+<td headers="Label" class="gt_row gt_left">Zarouali's Algorithmic awareness index</td>
+<td headers="Estimation" class="gt_row gt_left">By means (1 - 5)</td>
+<td headers="Mean" class="gt_row gt_right">2.30</td>
+<td headers="SD" class="gt_row gt_right">1.53</td>
+<td headers="N_Missing" class="gt_row gt_right">0</td>
+<td headers="Complete_rate" class="gt_row gt_right">100%</td>
+<td headers="Hist" class="gt_row gt_left">▇▁▂▂▃</td>
 <td headers="Cronbach" class="gt_row gt_center">0.97</td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.97, 0.98</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">i_extreme_politics</td>
-<td headers="Label" class="gt_row gt_left">Political polar position index</td>
-<td headers="Estimation" class="gt_row gt_left">Polar recodification</td>
-<td headers="Mean" class="gt_row gt_right">1.88</td>
-<td headers="SD" class="gt_row gt_right">1.35</td>
-<td headers="N_Missing" class="gt_row gt_right">536</td>
-<td headers="Complete_rate" class="gt_row gt_right">55.33%</td>
-<td headers="Hist" class="gt_row gt_left">▇▂▁▁▂</td>
+    <tr><td headers="Variable" class="gt_row gt_left">extreme_politization</td>
+<td headers="Label" class="gt_row gt_left">Political polarization [Categorical]</td>
+<td headers="Estimation" class="gt_row gt_left">Categorical recodification</td>
+<td headers="Mean" class="gt_row gt_right">0.68</td>
+<td headers="SD" class="gt_row gt_right">0.68</td>
+<td headers="N_Missing" class="gt_row gt_right">0</td>
+<td headers="Complete_rate" class="gt_row gt_right">100%</td>
+<td headers="Hist" class="gt_row gt_left">▇▁▇▁▂</td>
 <td headers="Cronbach" class="gt_row gt_center"><br></td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">c5_1</td>
-<td headers="Label" class="gt_row gt_left">I have shared information that subsequently turned out to be false or misleading</td>
+<td headers="Label" class="gt_row gt_left">I have seen or read false or misleading news</td>
 <td headers="Estimation" class="gt_row gt_left">Raw data</td>
 <td headers="Mean" class="gt_row gt_right">2.05</td>
 <td headers="SD" class="gt_row gt_right">1.09</td>
@@ -785,7 +782,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center"><br></td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">c5_2</td>
-<td headers="Label" class="gt_row gt_left">I have criticised someone for spreading false or misleading information.</td>
+<td headers="Label" class="gt_row gt_left">I have believed news that later turned out to be false or misleading</td>
 <td headers="Estimation" class="gt_row gt_left">Raw data</td>
 <td headers="Mean" class="gt_row gt_right">1.64</td>
 <td headers="SD" class="gt_row gt_right">0.90</td>
@@ -795,7 +792,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center"><br></td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">c5_3</td>
-<td headers="Label" class="gt_row gt_left">When I have received false or misleading news, I have and made it clear that it is false.</td>
+<td headers="Label" class="gt_row gt_left">I have shared information that subsequently turned out to be false or misleading</td>
 <td headers="Estimation" class="gt_row gt_left">Raw data</td>
 <td headers="Mean" class="gt_row gt_right">1.34</td>
 <td headers="SD" class="gt_row gt_right">0.71</td>
@@ -815,7 +812,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center"><br></td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">c5_6</td>
-<td headers="Label" class="gt_row gt_left">I have believed news that later turned out to be false or misleading</td>
+<td headers="Label" class="gt_row gt_left">When I have received false or misleading news, I have and made it clear that it is                          false.</td>
 <td headers="Estimation" class="gt_row gt_left">Raw data</td>
 <td headers="Mean" class="gt_row gt_right">1.37</td>
 <td headers="SD" class="gt_row gt_right">0.77</td>
@@ -825,23 +822,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Cronbach" class="gt_row gt_center"><br></td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">c5_7</td>
-<td headers="Label" class="gt_row gt_left">I have seen or read false or misleading news</td>
+<td headers="Label" class="gt_row gt_left">I have criticised someone for spreading false or misleading information.</td>
 <td headers="Estimation" class="gt_row gt_left">Raw data</td>
 <td headers="Mean" class="gt_row gt_right">1.35</td>
 <td headers="SD" class="gt_row gt_right">0.75</td>
 <td headers="N_Missing" class="gt_row gt_right">77</td>
 <td headers="Complete_rate" class="gt_row gt_right">93.58%</td>
 <td headers="Hist" class="gt_row gt_left">▇▁▁▁▁</td>
-<td headers="Cronbach" class="gt_row gt_center"><br></td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">f5_2</td>
-<td headers="Label" class="gt_row gt_left">I feel I have a good understanding of important public issues in Chile.</td>
-<td headers="Estimation" class="gt_row gt_left">Raw data</td>
-<td headers="Mean" class="gt_row gt_right">2.65</td>
-<td headers="SD" class="gt_row gt_right">1.20</td>
-<td headers="N_Missing" class="gt_row gt_right">67</td>
-<td headers="Complete_rate" class="gt_row gt_right">94.42%</td>
-<td headers="Hist" class="gt_row gt_left">▇▇▇▇▁</td>
 <td headers="Cronbach" class="gt_row gt_center"><br></td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
   </tbody>
@@ -856,47 +843,598 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>About the relationships between variables, we see all the dependent varianles have negative correlation with all the index’s. In other words, more is the knowledge about digital technologies, less are the genuine attitudes to false information on the internet. But the effect size is slow, don’t overpass 0.3 in all cases.</p>
 <p>All index’s have strong positive correlation between them.</p>
 <p><em>Political polar position was eliminated because the large missing cases it have.</em></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Visual summary</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Table</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"c5"</span>)),f5_2,</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"extreme"</span>,<span class="st">"c5"</span>)),</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">gender=</span>a1,<span class="at">age=</span>a2,<span class="at">ses=</span>nse)<span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">gender=</span><span class="fu">ifelse</span>(gender<span class="sc">==</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>))<span class="sc">%&gt;%</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate_all</span>(as.numeric)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(model_data)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Self-efficacy index"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Operational skills index"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Informative skills index"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Social skills index"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Creative skills index"</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Digital skills index (total)"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Social media literacy index"</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Algorithmic literacy index"</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Digital literacy index (total)"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Algorithmic awareness index"</span>,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Political polar position index"</span>,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"I have criticised someone for spreading false or misleading information."</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"When I have received false or misleading news, I have and made it clear that it is false."</span>,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"I have blocked or unfollowed people because they they post false information"</span>,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"I have believed news that later turned out to be false or misleading"</span>,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"I have seen or read false or misleading news"</span>,</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"I feel I have a good understanding of important public issues in Chile"</span>,</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Gender (Women=1)"</span>,</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Age"</span>,</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Socioeconomical Status"</span>)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>corr_matrix<span class="ot">&lt;-</span><span class="fu">cor</span>(model_data<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(i_extreme_politics,gender,age,ses))<span class="sc">%&gt;%</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">drop_na</span>())</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>testRes <span class="ot">=</span> <span class="fu">cor.mtest</span>(model_data<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(i_extreme_politics,gender,age,ses))<span class="sc">%&gt;%</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">drop_na</span>(), <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">'circle'</span>, <span class="at">type =</span> <span class="st">'lower'</span>,<span class="at">p.mat =</span> testRes<span class="sc">$</span>p, <span class="at">insig =</span> <span class="st">'blank'</span>,<span class="at">order =</span> <span class="st">'AOE'</span>, <span class="at">diag=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>corr_matrix<span class="ot">&lt;-</span><span class="fu">cor</span>(model_data<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(extreme_politization,gender,age,ses))<span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">drop_na</span>())</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>testRes <span class="ot">=</span> <span class="fu">cor.mtest</span>(model_data<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(extreme_politization,gender,age,ses))<span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">drop_na</span>(), <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(corr_matrix, <span class="at">method =</span> <span class="st">'circle'</span>, <span class="at">type =</span> <span class="st">'lower'</span>,<span class="at">p.mat =</span> testRes<span class="sc">$</span>p, <span class="at">insig =</span> <span class="st">'blank'</span>,<span class="at">order =</span> <span class="st">'AOE'</span>, <span class="at">diag=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="03_heidelberg_conference_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(model_data)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"Self-efficacy index"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Operational skills index [Van Deuersen]"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Informative skills index [Van Deuersen]"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Social skills index [Van Deuersen]"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Creative skills index [Van Deuersen]"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Van Deursen's Digital skills index (total)"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Social media literacy index [Hargittai]"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Algorithmic literacy index [Hargittai]"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Hargittai's Digital literacy index (total)"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Zarouali's Algorithmic awareness index"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Extreme politization [Categorical]"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have criticised someone for spreading false or misleading information."</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"When I have received false or misleading news, I have and made it clear that it is false."</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have blocked or unfollowed people because they they post false information"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have believed news that later turned out to be false or misleading"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have seen or read false or misleading news"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Gender (Women=1)"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Age"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Socioeconomical Status"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(model_data, <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="at">corr.method =</span> <span class="st">"pearson"</span>, <span class="at">title =</span> <span class="st">"Title of Table"</span>, <span class="at">show.p =</span> <span class="cn">TRUE</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<caption>Title of Table</caption>
+<colgroup>
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Self-efficacy index</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Operational skills index [Van Deuersen]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Informative skills index [Van Deuersen]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Social skills index [Van Deuersen]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Creative skills index [Van Deuersen]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Van Deursen's Digital skills index<br>
+(total)</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Social media literacy index [Hargittai]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Algorithmic literacy index [Hargittai]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Hargittai's Digital literacy index<br>
+(total)</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Zarouali's Algorithmic awareness index</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Extreme politization [Categorical]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have shared information that<br>
+subsequently turned out to be false or<br>
+misleading</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have criticised someone for spreading<br>
+false or misleading information.</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">When I have received false or misleading<br>
+news, I have and made it clear that it<br>
+is false.</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have blocked or unfollowed people<br>
+because they they post false information</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have believed news that later turned<br>
+out to be false or misleading</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have seen or read false or misleading<br>
+news</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Gender (Women=1)</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Age</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Socioeconomical Status</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Self-efficacy index</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.71<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.64<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.52<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.74<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.26<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.62<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.42<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Operational skills index [Van Deuersen]</td>
+<td style="text-align: center; padding: 0.2cm;">0.71<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.79<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.72<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.92<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.80<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.31<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.81<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.69<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.47<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Informative skills index [Van Deuersen]</td>
+<td style="text-align: center; padding: 0.2cm;">0.64<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.79<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.76<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.57<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.91<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.73<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.28<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.74<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.63<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.65<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.44<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Social skills index [Van Deuersen]</td>
+<td style="text-align: center; padding: 0.2cm;">0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.72<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.76<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.49<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.89<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.68<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.67<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.58<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.23<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.46<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Creative skills index [Van Deuersen]</td>
+<td style="text-align: center; padding: 0.2cm;">0.52<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.57<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.49<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.58<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.48<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.39<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Van Deursen's Digital skills index<br>
+(total)</td>
+<td style="text-align: center; padding: 0.2cm;">0.74<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.92<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.91<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.89<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.82<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.30<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.83<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.71<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.23<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.51<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Social media literacy index [Hargittai]</td>
+<td style="text-align: center; padding: 0.2cm;">0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.80<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.73<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.68<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.82<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.41<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.96<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.71<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.72<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.47<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Algorithmic literacy index [Hargittai]</td>
+<td style="text-align: center; padding: 0.2cm;">0.26<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.31<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.28<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.30<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.41<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.43<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.30<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.25<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Hargittai's Digital literacy index<br>
+(total)</td>
+<td style="text-align: center; padding: 0.2cm;">0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.81<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.74<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.67<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.83<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.96<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.43<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.76<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.50<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Zarouali's Algorithmic awareness index</td>
+<td style="text-align: center; padding: 0.2cm;">0.62<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.69<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.63<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.58<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.58<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.71<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.71<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.30<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.76<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.11<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.58<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.47<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Extreme politization [Categorical]</td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.10<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">I have shared information that<br>
+subsequently turned out to be false or<br>
+misleading</td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.23<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.89<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.83<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.84<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">I have criticised someone for spreading<br>
+false or misleading information.</td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.23<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.89<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">When I have received false or misleading<br>
+news, I have and made it clear that it<br>
+is false.</td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.06<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">I have blocked or unfollowed people<br>
+because they they post false information</td>
+<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.11<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.83<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">I have believed news that later turned<br>
+out to be false or misleading</td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.84<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.96<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.08<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">I have seen or read false or misleading<br>
+news</td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.96<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Gender (Women=1)</td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.06<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.08<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.12<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">Age</td>
+<td style="text-align: center; padding: 0.2cm;">-0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.65<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.48<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.72<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.25<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.58<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.10<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">-0.28<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">Socioeconomical Status</td>
+<td style="text-align: center; padding: 0.2cm;">0.42<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.47<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.44<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.46<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.39<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.51<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.47<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.50<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.47<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.12<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.28<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td colspan="21" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used pearson-method with listwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -905,24 +1443,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>By correlation heatmap it seen there are not major differences between sub-indexs of digital skills and digital literacy, so for the models only total index’s are selected as predictors. Also, dependent variables f5_2 was eliminated because the little size effects the other predictors have with it.</p>
 <p>In the next dashboard you can explore three index’s. The first only have Algorithmic awareness as an importante predictor, the second only digital literacy (Hargittai scale), and the third one have all index’s presented as aggregated ones.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Algorithmic awareness + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Digital literacy + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Great model</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Algorithmic awareness + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Digital literacy + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Great model</a></li></ul>
 <div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>c5_1_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>c5_2_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>c5_3_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>c5_4_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>c5_6_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>c5_7_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a, </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>c5_1_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>c5_2_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>c5_3_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>c5_4_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>c5_6_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>c5_7_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
@@ -970,88 +1508,88 @@ or misleading news</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.12 <sup></sup><br>
-(3.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.46 <sup></sup><br>
-(3.18)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.87 <sup></sup><br>
-(3.36)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.24 <sup></sup><br>
-(3.40)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.47 <sup></sup><br>
-(3.35)</td>
-<td style="text-align: center;">-1.83 <sup></sup><br>
-(3.35)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.08 <sup></sup><br>
+(3.42)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.31 <sup></sup><br>
+(3.43)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.82 <sup></sup><br>
+(3.60)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.00 <sup></sup><br>
+(3.59)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.93 <sup></sup><br>
+(3.61)</td>
+<td style="text-align: center;">-0.31 <sup></sup><br>
+(3.63)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Algorithmic awareness<br>
-index</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.82 <sup></sup><br>
-(0.48)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.05 <sup>*</sup><br>
-(0.50)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.39 <sup></sup><br>
-(0.53)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.33 <sup></sup><br>
-(0.54)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.50 <sup></sup><br>
-(0.53)</td>
-<td style="text-align: center;">-0.50 <sup></sup><br>
-(0.53)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Zarouali's Algorithmic<br>
+awareness index</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.25 <sup>*</sup><br>
+(0.56)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.40 <sup>*</sup><br>
+(0.56)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.03 <sup></sup><br>
+(0.59)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.78 <sup></sup><br>
+(0.58)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.98 <sup></sup><br>
+(0.59)</td>
+<td style="text-align: center;">-1.00 <sup></sup><br>
+(0.59)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Age</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.14 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.21 <sup>***</sup><br>
 (0.04)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.15 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.21 <sup>***</sup><br>
 (0.04)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.18 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.23 <sup>***</sup><br>
 (0.04)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.17 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.23 <sup>***</sup><br>
 (0.04)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.19 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.24 <sup>***</sup><br>
 (0.04)</td>
-<td style="text-align: center;">0.17 <sup>***</sup><br>
+<td style="text-align: center;">0.23 <sup>***</sup><br>
 (0.04)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Gender(Women=1)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.41 <sup>**</sup><br>
-(1.14)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.52 <sup>*</sup><br>
-(1.19)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.03 <sup></sup><br>
-(1.25)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.87 <sup></sup><br>
-(1.27)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.95 <sup>*</sup><br>
-(1.25)</td>
-<td style="text-align: center;">-2.56 <sup>*</sup><br>
-(1.25)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-4.27 <sup>***</sup><br>
+(1.29)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.91 <sup>**</sup><br>
+(1.30)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.89 <sup>*</sup><br>
+(1.36)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.20 <sup>*</sup><br>
+(1.36)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.88 <sup>**</sup><br>
+(1.37)</td>
+<td style="text-align: center;">-3.79 <sup>**</sup><br>
+(1.37)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomical Status</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.27 <sup></sup><br>
-(0.50)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.29 <sup></sup><br>
-(0.52)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.62 <sup></sup><br>
-(0.55)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.53 <sup></sup><br>
-(0.56)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.66 <sup></sup><br>
-(0.55)</td>
-<td style="text-align: center;">0.55 <sup></sup><br>
-(0.55)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.14 <sup></sup><br>
+(0.60)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.21 <sup></sup><br>
+(0.60)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.60 <sup></sup><br>
+(0.63)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.48 <sup></sup><br>
+(0.63)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.35 <sup></sup><br>
+(0.63)</td>
+<td style="text-align: center;">0.23 <sup></sup><br>
+(0.63)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.041 / 0.037</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.044 / 0.040</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.034 / 0.030</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.030 / 0.026</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.041 / 0.037</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.036 / 0.032</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.058 / 0.055</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.062 / 0.059</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.050 / 0.047</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.048 / 0.045</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.054 / 0.051</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.053 / 0.050</td>
 </tr>
 <tr class="odd">
 <td colspan="7" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
@@ -1063,22 +1601,22 @@ index</td>
 </div>
 </div>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>c5_1_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>c5_2_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>c5_3_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>c5_4_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>c5_6_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>c5_7_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_b, c5_2_b,c5_3_b,c5_4_b,c5_6_b,c5_7_b, </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>c5_1_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>c5_2_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>c5_3_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>c5_4_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>c5_6_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>c5_7_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_b, c5_2_b,c5_3_b,c5_4_b,c5_6_b,c5_7_b, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
@@ -1140,8 +1678,8 @@ or misleading news</td>
 (4.07)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Digital literacy<br>
-index(total)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Hargittai's Digital<br>
+literacy index(total)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.16 <sup>**</sup><br>
 (0.70)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.44 <sup>***</sup><br>
@@ -1219,34 +1757,34 @@ index(total)</td>
 </div>
 </div>
 </div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>c5_1_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>c5_2_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>c5_3_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>c5_4_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>c5_6_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>c5_7_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c, </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>c5_1_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>c5_2_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>c5_3_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>c5_4_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>c5_6_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>c5_7_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c, </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
@@ -1294,135 +1832,135 @@ or misleading news</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11.38 <sup>**</sup><br>
-(3.75)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11.42 <sup>**</sup><br>
-(3.94)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">8.01 <sup></sup><br>
-(4.17)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">8.05 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">12.69 <sup>**</sup><br>
+(4.01)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">12.07 <sup>**</sup><br>
+(4.06)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9.32 <sup>*</sup><br>
+(4.27)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9.43 <sup>*</sup><br>
+(4.26)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">6.16 <sup></sup><br>
 (4.23)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.06 <sup></sup><br>
-(4.18)</td>
-<td style="text-align: center;">5.29 <sup></sup><br>
-(4.19)</td>
+<td style="text-align: center;">7.40 <sup></sup><br>
+(4.27)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Digital literacy<br>
-index(total)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.99 <sup></sup><br>
-(0.78)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.53 <sup></sup><br>
-(0.82)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.28 <sup></sup><br>
-(0.86)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.91 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Hargittai's Digital<br>
+literacy index(total)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.48 <sup></sup><br>
+(0.87)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup></sup><br>
 (0.88)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.77 <sup>*</sup><br>
-(0.87)</td>
-<td style="text-align: center;">1.53 <sup></sup><br>
-(0.87)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.61 <sup></sup><br>
+(0.93)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.36 <sup></sup><br>
+(0.92)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.05 <sup></sup><br>
+(0.92)</td>
+<td style="text-align: center;">0.88 <sup></sup><br>
+(0.93)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Digital skills<br>
-index(total)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.63 <sup>***</sup><br>
-(0.15)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.57 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Van Deursen's Digital<br>
+skills index(total)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.62 <sup>***</sup><br>
 (0.16)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.66 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.54 <sup>**</sup><br>
 (0.17)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.68 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.60 <sup>***</sup><br>
 (0.17)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.64 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.65 <sup>***</sup><br>
 (0.17)</td>
-<td style="text-align: center;">-0.64 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.62 <sup>***</sup><br>
+(0.17)</td>
+<td style="text-align: center;">-0.63 <sup>***</sup><br>
 (0.17)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Algorithmic awareness<br>
-index</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
-(0.54)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.07 <sup></sup><br>
-(0.57)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.57 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Zarouali's Algorithmic<br>
+awareness index</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.15 <sup></sup><br>
 (0.60)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.69 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
 (0.61)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01 <sup></sup><br>
-(0.61)</td>
-<td style="text-align: center;">0.12 <sup></sup><br>
-(0.61)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.38 <sup></sup><br>
+(0.64)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.74 <sup></sup><br>
+(0.64)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.21 <sup></sup><br>
+(0.64)</td>
+<td style="text-align: center;">0.28 <sup></sup><br>
+(0.64)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Self-efficacy index</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.78 <sup></sup><br>
-(1.08)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.84 <sup></sup><br>
+(1.19)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.86 <sup></sup><br>
-(1.13)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.72 <sup>*</sup><br>
 (1.20)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.89 <sup></sup><br>
-(1.22)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.36 <sup></sup><br>
-(1.20)</td>
-<td style="text-align: center;">-1.35 <sup></sup><br>
-(1.20)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.35 <sup></sup><br>
+(1.27)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.95 <sup></sup><br>
+(1.26)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.33 <sup></sup><br>
+(1.26)</td>
+<td style="text-align: center;">-1.41 <sup></sup><br>
+(1.27)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Age</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.00 <sup></sup><br>
-(0.04)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01 <sup></sup><br>
-(0.05)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.03 <sup></sup><br>
 (0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.02 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
 (0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.08 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.06 <sup></sup><br>
 (0.05)</td>
-<td style="text-align: center;">0.06 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
+(0.05)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.10 <sup></sup><br>
+(0.05)</td>
+<td style="text-align: center;">0.08 <sup></sup><br>
 (0.05)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Gender(Women=1)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.49 <sup>*</sup><br>
-(1.08)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.60 <sup></sup><br>
-(1.13)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.07 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.52 <sup>**</sup><br>
+(1.18)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.03 <sup>*</sup><br>
 (1.20)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.89 <sup></sup><br>
-(1.22)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.09 <sup></sup><br>
-(1.20)</td>
-<td style="text-align: center;">-1.68 <sup></sup><br>
-(1.20)</td>
+(1.26)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.37 <sup></sup><br>
+(1.26)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.08 <sup>*</sup><br>
+(1.25)</td>
+<td style="text-align: center;">-2.97 <sup>*</sup><br>
+(1.26)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomical Status</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.15 <sup>*</sup><br>
-(0.51)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.20 <sup>*</sup><br>
-(0.53)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.58 <sup>**</sup><br>
-(0.56)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.50 <sup>**</sup><br>
-(0.57)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.35 <sup>*</sup><br>
-(0.56)</td>
-<td style="text-align: center;">1.28 <sup>*</sup><br>
-(0.57)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.01 <sup></sup><br>
+(0.58)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.06 <sup></sup><br>
+(0.59)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.47 <sup>*</sup><br>
+(0.62)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.42 <sup>*</sup><br>
+(0.61)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.15 <sup></sup><br>
+(0.61)</td>
+<td style="text-align: center;">1.08 <sup></sup><br>
+(0.62)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.059 / 0.052</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.067 / 0.062</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.068 / 0.063</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.057 / 0.051</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.057 / 0.052</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.058 / 0.052</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.055 / 0.048</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.048 / 0.042</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.051 / 0.045</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.047 / 0.040</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.057 / 0.051</td>
 </tr>
 <tr class="even">
 <td colspan="7" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
@@ -1439,7 +1977,70 @@ index</td>
 <p>Tables says algorithmic awareness and digital literacy have a negative effect to all the dependent variables for separated. But when Digital Skills enter as a control, the last two index mentioned start to have a positive effect. Also, the effects of algorithmic awareness are small.</p>
 </section>
 
-</main>
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>On a scale of 1 to 3, where 1 means “Never” and 3 means “Frequently” How often do you feel the following?.</p>
+<ol type="1">
+<li><p>You feel safe using the internet to find information.</p></li>
+<li><p>Feels confident about learning new skills on the internet.</p></li>
+<li><p>Feels confident in understanding terms related to the internet</p></li>
+<li><p>If I have problems using the internet, I think I could solve them all.</p></li>
+</ol>
+<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn2"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
+<p>I know how to open a file on the computer</p>
+<p>I know how to create an account on a social network</p>
+<p>I know how to download/save a photo I found on the internet.</p>
+<p>I know how to use commands on the keyboard (e.g.&nbsp;ctrl+c to copy and ctrl+v to paste)</p>
+<p>I know how to open a new page in the browser</p>
+<p>I know how to bookmark a web page that interests me.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
+<p>I know how to connect to a wifi (wireless) network</p>
+<p>I know how to find a page I have visited before.</p>
+<p>I sometimes end up browsing websites without knowing how I got there.</p>
+<p>I find many websites confusing in the way they are designed</p>
+<p>I can decide what are the best terms to search for on the internet.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
+<p>I know what kind of information I can and cannot share on the internet.</p>
+<p>I know when I should and should not share information online.</p>
+<p>I take care that the comments and behaviours I engage in online are appropriate to the situation I am in online</p>
+<p>I take care to check if the information I find is up to date.</p>
+<p>I take care to check the trustworthiness of a website.</p>
+<p>I take care to check the information I find on one website against a different website.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
+<p>I know how to create something new from videos/music and photos that already exist.</p>
+<p>I know how to make basic changes to content that others have created</p>
+<p>I know how to design a website (e.g., wordpress)<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>On a scale of 1 to 5 where 1 means “not at all” and 5 means “very much” How familiar are you with the following computer and internet related terms?</p>
+<p>Advanced search [Algorithmic Literacy]</p>
+<p>PDF</p>
+<p>Wiki</p>
+<p>Favourites</p>
+<p>JPG</p>
+<p>MP4</p>
+<p>5G</p>
+<p>Influencer [Social media Literacy]</p>
+<p>Cache [Algorithmic Literacy]</p>
+<p>Cookie [Algorithmic Literacy]</p>
+<p>Phishing</p>
+<p>Tag [Social media Literacy]</p>
+<p>Followers [Social media Literacy]</p>
+<p>Privacy Settings [Algorithmic Literacy]</p>
+<p>Meme [Social media Literacy]</p>
+<p>Youtuber [Social media Literacy]</p>
+<p>Hashtag [Social media Literacy]</p>
+<p>Gamer<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>To what extent are you aware of the following statements about the presence of algorithms on social media (Facebook, Instagram, TikTok, Twitter) and streaming platforms (Netflix, Disney+)?</p>
+<p>Algorithms are used to recommend me content (videos, photos, movies, series) on social networks and streaming platforms</p>
+<p>Algorithms are used to prioritise certain content (videos, photos, movies, series) over others on social networks and streaming platforms.</p>
+<p>The content (videos, photos, movies, series) that the algorithms recommend to me depends on my behaviour on social networks and streaming platforms.</p>
+<p>The content (videos, photos, movies, series) recommended to me by algorithms depends on the data I provide on social networks and streaming platforms.</p>
+<p>The use of my personal data in the algorithms has consequences for my online privacy.</p>
+<p>The content (videos, photos, movies, series) recommended by algorithms may be subject to human biases such as prejudice or stereotypes.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

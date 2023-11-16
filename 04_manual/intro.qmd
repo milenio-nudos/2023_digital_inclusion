@@ -1,6 +1,6 @@
 # Ficha Técnica
 
-La Estudio de inclusión Digital 2023 es una investigación cuantitativa que se enmarca en el desarrollo de la línea social de NUDOS. Tiene como objetivo conocer los niveles de acceso, uso y consciencia que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información asociadas al internet y los espacios digitales. 
+La Estudio de inclusión Digital 2023 es una investigación cuantitativa que se enmarca en el desarrollo de la línea social de NUDOS. Tiene como objetivo conocer los niveles de acceso, uso y consciencia que tienen los habitantes de ciertas comunas rurales y urbanas sobre las tecnologías computacionales y de información asociadas al internet y los espacios digitales. 
 
 En el siguiente apartado se presentan los detalles metodológicos respecto al diseño y la implementación del estudio en cuestión.
 
@@ -8,22 +8,39 @@ En el siguiente apartado se presentan los detalles metodológicos respecto al di
 
 
 ### Diseño muestral
+```{r}
+library(haven)
+library(sjmisc)
+library(tidyverse)
+library(janitor)
 
-Se utilizó un diseño muestral probabilístico por comunas, aunque no proporcional a nivel regional. En ese sentido, el universo representado son hombres y mujeres mayores de 14 años que son residentes permanentes en las comunas que fueron seleccionadas. La muestra cuenta con localidades rurales y urbanas. Para el caso rural, los hogares fueron seleccionado según rutas aleatorias, para el caso urbano se establecieron cuotas a la muestra de género, nivel socioeconómico y edad.
+raw_2023<-read_sav("../01_input/01_raw_data/2023_survey_raw.sav") |> clean_names()
 
-El error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza.
+labelled_raw_2023_a <-raw_2023 %>% drop_na(zona_rural) %>% to_label()
+labelled_raw_2023_b <-raw_2023 %>% drop_na(comuna_urbano) %>% to_label()
+
+
+```
+
+Se utilizó un diseño muestral probabilístico por áreas coumunales, aunque no proporcional a nivel regional. En ese sentido, el universo representado son hombres y mujeres mayores de 14 años que son residentes permanentes en las comunas que fueron seleccionadas[^2]. La muestra cuenta con mecanismos de selección diferenciados para localidades rurales y urbanas. Para el caso rural, los hogares fueron seleccionados según criterios de ruta aleatoria simple. Para el caso urbano, se establecieron conglomerados por manzana, y luego se hizo una ruta de selección sistemática de los hogares con individuos entrevistados.
+
+[^2]: Las comunas urbanas seleccionadas son: `r unique(labelled_raw_2023_b$comuna_urbano)`. Y las comunas rurales seleccionadas son `r unique(labelled_raw_2023_a$zona_rural)`.
+
+El error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza. En cada hogar se entrevistó a un solo individuo.
 
 ### Diseño del instrumento de medición
 
-El instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple divididas en siete módulos, que abordan las siguientes dimensiones:
+El instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple. Se dividió la entrevista en siete módulos, que abordan las siguientes dimensiones:
 
 -   **Módulo A:** *Caracterización del hogar.*
+
 -   **Módulo B:** *Acceso y uso de internet.*
     -   Uso de dispositivos personales y del hogar.
     -   Adopción de internet en el hogar.
     -   Sistemas de conexión del hogar.
     -   Acceso personal a internet.
     -   Uso de redes sociales.
+    
 -   **Módulo C:** *Habilidades digitales*
     -   Autoeficacia e inseguridad con las tecnologías.
     -   Habilidades digitales operacionales.
@@ -31,11 +48,13 @@ El instrumento de medición corresponde a un cuestionario digital aplicado cara 
     -   Habilidades digitales sociales.
     -   Habilidades digitales creativas.
     -   Alfabetización digital.
+    
 -   **Módulo D:** *Consciencia Algorítmica*
     -   Alfabetización algorítmica.
     -   Filtración de contenidos.
     -   Interpelación humana.
     -   Consideraciones éticas.
+    
 -   **Módulo E:** *Actividades digitales.*
     -   Redes de apoyo digital
     -   Adquirir información en internet.
@@ -43,6 +62,7 @@ El instrumento de medición corresponde a un cuestionario digital aplicado cara 
     -   Recreación en internet.
     -   Comercio electrónico y emprendimiento online.
     -   Trámites digitales.
+    
 -   **Módulo F:** *Caracterización personal.*
     -   Distancia social.
     -   Personalidad innovadora.
@@ -51,6 +71,12 @@ El instrumento de medición corresponde a un cuestionario digital aplicado cara 
     -   Autoeficacia política.
     -   Capital social.
     -   Características de la localidad.
+    
+-   **Módulo G:** *Caracterización sociodemográfica*
+    -   Ingresos.
+    -   Ocupación.
+    -   Nivel educacional.
+
 
 El usuario puede descargar el cuestionaro haciendo click en el botón a continuación:
 
@@ -58,11 +84,89 @@ El usuario puede descargar el cuestionaro haciendo click en el botón a continua
   <a href="../01_input/04_codebook/questionnaire.pdf" download class="button">Descargar Cuestionario</a>
 </div>
 
-# Implementación
+## Implementación
 
+El levantamiento de los datos se desarrolló entre el 31 de agosto y el 6 de septiembre de 2023, y estuvo a cargo de la empresa consultora [Feedback Research](https://www.feedbackresearch.cl/){target="_blank"}. En promedio, las entrevistas se prolongaron por 30 minutos.
 
+Antes de contestar la encuesta, las personas invitadas tuvieron acceso a leer un consentimiento informado describiendo las características de la encuesta y las implicancias de la participación en el estudio. Solamente pudieron participar aquellas personas que firmaron el consentimiento informado.
 
+En total, se visitaron 2.971 hogares de los cuales se logró contactar a 1704. De lo hogares contactados, se lograron 1.200 entrevistas correctas. En otras palabras, la encuesta cuenta una tasa de rechazo de 30% aproximadamente. Para ver los detalles del levantamiento de los datos, se sugiere revisar la @tbl-levantamiento.
 
 ```{r}
-1 + 1
+#| label: tbl-levantamiento
+#| tbl-cap: Rendimiento muestral
+
+library(readxl)
+library(gt)
+read_xlsx("../01_input/04_codebook/sample_imp.xlsx") |>
+  
+  
+  gt() |>
+  
+  tab_header(
+    title = "Rendimiento implementación de la muestra",
+    subtitle = "Resumen Urbano/Rural"
+  ) |>
+  
+  tab_spanner(
+    label = "Urbano",
+    columns = c(ends_with("u"))
+  ) |>
+  
+  tab_spanner(
+    label = "Rural",
+    columns = c(ends_with("r"))
+  ) |>
+  
+  cols_label(
+    rendimiento = "Categoría de rendimiento",
+    casos_u = "Número de casos",
+    porcentaje_u = "% sobre total",
+    categoria_u = "% sobre categoría",
+    casos_r = "Número de casos",
+    porcentaje_r = "% sobre total",
+    categoria_r = "% sobre categoría"
+  ) |>
+  
+  
+    tab_row_group(
+    group = "Total",
+    rows = 11
+  ) |>
+  
+   tab_row_group(
+    group = "Sin contacto",
+    rows = 7:10
+  ) |>
+  
+  tab_row_group(
+    group = "Contacto",
+    rows = 1:6
+  ) |>
+  
+  sub_missing(missing_text = "")
+
+```
+
+
+## Muestra final
+
+La muestra final cuenta con `r nrow(raw_2023)` casos. De estos, `r raw_2023 |> filter(tipo_zona==1) |> nrow()` pertenecen a población de asentamientos urbanos y `r raw_2023 |> filter(tipo_zona==2) |> nrow()` pertenecen a habitantes de sectores rurales. En la @tbl-zone-sample el usuario puede encontrar las comunas de Chile que fueron visitadas, y el total de casos de la muestra pertenecientes a ellas.
+
+```{r}
+#| label: tbl-zone-sample
+#| tbl-cap: Casos por comuna
+#| tbl-subcap: 
+#|   - "Urbanos"
+#|   - "Rurales"
+#| layout-ncol: 2
+
+library(knitr)
+
+labelled_raw_2023_b %>% count(Comuna=comuna_urbano) |> gt() |>
+  cols_label(Comuna="")
+labelled_raw_2023_a %>% count(Comuna=zona_rural) |> gt()|>
+  cols_label(Comuna="")
+
+
 ```

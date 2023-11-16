@@ -16,17 +16,127 @@ editor: visual
 
 The next report contains a first exploration of the digital inclusion 2023 survey, that is oriented for the presentation of Teresa Correa on Heidelberg University. In this case, the exploration is about some constructed index from the database to predict items related to attitudes to false information on the internet. The predictors index are:
 
--   Self-efficacy index
--   Digital skills index
-    -   Operational skills index
-    -   Informative skills index
-    -   Social skills index
-    -   Creative skills index
--   Digital literacy index          
+-   Self-efficacy index[^1]
+-   Digital skills index (Van Deuersen)
+    -   Operational skills index[^2]
+    -   Informative skills index[^3]
+    -   Social skills index[^4]
+    -   Creative skills index[^5]
+-   Digital literacy index (Hargittai)[^6]
     -   Social media literacy index
     -   Algorithmic literacy index
--   Algorithmic awareness index
--   Political polar position index
+-   Algorithmic awareness index (Zarouali)[^7]
+-   Political polar position [Categorical]
+
+[^1]: **On a scale of 1 to 3, where 1 means "Never" and 3 means "Frequently" How often do you feel the following?**
+
+    1. You feel safe using the internet to find information.
+
+    2. Feels confident about learning new skills on the internet.
+
+    3. Feels confident in understanding terms related to the internet
+
+    4. If I have problems using the internet, I think I could solve them all.
+    
+[^2]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+    
+    1. I know how to open a file on the computer
+    
+    2. I know how to create an account on a social network
+    
+    3. I know how to download/save a photo I found on the internet.
+    
+    4. I know how to use commands on the keyboard (e.g. ctrl+c to copy and ctrl+v to paste)
+    
+    5. I know how to open a new page in the browser
+    
+    6. I know how to bookmark a web page that interests me.
+
+[^3]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+    
+    1. I know how to connect to a wifi (wireless) network
+    
+    2. I know how to find a page I have visited before.
+    
+    3. I sometimes end up browsing websites without knowing how I got there.
+    
+    4. I find many websites confusing in the way they are designed
+    
+    5. I can decide what are the best terms to search for on the internet.
+    
+[^4]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+
+    1. I know what kind of information I can and cannot share on the internet.
+    
+    2. I know when I should and should not share information online.
+    
+    3. I take care that the comments and behaviours I engage in online are appropriate to the situation I am in online
+    
+    4. I take care to check if the information I find is up to date.
+    
+    5. I take care to check the trustworthiness of a website.
+    
+    6. I take care to check the information I find on one website against a different website.
+    
+[^5]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+
+    1. I know how to create something new from videos/music and photos that already exist.
+    
+    2. I know how to make basic changes to content that others have created
+    
+    3. I know how to design a website (e.g., wordpress)
+    
+[^6]:**On a scale of 1 to 5 where 1 means "not at all" and 5 means "very much" How familiar are you with the following computer and internet related terms?**
+
+    Advanced search [Algorithmic Literacy]
+    
+    PDF
+    
+    Wiki
+    
+    Favourites
+    
+    JPG
+    
+    MP4
+    
+    5G
+    
+    Influencer [Social media Literacy]
+    
+    Cache [Algorithmic Literacy]
+    
+    Cookie [Algorithmic Literacy]
+    
+    Phishing
+    
+    Tag [Social media Literacy]
+    
+    Followers [Social media Literacy]
+    
+    Privacy Settings [Algorithmic Literacy]
+    
+    Meme [Social media Literacy]
+    
+    Youtuber [Social media Literacy]
+    
+    Hashtag [Social media Literacy]
+    
+    Gamer
+    
+[^7]: To what extent are you aware of the following statements about the presence of algorithms on social media (Facebook, Instagram, TikTok, Twitter) and streaming platforms (Netflix, Disney+)?
+
+    1. Algorithms are used to recommend me content (videos, photos, movies, series) on social networks and streaming platforms
+    
+    2. Algorithms are used to prioritise certain content (videos, photos, movies, series) over others on social networks and streaming platforms.
+    
+    3. The content (videos, photos, movies, series) that the algorithms recommend to me depends on my behaviour on social networks and streaming platforms.
+    
+    4. The content (videos, photos, movies, series) recommended to me by algorithms depends on the data I provide on social networks and streaming platforms.
+    
+    5. The use of my personal data in the algorithms has consequences for my online privacy.
+    
+    6. The content (videos, photos, movies, series) recommended by algorithms may be subject to human biases such as prejudice or stereotypes.
 
 The items to predict comes from the next question: *"When you surf the internet or use social media, how often have the following situations occurred to you?"*
 
@@ -39,15 +149,11 @@ And the items are:
 -   "I have believed news that later turned out to be false or misleading"
 -   "I have seen or read false or misleading news"
 
-Also, there's another item comes from other battery:
--   "I feel I have a good understanding of important public issues in Chile."
-
-# Descriptive table
+# Data description
 
 The table show the different variables, how they were created or calculated, some descriptive statistics and the Cronbach alpha (only for index's). Some results:
 
 -   All alpha's, with at least 95 of confidence, have a score more than 0.70, so have internal consistency.
--   Political polar position and Algorithmic awareness have a large number of missing cases.
 
 ```{r,results='hide',error=FALSE,echo=FALSE}
 # 0. Preparation ----
@@ -61,7 +167,8 @@ pacman::p_load(
   gt, #Render tables
   labelled, #col_labes
   corrplot, #Corrplot
-  sjPlot #Tab models
+  sjPlot, #Tab models
+  labelled #double manage
   )
 
 raw_2023 <- read_sav("../01_input/01_raw_data/2023_survey_raw.sav") %>% clean_names()
@@ -163,7 +270,7 @@ raw_2023$i_digital_literacy <- raw_2023 %>% dplyr::select(starts_with("c4_"))%>%
 
 # Algorithmic awareness
 
-raw_2023 <- raw_2023 %>% mutate(across(starts_with("d2"),~ifelse(.==99,NA,.)))
+raw_2023 <- raw_2023 %>% mutate(across(starts_with("d2"),~ifelse(.==99,1,.))) #NS-NR as non-awareness
 
 d2 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("d2")) %>%
                  drop_na(), CI=TRUE) #Alpha of index
@@ -173,57 +280,67 @@ raw_2023$i_algorithmic_awareness <- raw_2023 %>% dplyr::select(starts_with("d2")
 
 # Extreme political position index
 
-raw_2023<-raw_2023 %>% 
-  mutate(i_extreme_politics=case_when(f18%in%c(1,10)~5,
-                                      f18%in%c(2,9)~4,
-                                      f18%in%c(3,8)~3,
-                                      f18%in%c(4,7)~2,
-                                      f18%in%c(5,6)~1))
+# raw_2023<-raw_2023 %>% 
+ # mutate(i_extreme_politics=case_when(f18%in%c(1,10)~5,
+  #                                    f18%in%c(2,9)~4,
+   #                                   f18%in%c(3,8)~3,
+    #                                  f18%in%c(4,7)~2,
+     #                                 f18%in%c(5,6)~1))
+
+# Extreme politization variable
+
+raw_2023 <- raw_2023 %>%
+            mutate(
+              extreme_politization=case_when(f18%in%c(1,2,3,8,9,10)~2,
+                                             f18%in%c(4,5,6,7)~1,
+                                             f18==99 ~ 0))
+
+val_labels(raw_2023$extreme_politization)<-c("Polarized"=2,"Centered"=1,"Non-scaled"=0)
+
 
 # List of Cronbach's alphas
 
 Cronbach<-c(c2["alpha"],c3["alpha"],c3_1["alpha"],c3_2["alpha"],c3_3["alpha"],c3_4["alpha"],
-  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],NA,NA,NA,NA,NA,NA,NA,NA)
+  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],NA,NA,NA,NA,NA,NA,NA)
 
 ci<-c(c2["ci"],c3["ci"],c3_1["ci"],c3_2["ci"],c3_3["ci"],c3_4["ci"],
-            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],NA,NA,NA,NA,NA,NA,NA,NA)
+            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],NA,NA,NA,NA,NA,NA,NA)
 
 ```
 
+
 ```{r,results='asis'}
-raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2) %>% 
-  mutate_all(~ifelse(.==99,NA,.)) %>% skim() %>% as.data.frame()%>%
+raw_2023 %>% dplyr::select(starts_with(c("i_","extreme","c5"))) %>% 
+  mutate_all(~ifelse(.==99,NA,.)) %>%
+  skim() %>% as.data.frame()%>%
   mutate(Label= c("Self-efficacy index",
-                  "Operational skills index",
-                  "Informative skills index",
-                  "Social skills index",
-                  "Creative skills index",
-                  "Digital skills index (total)",
-                  "Social media literacy index",
-                  "Algorithmic literacy index",
-                  "Digital literacy index (total)",
-                  "Algorithmic awareness index",
-                  "Political polar position index",
-                  "I have shared information that subsequently turned out to be false or misleading",
-                  "I have criticised someone for spreading false or misleading information.",
-                  "When I have received false or misleading news, I have and made it clear that it is false.",
-                  "I have blocked or unfollowed people because they they post false information",
-                  "I have believed news that later turned out to be false or misleading",
+                  "Operational skills index [Van Deuersen]",
+                  "Informative skills index [Van Deuersen]",
+                  "Social skills index [Van Deuersen]",
+                  "Creative skills index [Van Deuersen]",
+                  "Van Deursen's Digital skills index (total)",
+                  "Social media literacy index [Hargittai]",
+                  "Algorithmic literacy index [Hargittai]",
+                  "Hargittai's Digital literacy index (total)",
+                  "Zarouali's Algorithmic awareness index",
+                  "Political polarization [Categorical]",
                   "I have seen or read false or misleading news",
-                  "I feel I have a good understanding of important public issues in Chile."
-                  ),
-         Estimation=c("By means",
-                      "Sumative",
-                      "Sumative",
-                      "Sumative",
-                      "Sumative",
-                      "Sumative",
-                      "By means",
-                      "By means",
-                      "By means",
-                      "By means",
-                      "Polar recodification",
-                      "Raw data",
+                  "I have believed news that later turned out to be false or misleading",
+                  "I have shared information that subsequently turned out to be false or misleading",
+                  "I have blocked or unfollowed people because they they post false information",
+                  "When I have received false or misleading news, I have and made it clear that it is                          false.",
+                  "I have criticised someone for spreading false or misleading information."),
+         Estimation=c("By means (1 - 3)",
+                      "Sumative (0 - 6)",
+                      "Sumative (0 - 5)",
+                      "Sumative (0 - 6)",
+                      "Sumative (0 - 3)",
+                      "Sumative (0 - 20)",
+                      "By means (1 - 5)",
+                      "By means (1 - 5)",
+                      "By means (1 - 5)",
+                      "By means (1 - 5)",
+                      "Categorical recodification",
                       "Raw data",
                       "Raw data",
                       "Raw data",
@@ -256,44 +373,56 @@ All index's have strong positive correlation between them.
 
 *Political polar position was eliminated because the large missing cases it have.*
 
+::: panel-tabset
+
+### Visual summary
 ```{r, results='markup'}
 
-model_data <- raw_2023 %>% dplyr::select(starts_with(c("i_","c5")),f5_2,
+model_data <- raw_2023 %>% dplyr::select(starts_with(c("i_","extreme","c5")),
                                          gender=a1,age=a2,ses=nse)%>%
               mutate(gender=ifelse(gender==2,1,0))%>%
               mutate_all(as.numeric)
 
-var_label(model_data)<-c("Self-efficacy index",
-                     "Operational skills index",
-                     "Informative skills index",
-                     "Social skills index",
-                     "Creative skills index",
-                     "Digital skills index (total)",
-                     "Social media literacy index",
-                     "Algorithmic literacy index",
-                     "Digital literacy index (total)",
-                     "Algorithmic awareness index",
-                     "Political polar position index",
-                     "I have shared information that subsequently turned out to be false or misleading",
-                     "I have criticised someone for spreading false or misleading information.",
-                     "When I have received false or misleading news, I have and made it clear that it is false.",
-                     "I have blocked or unfollowed people because they they post false information",
-                     "I have believed news that later turned out to be false or misleading",
-                     "I have seen or read false or misleading news",
-                     "I feel I have a good understanding of important public issues in Chile",
-                     "Gender (Women=1)",
-                     "Age",
-                     "Socioeconomical Status")
-
-corr_matrix<-cor(model_data%>%dplyr::select(-c(i_extreme_politics,gender,age,ses))%>%
+corr_matrix<-cor(model_data%>%dplyr::select(-c(extreme_politization,gender,age,ses))%>%
                    drop_na())
 
-testRes = cor.mtest(model_data%>%dplyr::select(-c(i_extreme_politics,gender,age,ses))%>%
+testRes = cor.mtest(model_data%>%dplyr::select(-c(extreme_politization,gender,age,ses))%>%
                       drop_na(), conf.level = 0.95)
 
 
 corrplot(corr_matrix, method = 'circle', type = 'lower',p.mat = testRes$p, insig = 'blank',order = 'AOE', diag=FALSE)
+
+
 ```
+
+### Table
+```{r, results='markup'}
+var_label(model_data)<-c("Self-efficacy index",
+                  "Operational skills index [Van Deuersen]",
+                  "Informative skills index [Van Deuersen]",
+                  "Social skills index [Van Deuersen]",
+                  "Creative skills index [Van Deuersen]",
+                  "Van Deursen's Digital skills index (total)",
+                  "Social media literacy index [Hargittai]",
+                  "Algorithmic literacy index [Hargittai]",
+                  "Hargittai's Digital literacy index (total)",
+                  "Zarouali's Algorithmic awareness index",
+                  "Extreme politization [Categorical]",
+                  "I have shared information that subsequently turned out to be false or misleading",
+                  "I have criticised someone for spreading false or misleading information.",
+                  "When I have received false or misleading news, I have and made it clear that it is false.",
+                  "I have blocked or unfollowed people because they they post false information",
+                  "I have believed news that later turned out to be false or misleading",
+                  "I have seen or read false or misleading news",
+                     "Gender (Women=1)",
+                     "Age",
+                     "Socioeconomical Status")
+
+sjPlot::tab_corr(model_data, na.deletion = "listwise",
+corr.method = "pearson", title = "Title of Table", show.p = TRUE, digits = 2)
+
+```
+:::
 
 # Models
 
@@ -302,8 +431,8 @@ By correlation heatmap it seen there are not major differences between sub-index
 In the next dashboard you can explore three index's. The first only have Algorithmic awareness as an importante predictor, the second only digital literacy (Hargittai scale), and the third one have all index's presented as aggregated ones.
 
 ::: panel-tabset
-
 ### Algorithmic awareness + control
+
 ```{r}
 c5_1_a<-lm(c5_1 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
 c5_2_a<-lm(c5_2 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
@@ -318,7 +447,6 @@ tab_model(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a,
           show.re.var = FALSE,show.icc = FALSE,
           show.obs = FALSE,show.ngroups = FALSE)
 ```
-
 
 ### Digital literacy + control
 
@@ -338,6 +466,7 @@ tab_model(c5_1_b, c5_2_b,c5_3_b,c5_4_b,c5_6_b,c5_7_b,
 ```
 
 ### Great model
+
 ```{r}
 c5_1_c<-lm(c5_1 ~ i_digital_literacy + i_digital_skills +
              i_algorithmic_awareness + i_tech_self_efficacy +
@@ -364,7 +493,6 @@ tab_model(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c,
           show.re.var = FALSE,show.icc = FALSE,
           show.obs = FALSE,show.ngroups = FALSE)
 ```
-
 :::
 
 Tables says algorithmic awareness and digital literacy have a negative effect to all the dependent variables for separated. But when Digital Skills enter as a control, the last two index mentioned start to have a positive effect. Also, the effects of algorithmic awareness are small.

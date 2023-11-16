@@ -1,4 +1,119 @@
 {
-    "sources": [],
+    "sources": [
+        {
+            "DOI": "10.1016/S0148-2963(01)00276-4",
+            "ISSN": "0148-2963",
+            "abstract": "The explosion of new technologies is revolutionizing the retail environment. Yet, not all consumers choose to use the new technologies nor do all consumers see these changes as improvements. In this research, we explore usage patterns and benefits of using self-service technologies (SSTs) based on a sample of 823 consumers. We also assess the influence of individual characteristics, specifically technology anxiety (TA) and particular demographics, on SST usage patterns and satisfaction levels. The findings indicate that respondents with higher levels of TA use fewer SSTs and that TA is a better, more consistent predictor of SST usage than are demographic variables. In addition, TA was found to influence overall levels of satisfaction, intentions to use the SST again and the likelihood of participating in positive word-of-mouth for those consumers who had an initially satisfying experience.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        10,
+                        23
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Meuter",
+                    "given": "Matthew L"
+                },
+                {
+                    "family": "Ostrom",
+                    "given": "Amy L"
+                },
+                {
+                    "family": "Bitner",
+                    "given": "Mary Jo"
+                },
+                {
+                    "family": "Roundtree",
+                    "given": "Robert"
+                }
+            ],
+            "collection-title": "Strategy in e-marketing",
+            "container-title": "Journal of Business Research",
+            "id": "meuterInfluenceTechnologyAnxiety2003",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2003,
+                        11
+                    ]
+                ]
+            },
+            "keyword": "Retail technologies,Self-service technologies,Technology anxiety",
+            "page": "899-906",
+            "title": "The influence of technology anxiety on consumer use and experiences with self-service technologies",
+            "type": "article-journal",
+            "volume": "56"
+        },
+        {
+            "ISBN": "978-1-4516-0247-0",
+            "abstract": "Since the first edition of this landmark book was published in 1962, Everett Rogers’s name has become \"virtually synonymous with the study of diffusion of innovations,\" according to Choice. The second and third editions of Diffusion of Innovations became the standard textbook and reference on diffusion studies. Now, in the fourth edition, Rogers presents the culmination of more than thirty years of research that will set a new standard for analysis and inquiry.The fourth edition is (1) a revision of the theoretical framework and the research evidence supporting this model of diffusion, and (2) a new intellectual venture, in that new concepts and new theoretical viewpoints are introduced. This edition differs from its predecessors in that it takes a much more critical stance in its review and synthesis of 5,000 diffusion publications. During the past thirty years or so, diffusion research has grown to be widely recognized, applied and admired, but it has also been subjected to both constructive and destructive criticism. This criticism is due in large part to the stereotyped and limited ways in which many diffusion scholars have defined the scope and method of their field of study. Rogers analyzes the limitations of previous diffusion studies, showing, for example, that the convergence model, by which participants create and share information to reach a mutual understanding, more accurately describes diffusion in most cases than the linear model. Rogers provides an entirely new set of case examples, from the Balinese Water Temple to Nintendo videogames, that beautifully illustrate his expansive research, as well as a completely revised bibliography covering all relevant diffusion scholarship in the past decade. Most important, he discusses recent research and current topics, including social marketing, forecasting the rate of adoption, technology transfer, and more. This all-inclusive work will be essential reading for scholars and students in the fields of communications, marketing, geography, economic development, political science, sociology, and other related fields for generations to come.",
+            "author": [
+                {
+                    "family": "Rogers",
+                    "given": "Everett M."
+                }
+            ],
+            "id": "rogersDiffusionInnovations4th2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010,
+                        7
+                    ]
+                ]
+            },
+            "keyword": "Business & Economics / Business Communication / General,Business & Economics / General,Business & Economics / Marketing / General",
+            "language": "en-US",
+            "publisher": "Simon and Schuster",
+            "title": "Diffusion of Innovations, 4th Edition",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1016/j.socnet.2004.10.001",
+            "ISSN": "0378-8733",
+            "abstract": "In research on the social capital of individuals, there has been little standardisation of measurement instruments, and more emphasis on measuring social relationships than on social resources. In this paper, we propose two innovations. First, a new measurement method: the Resource Generator; an instrument with concretely worded items covering “general” social capital in a population, which combines advantages of earlier techniques. Construction, use, and first empirical findings are discussed for a representative sample (N=1004) of the Dutch population in 1999. Second, we propose to investigate social capital by latent trait analysis, and we identify four separately accessed portions of social capital: prestige and education related social capital, political and financial skills social capital, personal skills social capital, and personal support social capital. This underlines that social capital measurement needs multiple measures, and cannot be reduced to one total measure of indirectly “owned” resources. Constructing a theory-based Resource Generator is a challenge for different contexts of use, but also retrieves meaningful information when investigating the productivity and goal specificity of social capital.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        10,
+                        23
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Van Der Gaag",
+                    "given": "Martin"
+                },
+                {
+                    "family": "Snijders",
+                    "given": "Tom A. B."
+                }
+            ],
+            "container-title": "Social Networks",
+            "id": "vandergaagResourceGeneratorSocial2005",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "Latent trait,Measurement,Scale construction,Social capital",
+            "page": "1-29",
+            "title": "The Resource Generator: Social capital quantification with concrete items",
+            "title-short": "The Resource Generator",
+            "type": "article-journal",
+            "volume": "27"
+        }
+    ],
     "project_biblios": []
 }
