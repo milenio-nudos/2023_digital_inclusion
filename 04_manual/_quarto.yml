@@ -9,8 +9,6 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - summary.qmd
-    - references.qmd
   language: es
   sharing: [twitter, facebook, linkedin]
   repo-url: https://github.com/milenio-nudos/2023_digital_inclusion
@@ -25,4 +23,3 @@ execute:
   error: false
   
 editor: visual
-

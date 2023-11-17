@@ -1,13 +1,13 @@
-# Ficha Técnica
+# Ficha Técnica {.unnumbered}
 
 La Estudio de inclusión Digital 2023 es una investigación cuantitativa que se enmarca en el desarrollo de la línea social de NUDOS. Tiene como objetivo conocer los niveles de acceso, uso y consciencia que tienen los habitantes de ciertas comunas rurales y urbanas sobre las tecnologías computacionales y de información asociadas al internet y los espacios digitales. 
 
 En el siguiente apartado se presentan los detalles metodológicos respecto al diseño y la implementación del estudio en cuestión.
 
-## Diseño
+## Diseño {.unnumbered}
 
 
-### Diseño muestral
+### Diseño muestral {.unnumbered}
 ```{r}
 library(haven)
 library(sjmisc)
@@ -28,9 +28,9 @@ Se utilizó un diseño muestral probabilístico por áreas coumunales, aunque no
 
 El error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza. En cada hogar se entrevistó a un solo individuo.
 
-### Diseño del instrumento de medición
+### Diseño del instrumento de medición {.unnumbered}
 
-El instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple. Se dividió la entrevista en siete módulos, que abordan las siguientes dimensiones:
+El instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Se hizo un riguroso proceso de revisión por pares entre investigadores e investigadoras con experiencia en estudios sobre brechas digitales antes de definir el instrumento final. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple. Se dividió la entrevista en siete módulos, que abordan las siguientes dimensiones:
 
 -   **Módulo A:** *Caracterización del hogar.*
 
@@ -81,10 +81,10 @@ El instrumento de medición corresponde a un cuestionario digital aplicado cara 
 El usuario puede descargar el cuestionaro haciendo click en el botón a continuación:
 
 <div style="text-align: center;">
-  <a href="../01_input/04_codebook/questionnaire.pdf" download class="button">Descargar Cuestionario</a>
+  <a href="questionnaire.pdf" download class="button">Descargar Cuestionario</a>
 </div>
 
-## Implementación
+## Implementación {.unnumbered}
 
 El levantamiento de los datos se desarrolló entre el 31 de agosto y el 6 de septiembre de 2023, y estuvo a cargo de la empresa consultora [Feedback Research](https://www.feedbackresearch.cl/){target="_blank"}. En promedio, las entrevistas se prolongaron por 30 minutos.
 
@@ -149,7 +149,7 @@ read_xlsx("../01_input/04_codebook/sample_imp.xlsx") |>
 ```
 
 
-## Muestra final
+## Muestra final {.unnumbered}
 
 La muestra final cuenta con `r nrow(raw_2023)` casos. De estos, `r raw_2023 |> filter(tipo_zona==1) |> nrow()` pertenecen a población de asentamientos urbanos y `r raw_2023 |> filter(tipo_zona==2) |> nrow()` pertenecen a habitantes de sectores rurales. En la @tbl-zone-sample el usuario puede encontrar las comunas de Chile que fueron visitadas, y el total de casos de la muestra pertenecientes a ellas.
 
@@ -169,4 +169,113 @@ labelled_raw_2023_a %>% count(Comuna=zona_rural) |> gt()|>
   cols_label(Comuna="")
 ```
 
+La @tbl-demographics-sample expone las características sociodemográficas de la muestra total, y su distribución urbana y rural.
+
+```{r}
+#| label: tbl-demographics-sample
+#| tbl-cap: Caracterización sociodemográfica
+
+table<-cbind(
+rbind(
+raw_2023 |> count(variable=to_label(a1)) |>
+  mutate(Porcentaje=paste0(round(n*100/1200,2),"%")),
+
+raw_2023 |> count(variable=to_label(nse)) %>% 
+  mutate(Porcentaje=paste0(round(n*100/1200,2),"%")),
+
+raw_2023 |> mutate(variable=case_when(a2>65~"Más de 65 años",
+                                   a2<=65 & a2>55~"Entre 65 y 56 años",
+                                   a2<=55 & a2>45~"Entre 55 y 46 años",
+                                   a2<=45 & a2>35~"Entre 45 y 36 años",
+                                   a2<=35 & a2>25~"Entre 35 y 26 años",
+                                   a2<=25~"Entre 14 y 25 años")) %>%
+  count(variable) |>
+  mutate(Porcentaje=paste0(round(n*100/1200,2),"%"))
+), 
+
+rbind(
+labelled_raw_2023_b |> count(variable=to_label(a1)) |>
+  mutate(Porcentaje=paste0(round(n*100/751,2),"%")),
+
+labelled_raw_2023_b |> count(variable=to_label(nse)) |>
+  mutate(Porcentaje=paste0(round(n*100/751,2),"%")) |>
+  rbind(data.frame(variable="AB",n=0,Porcentaje=0)), #Añadir fila no contabilizada
+
+labelled_raw_2023_b |> mutate(variable=case_when(a2>65~"Más de 65 años",
+                                   a2<=65 & a2>55~"Entre 65 y 56 años",
+                                   a2<=55 & a2>45~"Entre 55 y 46 años",
+                                   a2<=45 & a2>35~"Entre 45 y 36 años",
+                                   a2<=35 & a2>25~"Entre 35 y 26 años",
+                                   a2<=25~"Entre 14 y 25 años")) |>
+  count(variable) |>
+  mutate(Porcentaje=paste0(round(n*100/1200,2),"%"))
+),
+
+rbind(
+labelled_raw_2023_a |> count(variable=to_label(a1)) |>
+  mutate(Porcentaje=paste0(round(n*100/449,2),"%")),
+
+labelled_raw_2023_a |> count(variable=to_label(nse)) %>% 
+  mutate(Porcentaje=paste0(round(n*100/449,2),"%")),
+
+labelled_raw_2023_a |> mutate(variable=case_when(a2>65~"Más de 65 años",
+                                   a2<=65 & a2>55~"Entre 65 y 56 años",
+                                   a2<=55 & a2>45~"Entre 55 y 46 años",
+                                   a2<=45 & a2>35~"Entre 45 y 36 años",
+                                   a2<=35 & a2>25~"Entre 35 y 26 años",
+                                   a2<=25~"Entre 14 y 25 años")) %>%
+  count(variable) |>
+  mutate(Porcentaje=paste0(round(n*100/499,2),"%")))
+)
+
+colnames(table)[4:6] <- paste0(colnames(table)[4:6], "b")
+colnames(table)[7:9] <- paste0(colnames(table)[7:9], "a")
+
+table<-table %>% select(-variableb,-variablea)
+
+  gt(table) |>
+  
+  tab_row_group(
+  group = "Nivel Socioeconómico",
+  rows = 4:10
+  ) |>
+  
+  tab_row_group(
+  group = "Edad",
+  rows = 11:16
+  ) |>
+  
+  tab_row_group(
+  group = "Género",
+  rows = 1:3
+  )|>
+  
+  tab_header(
+    title = "Caracterización sociodemográfica de la muestra",
+    subtitle = "Resumen"
+  ) |>
+    
+  tab_spanner(
+    label = "Total",
+    columns = c(variable,n,Porcentaje)
+  ) |>
+  
+  tab_spanner(
+    label = "Urbano",
+    columns = c(ends_with("b"))
+  ) |>
+  
+  tab_spanner(
+    label = "Rural",
+    columns = c(ends_with("a"))
+  ) |>
+    
+  cols_label(variable="",
+             nb="n",
+             na="n",
+             Porcentajea="Porcentaje",
+             Porcentajeb="Porcentaje")
+
+
+```
 
