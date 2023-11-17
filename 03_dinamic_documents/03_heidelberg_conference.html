@@ -131,12 +131,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The items to predict comes from the next question: <em>“When you surf the internet or use social media, how often have the following situations occurred to you?”</em></p>
 <p>And the items are:</p>
 <ul>
-<li>“I have shared information that subsequently turned out to be false or misleading”</li>
-<li>“I have criticised someone for spreading false or misleading information”</li>
-<li>“When I have received false or misleading news, I have and made it clear that it is false.”</li>
-<li>“I have blocked or unfollowed people because they they post false information”</li>
-<li>“I have believed news that later turned out to be false or misleading”</li>
 <li>“I have seen or read false or misleading news”</li>
+<li>“I have believed news that later turned out to be false or misleading”</li>
+<li>“I have shared information that subsequently turned out to be false or misleading”</li>
 </ul>
 </section>
 <section id="data-description" class="level1">
@@ -144,11 +141,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The table show the different variables, how they were created or calculated, some descriptive statistics and the Cronbach alpha (only for index’s). Some results:</p>
 <ul>
 <li>All alpha’s, with at least 95 of confidence, have a score more than 0.70, so have internal consistency.</li>
-<li>Political polar position and Algorithmic awareness have a large number of missing cases.</li>
 </ul>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"extreme"</span>,<span class="st">"c5"</span>))) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"extreme"</span>)),c5_1,c5_2,c5_3) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">ifelse</span>(.<span class="sc">==</span><span class="dv">99</span>,<span class="cn">NA</span>,.)) <span class="sc">%&gt;%</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>() <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Label=</span> <span class="fu">c</span>(<span class="st">"Self-efficacy index"</span>,</span>
@@ -164,63 +160,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Political polarization [Categorical]"</span>,</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have seen or read false or misleading news"</span>,</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have believed news that later turned out to be false or misleading"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have blocked or unfollowed people because they they post false information"</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"When I have received false or misleading news, I have and made it clear that it is                          false."</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have criticised someone for spreading false or misleading information."</span>),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">Estimation=</span><span class="fu">c</span>(<span class="st">"By means (1 - 3)"</span>,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 6)"</span>,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 5)"</span>,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 6)"</span>,</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 3)"</span>,</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 20)"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">Estimation=</span><span class="fu">c</span>(<span class="st">"By means (1 - 3)"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 6)"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 5)"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 6)"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 3)"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Sumative (0 - 20)"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"By means (1 - 5)"</span>,</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Categorical recodification"</span>,</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">Variable=</span>skim_variable,</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                Label,</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                Estimation,</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>                <span class="at">Mean=</span>numeric.mean,</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>                <span class="at">SD=</span>numeric.sd,</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                <span class="at">N_Missing=</span>n_missing,</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                <span class="at">Complete_rate=</span>complete_rate,</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                <span class="at">Hist=</span>numeric.hist) <span class="sc">%&gt;%</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mean=</span><span class="fu">round</span>(Mean,<span class="dv">2</span>),</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD=</span><span class="fu">round</span>(SD,<span class="dv">2</span>),</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>         <span class="at">Complete_rate=</span><span class="fu">paste0</span>(<span class="fu">round</span>(Complete_rate<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>),<span class="st">"%"</span>),</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>         <span class="at">Cronbach=</span>Cronbach,</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>         <span class="st">"C.I. [2.5%;97.5%]"</span><span class="ot">=</span>ci)<span class="sc">%&gt;%</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sub_missing</span>(<span class="at">missing_text =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Categorical recodification"</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Raw data"</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">Variable=</span>skim_variable,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                Label,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                Estimation,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                <span class="at">Mean=</span>numeric.mean,</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>                <span class="at">SD=</span>numeric.sd,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">N_Missing=</span>n_missing,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>                <span class="at">Complete_rate=</span>complete_rate,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                <span class="at">Hist=</span>numeric.hist) <span class="sc">%&gt;%</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Mean=</span><span class="fu">round</span>(Mean,<span class="dv">2</span>),</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD=</span><span class="fu">round</span>(SD,<span class="dv">2</span>),</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>         <span class="at">Complete_rate=</span><span class="fu">paste0</span>(<span class="fu">round</span>(Complete_rate<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>),<span class="st">"%"</span>),</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>         <span class="at">Cronbach=</span>Cronbach,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>         <span class="st">"C.I. [2.5%;97.5%]"</span><span class="ot">=</span>ci)<span class="sc">%&gt;%</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sub_missing</span>(<span class="at">missing_text =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 
-<div id="xelpmrakly" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xelpmrakly table {
+<div id="kooikoqckr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kooikoqckr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xelpmrakly thead, #xelpmrakly tbody, #xelpmrakly tfoot, #xelpmrakly tr, #xelpmrakly td, #xelpmrakly th {
+#kooikoqckr thead, #kooikoqckr tbody, #kooikoqckr tfoot, #kooikoqckr tr, #kooikoqckr td, #kooikoqckr th {
   border-style: none;
 }
 
-#xelpmrakly p {
+#kooikoqckr p {
   margin: 0;
   padding: 0;
 }
 
-#xelpmrakly .gt_table {
+#kooikoqckr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -246,12 +236,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_caption {
+#kooikoqckr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xelpmrakly .gt_title {
+#kooikoqckr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -263,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#xelpmrakly .gt_subtitle {
+#kooikoqckr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -275,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#xelpmrakly .gt_heading {
+#kooikoqckr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -287,13 +277,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_bottom_border {
+#kooikoqckr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_col_headings {
+#kooikoqckr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -308,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_col_heading {
+#kooikoqckr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -328,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#xelpmrakly .gt_column_spanner_outer {
+#kooikoqckr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -340,15 +330,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#xelpmrakly .gt_column_spanner_outer:first-child {
+#kooikoqckr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xelpmrakly .gt_column_spanner_outer:last-child {
+#kooikoqckr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xelpmrakly .gt_column_spanner {
+#kooikoqckr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -360,11 +350,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#xelpmrakly .gt_spanner_row {
+#kooikoqckr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xelpmrakly .gt_group_heading {
+#kooikoqckr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -390,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#xelpmrakly .gt_empty_group_heading {
+#kooikoqckr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -405,15 +395,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#xelpmrakly .gt_from_md > :first-child {
+#kooikoqckr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xelpmrakly .gt_from_md > :last-child {
+#kooikoqckr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xelpmrakly .gt_row {
+#kooikoqckr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -432,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#xelpmrakly .gt_stub {
+#kooikoqckr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -445,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#xelpmrakly .gt_stub_row_group {
+#kooikoqckr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -459,15 +449,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#xelpmrakly .gt_row_group_first td {
+#kooikoqckr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xelpmrakly .gt_row_group_first th {
+#kooikoqckr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xelpmrakly .gt_summary_row {
+#kooikoqckr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -477,16 +467,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#xelpmrakly .gt_first_summary_row {
+#kooikoqckr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_first_summary_row.thick {
+#kooikoqckr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xelpmrakly .gt_last_summary_row {
+#kooikoqckr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -496,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_grand_summary_row {
+#kooikoqckr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -506,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#xelpmrakly .gt_first_grand_summary_row {
+#kooikoqckr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -516,7 +506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_last_grand_summary_row_top {
+#kooikoqckr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -526,11 +516,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_striped {
+#kooikoqckr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xelpmrakly .gt_table_body {
+#kooikoqckr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -539,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_footnotes {
+#kooikoqckr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -553,7 +543,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_footnote {
+#kooikoqckr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -562,7 +552,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#xelpmrakly .gt_sourcenotes {
+#kooikoqckr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -576,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#xelpmrakly .gt_sourcenote {
+#kooikoqckr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -584,63 +574,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#xelpmrakly .gt_left {
+#kooikoqckr .gt_left {
   text-align: left;
 }
 
-#xelpmrakly .gt_center {
+#kooikoqckr .gt_center {
   text-align: center;
 }
 
-#xelpmrakly .gt_right {
+#kooikoqckr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xelpmrakly .gt_font_normal {
+#kooikoqckr .gt_font_normal {
   font-weight: normal;
 }
 
-#xelpmrakly .gt_font_bold {
+#kooikoqckr .gt_font_bold {
   font-weight: bold;
 }
 
-#xelpmrakly .gt_font_italic {
+#kooikoqckr .gt_font_italic {
   font-style: italic;
 }
 
-#xelpmrakly .gt_super {
+#kooikoqckr .gt_super {
   font-size: 65%;
 }
 
-#xelpmrakly .gt_footnote_marks {
+#kooikoqckr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xelpmrakly .gt_asterisk {
+#kooikoqckr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xelpmrakly .gt_indent_1 {
+#kooikoqckr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xelpmrakly .gt_indent_2 {
+#kooikoqckr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xelpmrakly .gt_indent_3 {
+#kooikoqckr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xelpmrakly .gt_indent_4 {
+#kooikoqckr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xelpmrakly .gt_indent_5 {
+#kooikoqckr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -680,7 +670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Complete_rate" class="gt_row gt_right">100%</td>
 <td headers="Hist" class="gt_row gt_left">▇▁▁▁▇</td>
 <td headers="Cronbach" class="gt_row gt_center">0.91</td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.86, 0.93</td></tr>
+<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.87, 0.93</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_informative_skills</td>
 <td headers="Label" class="gt_row gt_left">Informative skills index [Van Deuersen]</td>
 <td headers="Estimation" class="gt_row gt_left">Sumative (0 - 5)</td>
@@ -690,7 +680,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Complete_rate" class="gt_row gt_right">100%</td>
 <td headers="Hist" class="gt_row gt_left">▇▂▅▃▅</td>
 <td headers="Cronbach" class="gt_row gt_center">0.9</td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.77, 0.95</td></tr>
+<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.76, 0.95</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_social_skills</td>
 <td headers="Label" class="gt_row gt_left">Social skills index [Van Deuersen]</td>
 <td headers="Estimation" class="gt_row gt_left">Sumative (0 - 6)</td>
@@ -700,7 +690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Complete_rate" class="gt_row gt_right">100%</td>
 <td headers="Hist" class="gt_row gt_left">▅▁▁▁▇</td>
 <td headers="Cronbach" class="gt_row gt_center">0.76</td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.68, 0.82</td></tr>
+<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.67, 0.82</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_creative_skills</td>
 <td headers="Label" class="gt_row gt_left">Creative skills index [Van Deuersen]</td>
 <td headers="Estimation" class="gt_row gt_left">Sumative (0 - 3)</td>
@@ -720,7 +710,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Complete_rate" class="gt_row gt_right">100%</td>
 <td headers="Hist" class="gt_row gt_left">▇▂▃▅▇</td>
 <td headers="Cronbach" class="gt_row gt_center">0.89</td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.82, 0.94</td></tr>
+<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center">0.83, 0.94</td></tr>
     <tr><td headers="Variable" class="gt_row gt_left">i_social_media_literacy</td>
 <td headers="Label" class="gt_row gt_left">Social media literacy index [Hargittai]</td>
 <td headers="Estimation" class="gt_row gt_left">By means (1 - 5)</td>
@@ -801,36 +791,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td headers="Hist" class="gt_row gt_left">▇▂▁▁▁</td>
 <td headers="Cronbach" class="gt_row gt_center"><br></td>
 <td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">c5_4</td>
-<td headers="Label" class="gt_row gt_left">I have blocked or unfollowed people because they they post false information</td>
-<td headers="Estimation" class="gt_row gt_left">Raw data</td>
-<td headers="Mean" class="gt_row gt_right">1.53</td>
-<td headers="SD" class="gt_row gt_right">0.85</td>
-<td headers="N_Missing" class="gt_row gt_right">75</td>
-<td headers="Complete_rate" class="gt_row gt_right">93.75%</td>
-<td headers="Hist" class="gt_row gt_left">▇▂▂▁▁</td>
-<td headers="Cronbach" class="gt_row gt_center"><br></td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">c5_6</td>
-<td headers="Label" class="gt_row gt_left">When I have received false or misleading news, I have and made it clear that it is                          false.</td>
-<td headers="Estimation" class="gt_row gt_left">Raw data</td>
-<td headers="Mean" class="gt_row gt_right">1.37</td>
-<td headers="SD" class="gt_row gt_right">0.77</td>
-<td headers="N_Missing" class="gt_row gt_right">76</td>
-<td headers="Complete_rate" class="gt_row gt_right">93.67%</td>
-<td headers="Hist" class="gt_row gt_left">▇▂▁▁▁</td>
-<td headers="Cronbach" class="gt_row gt_center"><br></td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">c5_7</td>
-<td headers="Label" class="gt_row gt_left">I have criticised someone for spreading false or misleading information.</td>
-<td headers="Estimation" class="gt_row gt_left">Raw data</td>
-<td headers="Mean" class="gt_row gt_right">1.35</td>
-<td headers="SD" class="gt_row gt_right">0.75</td>
-<td headers="N_Missing" class="gt_row gt_right">77</td>
-<td headers="Complete_rate" class="gt_row gt_right">93.58%</td>
-<td headers="Hist" class="gt_row gt_left">▇▁▁▁▁</td>
-<td headers="Cronbach" class="gt_row gt_center"><br></td>
-<td headers="C.I. [2.5%;97.5%]" class="gt_row gt_center"><br></td></tr>
   </tbody>
   
   
@@ -850,15 +810,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"extreme"</span>,<span class="st">"c5"</span>)),</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> raw_2023 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"i_"</span>,<span class="st">"extreme"</span>)),c5_1,c5_2,c5_3,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">gender=</span>a1,<span class="at">age=</span>a2,<span class="at">ses=</span>nse)<span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">gender=</span><span class="fu">ifelse</span>(gender<span class="sc">==</span><span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>))<span class="sc">%&gt;%</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate_all</span>(as.numeric)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>corr_matrix<span class="ot">&lt;-</span><span class="fu">cor</span>(model_data<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(extreme_politization,gender,age,ses))<span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>corr_matrix<span class="ot">&lt;-</span><span class="fu">cor</span>(model_data<span class="sc">%&gt;%</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">drop_na</span>())</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>testRes <span class="ot">=</span> <span class="fu">cor.mtest</span>(model_data<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(extreme_politization,gender,age,ses))<span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>testRes <span class="ot">=</span> <span class="fu">cor.mtest</span>(model_data<span class="sc">%&gt;%</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">drop_na</span>(), <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -884,44 +844,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Hargittai's Digital literacy index (total)"</span>,</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Zarouali's Algorithmic awareness index"</span>,</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Extreme politization [Categorical]"</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have criticised someone for spreading false or misleading information."</span>,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"When I have received false or misleading news, I have and made it clear that it is false."</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have blocked or unfollowed people because they they post false information"</span>,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have believed news that later turned out to be false or misleading"</span>,</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have seen or read false or misleading news"</span>,</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Gender (Women=1)"</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Age"</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Socioeconomical Status"</span>)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(model_data, <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="at">corr.method =</span> <span class="st">"pearson"</span>, <span class="at">title =</span> <span class="st">"Title of Table"</span>, <span class="at">show.p =</span> <span class="cn">TRUE</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have seen or read false or misleading news"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have believed news that later turned out to be false or misleading"</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"I have shared information that subsequently turned out to be false or misleading"</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Gender (Women=1)"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Age"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Socioeconomical Status"</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(model_data, <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="at">corr.method =</span> <span class="st">"pearson"</span>, <span class="at">title =</span> <span class="st">"Title of Table"</span>, <span class="at">show.p =</span> <span class="cn">TRUE</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Title of Table</caption>
 <colgroup>
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -939,20 +893,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 (total)</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Zarouali's Algorithmic awareness index</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Extreme politization [Categorical]</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have seen or read false or misleading<br>
+news</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have believed news that later turned<br>
+out to be false or misleading</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have shared information that<br>
 subsequently turned out to be false or<br>
 misleading</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have criticised someone for spreading<br>
-false or misleading information.</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">When I have received false or misleading<br>
-news, I have and made it clear that it<br>
-is false.</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have blocked or unfollowed people<br>
-because they they post false information</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have believed news that later turned<br>
-out to be false or misleading</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">I have seen or read false or misleading<br>
-news</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Gender (Women=1)</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Age</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Socioeconomical Status</td>
@@ -973,9 +920,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.42<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -995,9 +939,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1019,9 +960,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.65<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.44<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1042,9 +980,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.23<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.46<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1065,9 +1000,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.14<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.48<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.39<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1089,9 +1021,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.23<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.51<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1111,9 +1040,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.72<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1135,9 +1061,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">0.01<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.25<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1159,9 +1082,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.70<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.50<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1181,9 +1101,6 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.11<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.58<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1205,17 +1122,13 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.10<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.24<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 </tr>
 <tr class="odd">
-<td style="font-style: italic">I have shared information that<br>
-subsequently turned out to be false or<br>
-misleading</td>
+<td style="font-style: italic">I have seen or read false or misleading<br>
+news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1230,16 +1143,13 @@ misleading</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">0.89<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.83<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.84<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 </tr>
 <tr class="even">
-<td style="font-style: italic">I have criticised someone for spreading<br>
-false or misleading information.</td>
+<td style="font-style: italic">I have believed news that later turned<br>
+out to be false or misleading</td>
 <td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.20<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.22<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1254,17 +1164,14 @@ false or misleading information.</td>
 <td style="text-align: center; padding: 0.2cm;">0.89<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 </tr>
 <tr class="odd">
-<td style="font-style: italic">When I have received false or misleading<br>
-news, I have and made it clear that it<br>
-is false.</td>
+<td style="font-style: italic">I have shared information that<br>
+subsequently turned out to be false or<br>
+misleading</td>
 <td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1279,86 +1186,11 @@ is false.</td>
 <td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.06<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
 </tr>
 <tr class="even">
-<td style="font-style: italic">I have blocked or unfollowed people<br>
-because they they post false information</td>
-<td style="text-align: center; padding: 0.2cm;">-0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.11<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.83<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
-</tr>
-<tr class="odd">
-<td style="font-style: italic">I have believed news that later turned<br>
-out to be false or misleading</td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.15<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.84<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.87<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">0.96<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.08<span style="vertical-align:super;font-size:0.8em;">**</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
-</tr>
-<tr class="even">
-<td style="font-style: italic">I have seen or read false or misleading<br>
-news</td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.21<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.16<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.13<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.05<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">0.85<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.88<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.86<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.96<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
-</tr>
-<tr class="odd">
 <td style="font-style: italic">Gender (Women=1)</td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.02<span style="vertical-align:super;font-size:0.8em;"></span></td>
@@ -1374,14 +1206,11 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.09<span style="vertical-align:super;font-size:0.8em;">**</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.06<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.08<span style="vertical-align:super;font-size:0.8em;">**</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.12<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="font-style: italic">Age</td>
 <td style="text-align: center; padding: 0.2cm;">-0.60<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.66<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1397,14 +1226,11 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.19<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.17<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.18<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">-0.28<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="font-style: italic">Socioeconomical Status</td>
 <td style="text-align: center; padding: 0.2cm;">0.42<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">0.47<span style="vertical-align:super;font-size:0.8em;">***</span></td>
@@ -1420,15 +1246,12 @@ news</td>
 <td style="text-align: center; padding: 0.2cm;">-0.06<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.07<span style="vertical-align:super;font-size:0.8em;">*</span></td>
 <td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.03<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.04<span style="vertical-align:super;font-size:0.8em;"></span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.12<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">-0.28<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
-<tr class="even">
-<td colspan="21" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used pearson-method with listwise-deletion.</td>
+<tr class="odd">
+<td colspan="18" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used pearson-method with listwise-deletion.</td>
 </tr>
 </tbody>
 </table>
@@ -1443,7 +1266,7 @@ news</td>
 <p>By correlation heatmap it seen there are not major differences between sub-indexs of digital skills and digital literacy, so for the models only total index’s are selected as predictors. Also, dependent variables f5_2 was eliminated because the little size effects the other predictors have with it.</p>
 <p>In the next dashboard you can explore three index’s. The first only have Algorithmic awareness as an importante predictor, the second only digital literacy (Hargittai scale), and the third one have all index’s presented as aggregated ones.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Algorithmic awareness + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Digital literacy + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Great model</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Algorithmic awareness + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Digital literacy + control</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Digital skills + control</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
@@ -1452,59 +1275,39 @@ news</td>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>c5_1_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>c5_2_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>c5_3_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>c5_4_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>c5_6_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>c5_7_a<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_algorithmic_awareness <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a, </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_a, c5_2_a,c5_3_a, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have seen or read false<br>
+or misleading news</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have believed news that<br>
+later turned out to be<br>
+false or misleading</td>
 <td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have shared information<br>
 that subsequently turned<br>
 out to be false or<br>
 misleading</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have criticised someone<br>
-for spreading false or<br>
-misleading information</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">When I have received<br>
-false or misleading<br>
-news,I have and made it<br>
-clear that it is false</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have blocked or<br>
-unfollowed people because<br>
-they they post false<br>
-information</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have believed news that<br>
-later turned out to be<br>
-false or misleading</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have seen or read false<br>
-or misleading news</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center;">Estimates</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
@@ -1514,12 +1317,6 @@ or misleading news</td>
 (3.43)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.82 <sup></sup><br>
 (3.60)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.00 <sup></sup><br>
-(3.59)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.93 <sup></sup><br>
-(3.61)</td>
-<td style="text-align: center;">-0.31 <sup></sup><br>
-(3.63)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Zarouali's Algorithmic<br>
@@ -1530,12 +1327,6 @@ awareness index</td>
 (0.56)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.03 <sup></sup><br>
 (0.59)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.78 <sup></sup><br>
-(0.58)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.98 <sup></sup><br>
-(0.59)</td>
-<td style="text-align: center;">-1.00 <sup></sup><br>
-(0.59)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Age</td>
@@ -1544,12 +1335,6 @@ awareness index</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.21 <sup>***</sup><br>
 (0.04)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.23 <sup>***</sup><br>
-(0.04)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.23 <sup>***</sup><br>
-(0.04)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.24 <sup>***</sup><br>
-(0.04)</td>
-<td style="text-align: center;">0.23 <sup>***</sup><br>
 (0.04)</td>
 </tr>
 <tr class="even">
@@ -1560,12 +1345,6 @@ awareness index</td>
 (1.30)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.89 <sup>*</sup><br>
 (1.36)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.20 <sup>*</sup><br>
-(1.36)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.88 <sup>**</sup><br>
-(1.37)</td>
-<td style="text-align: center;">-3.79 <sup>**</sup><br>
-(1.37)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomical Status</td>
@@ -1575,24 +1354,15 @@ awareness index</td>
 (0.60)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.60 <sup></sup><br>
 (0.63)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.48 <sup></sup><br>
-(0.63)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.35 <sup></sup><br>
-(0.63)</td>
-<td style="text-align: center;">0.23 <sup></sup><br>
-(0.63)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.058 / 0.055</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.062 / 0.059</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.050 / 0.047</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.048 / 0.045</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.054 / 0.051</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.053 / 0.050</td>
 </tr>
 <tr class="odd">
-<td colspan="7" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
 </tr>
 </tbody>
 </table>
@@ -1608,59 +1378,39 @@ awareness index</td>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>c5_1_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>c5_2_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>c5_3_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>c5_4_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>c5_6_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>c5_7_b<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_b, c5_2_b,c5_3_b,c5_4_b,c5_6_b,c5_7_b, </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_b, c5_2_b,c5_3_b, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have seen or read false<br>
+or misleading news</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have believed news that<br>
+later turned out to be<br>
+false or misleading</td>
 <td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have shared information<br>
 that subsequently turned<br>
 out to be false or<br>
 misleading</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have criticised someone<br>
-for spreading false or<br>
-misleading information</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">When I have received<br>
-false or misleading<br>
-news,I have and made it<br>
-clear that it is false</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have blocked or<br>
-unfollowed people because<br>
-they they post false<br>
-information</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have believed news that<br>
-later turned out to be<br>
-false or misleading</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have seen or read false<br>
-or misleading news</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center;">Estimates</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
@@ -1670,12 +1420,6 @@ or misleading news</td>
 (3.87)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.25 <sup></sup><br>
 (4.08)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.03 <sup></sup><br>
-(4.07)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.55 <sup></sup><br>
-(4.04)</td>
-<td style="text-align: center;">2.69 <sup></sup><br>
-(4.07)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Hargittai's Digital<br>
@@ -1686,12 +1430,6 @@ literacy index(total)</td>
 (0.70)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.96 <sup>**</sup><br>
 (0.74)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.00 <sup>**</sup><br>
-(0.74)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.43 <sup></sup><br>
-(0.73)</td>
-<td style="text-align: center;">-1.59 <sup>*</sup><br>
-(0.74)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Age</td>
@@ -1700,12 +1438,6 @@ literacy index(total)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.13 <sup>**</sup><br>
 (0.05)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.15 <sup>**</sup><br>
-(0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.15 <sup>**</sup><br>
-(0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.19 <sup>***</sup><br>
-(0.05)</td>
-<td style="text-align: center;">0.17 <sup>***</sup><br>
 (0.05)</td>
 </tr>
 <tr class="even">
@@ -1716,12 +1448,6 @@ literacy index(total)</td>
 (1.26)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.93 <sup>*</sup><br>
 (1.32)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.26 <sup>*</sup><br>
-(1.32)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.85 <sup>**</sup><br>
-(1.31)</td>
-<td style="text-align: center;">-3.76 <sup>**</sup><br>
-(1.32)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomical Status</td>
@@ -1731,24 +1457,15 @@ literacy index(total)</td>
 (0.60)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.96 <sup></sup><br>
 (0.63)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.96 <sup></sup><br>
-(0.63)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.68 <sup></sup><br>
-(0.62)</td>
-<td style="text-align: center;">0.61 <sup></sup><br>
-(0.63)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.057 / 0.054</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.061 / 0.058</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.048 / 0.044</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.048 / 0.044</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.051 / 0.048</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.050 / 0.047</td>
 </tr>
 <tr class="odd">
-<td colspan="7" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
 </tr>
 </tbody>
 </table>
@@ -1761,209 +1478,97 @@ literacy index(total)</td>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>c5_1_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>c5_2_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>c5_3_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>c5_4_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_4 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>c5_6_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_6 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>c5_7_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_7 <span class="sc">~</span> i_digital_literacy <span class="sc">+</span> i_digital_skills <span class="sc">+</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>             i_algorithmic_awareness <span class="sc">+</span> i_tech_self_efficacy <span class="sc">+</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c, </span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>c5_1_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_digital_skills <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>c5_2_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_digital_skills <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>c5_3_c<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span>  i_digital_skills <span class="sc">+</span> age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_c, c5_2_c,c5_3_c, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">FALSE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have seen or read false<br>
+or misleading news</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have believed news that<br>
+later turned out to be<br>
+false or misleading</td>
 <td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have shared information<br>
 that subsequently turned<br>
 out to be false or<br>
 misleading</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have criticised someone<br>
-for spreading false or<br>
-misleading information</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">When I have received<br>
-false or misleading<br>
-news,I have and made it<br>
-clear that it is false</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have blocked or<br>
-unfollowed people because<br>
-they they post false<br>
-information</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have believed news that<br>
-later turned out to be<br>
-false or misleading</td>
-<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have seen or read false<br>
-or misleading news</td>
 </tr>
 <tr class="even">
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
 <td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
-<td style="text-align: center;">Estimates</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">12.69 <sup>**</sup><br>
-(4.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">12.07 <sup>**</sup><br>
-(4.06)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9.32 <sup>*</sup><br>
-(4.27)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9.43 <sup>*</sup><br>
-(4.26)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">6.16 <sup></sup><br>
-(4.23)</td>
-<td style="text-align: center;">7.40 <sup></sup><br>
-(4.27)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">11.04 <sup>**</sup><br>
+(3.62)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">9.26 <sup>*</sup><br>
+(3.63)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">7.50 <sup>*</sup><br>
+(3.81)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Hargittai's Digital<br>
-literacy index(total)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.48 <sup></sup><br>
-(0.87)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup></sup><br>
-(0.88)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.61 <sup></sup><br>
-(0.93)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.36 <sup></sup><br>
-(0.92)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.05 <sup></sup><br>
-(0.92)</td>
-<td style="text-align: center;">0.88 <sup></sup><br>
-(0.93)</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Van Deursen's Digital<br>
 skills index(total)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.62 <sup>***</sup><br>
-(0.16)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.54 <sup>**</sup><br>
-(0.17)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.60 <sup>***</sup><br>
-(0.17)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.65 <sup>***</sup><br>
-(0.17)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.62 <sup>***</sup><br>
-(0.17)</td>
-<td style="text-align: center;">-0.63 <sup>***</sup><br>
-(0.17)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Zarouali's Algorithmic<br>
-awareness index</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.15 <sup></sup><br>
-(0.60)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
-(0.61)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.38 <sup></sup><br>
-(0.64)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.74 <sup></sup><br>
-(0.64)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.21 <sup></sup><br>
-(0.64)</td>
-<td style="text-align: center;">0.28 <sup></sup><br>
-(0.64)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.78 <sup>***</sup><br>
+(0.13)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.75 <sup>***</sup><br>
+(0.13)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.76 <sup>***</sup><br>
+(0.14)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Self-efficacy index</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.84 <sup></sup><br>
-(1.19)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.86 <sup></sup><br>
-(1.20)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.35 <sup></sup><br>
-(1.27)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.95 <sup></sup><br>
-(1.26)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.33 <sup></sup><br>
-(1.26)</td>
-<td style="text-align: center;">-1.41 <sup></sup><br>
-(1.27)</td>
-</tr>
-<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Age</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.03 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.07 <sup></sup><br>
 (0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.09 <sup></sup><br>
 (0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.06 <sup></sup><br>
-(0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
-(0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.10 <sup></sup><br>
-(0.05)</td>
-<td style="text-align: center;">0.08 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.09 <sup></sup><br>
 (0.05)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Gender(Women=1)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.52 <sup>**</sup><br>
-(1.18)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.03 <sup>*</sup><br>
-(1.20)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.09 <sup></sup><br>
-(1.26)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.37 <sup></sup><br>
-(1.26)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.08 <sup>*</sup><br>
-(1.25)</td>
-<td style="text-align: center;">-2.97 <sup>*</sup><br>
-(1.26)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomical Status</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.01 <sup></sup><br>
-(0.58)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.06 <sup></sup><br>
-(0.59)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.47 <sup>*</sup><br>
-(0.62)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.42 <sup>*</sup><br>
-(0.61)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.15 <sup></sup><br>
-(0.61)</td>
-<td style="text-align: center;">1.08 <sup></sup><br>
-(0.62)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.73 <sup>**</sup><br>
+(1.28)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.37 <sup>**</sup><br>
+(1.28)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.39 <sup></sup><br>
+(1.35)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.067 / 0.062</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.068 / 0.063</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.057 / 0.051</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.057 / 0.052</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.058 / 0.052</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.057 / 0.051</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomical Status</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.26 <sup>*</sup><br>
+(0.61)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.20 <sup></sup><br>
+(0.61)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.76 <sup>**</sup><br>
+(0.64)</td>
 </tr>
 <tr class="even">
-<td colspan="7" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.081 / 0.078</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.081 / 0.078</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">0.070 / 0.067</td>
+</tr>
+<tr class="odd">
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
 </tr>
 </tbody>
 </table>
@@ -1974,14 +1579,218 @@ awareness index</td>
 </div>
 </div>
 </div>
-<p>Tables says algorithmic awareness and digital literacy have a negative effect to all the dependent variables for separated. But when Digital Skills enter as a control, the last two index mentioned start to have a positive effect. Also, the effects of algorithmic awareness are small.</p>
+<p>Tables says algorithmic awareness, digital literacy and digital skills have a negative effect to all the dependent variables for separated, what is counter-intuitive on first time. Probably, being a skilled and knowledgeable user of digital technologies and the internet is not a buffer against the false or misleading news that are circulating on the web.</p>
+<section id="social-media-frequency-use-model" class="level3">
+<h3 class="anchored" data-anchor-id="social-media-frequency-use-model">Social media frequency use model</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>social_media_data<span class="ot">&lt;-</span>raw_2023<span class="sc">%&gt;%</span>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">Facebook=</span>b12_2,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">Twitter=</span>b12_3,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">Instagram=</span>b12_4,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">Whatsapp=</span>b12_5,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">TikTok=</span>b12_6)<span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">ifelse</span>(.<span class="sc">==</span><span class="dv">99</span>,<span class="dv">1</span>,.)) <span class="co">#Missing values as non frequent users</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                         </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(model_data,social_media_data) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">mutate</span>(<span class="at">extreme_politization=</span>dplyr<span class="sc">::</span><span class="fu">recode</span>(extreme_politization,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"_Non-scaled"</span><span class="ot">=</span><span class="dv">0</span>,<span class="st">"Centered"</span><span class="ot">=</span><span class="dv">1</span>,<span class="st">"Extreme wing"</span><span class="ot">=</span><span class="dv">2</span>),</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">extreme_politization=</span><span class="fu">as.factor</span>(extreme_politization))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>c5_1_d<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_1 <span class="sc">~</span> i_operational_skills <span class="sc">+</span> i_social_skills <span class="sc">+</span> i_algorithmic_awareness <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>             extreme_politization <span class="sc">+</span> Facebook <span class="sc">+</span> Twitter <span class="sc">+</span> Instagram <span class="sc">+</span> Whatsapp <span class="sc">+</span> </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>c5_2_d<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_2 <span class="sc">~</span> i_operational_skills <span class="sc">+</span> i_social_skills <span class="sc">+</span> i_algorithmic_awareness <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>             extreme_politization <span class="sc">+</span> Facebook <span class="sc">+</span> Twitter <span class="sc">+</span> Instagram <span class="sc">+</span> Whatsapp <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>c5_3_d<span class="ot">&lt;-</span><span class="fu">lm</span>(c5_3 <span class="sc">~</span>  i_operational_skills <span class="sc">+</span> i_social_skills <span class="sc">+</span> i_algorithmic_awareness <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>             extreme_politization <span class="sc">+</span> Facebook <span class="sc">+</span> Twitter <span class="sc">+</span> Instagram <span class="sc">+</span> Whatsapp <span class="sc">+</span> </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>             age <span class="sc">+</span> gender <span class="sc">+</span> ses, <span class="at">data =</span> model_data)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(c5_1_d, c5_2_d,c5_3_d, </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.ci =</span> <span class="cn">FALSE</span>, <span class="at">auto.label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">p.style =</span> <span class="st">"stars"</span>,<span class="at">collapse.se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.re.var =</span> <span class="cn">FALSE</span>,<span class="at">show.icc =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.obs =</span> <span class="cn">TRUE</span>,<span class="at">show.ngroups =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have seen or read false<br>
+or misleading news</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have believed news that<br>
+later turned out to be<br>
+false or misleading</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">I have shared information<br>
+that subsequently turned<br>
+out to be false or<br>
+misleading</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercept)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">18.90 <sup>***</sup><br>
+(4.04)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">20.24 <sup>***</sup><br>
+(3.99)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">15.22 <sup>***</sup><br>
+(4.47)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Operational skills<br>
+index[Van Deuersen]</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.13 <sup></sup><br>
+(0.32)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup></sup><br>
+(0.32)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.09 <sup></sup><br>
+(0.36)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Social skills index[Van<br>
+Deuersen]</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.27 <sup>***</sup><br>
+(0.31)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.90 <sup>**</sup><br>
+(0.31)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.27 <sup>***</sup><br>
+(0.35)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Zarouali's Algorithmic<br>
+awareness index</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.31 <sup></sup><br>
+(0.47)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup></sup><br>
+(0.47)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.48 <sup></sup><br>
+(0.52)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">extreme politization:<br>
+extreme politization 1</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.41 <sup>*</sup><br>
+(1.17)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.36 <sup>*</sup><br>
+(1.16)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.97 <sup>**</sup><br>
+(1.29)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">extreme politization:<br>
+extreme politization 2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.70 <sup></sup><br>
+(1.66)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.48 <sup></sup><br>
+(1.64)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">2.88 <sup></sup><br>
+(1.83)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Facebook</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.49 <sup></sup><br>
+(0.42)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.13 <sup></sup><br>
+(0.42)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.33 <sup></sup><br>
+(0.47)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Twitter</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.31 <sup></sup><br>
+(0.56)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.32 <sup></sup><br>
+(0.55)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.44 <sup></sup><br>
+(0.62)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Instagram</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.59 <sup></sup><br>
+(0.44)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.61 <sup></sup><br>
+(0.43)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-1.00 <sup>*</sup><br>
+(0.48)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Whatsapp</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.45 <sup>***</sup><br>
+(0.67)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-3.11 <sup>***</sup><br>
+(0.66)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-2.37 <sup>**</sup><br>
+(0.74)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Age</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup></sup><br>
+(0.04)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
+(0.04)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
+(0.05)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Gender(Women=1)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.44 <sup></sup><br>
+(1.08)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup></sup><br>
+(1.06)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1.51 <sup></sup><br>
+(1.19)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomical Status</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.12 <sup></sup><br>
+(0.51)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.11 <sup></sup><br>
+(0.50)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.56 <sup></sup><br>
+(0.56)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">987</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">987</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">987</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.076 / 0.064</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.078 / 0.066</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.067 / 0.055</td>
+</tr>
+<tr class="even">
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
 </section>
 
 
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>On a scale of 1 to 3, where 1 means “Never” and 3 means “Frequently” How often do you feel the following?.</p>
+<li id="fn1"><p><strong>On a scale of 1 to 3, where 1 means “Never” and 3 means “Frequently” How often do you feel the following?</strong></p>
 <ol type="1">
 <li><p>You feel safe using the internet to find information.</p></li>
 <li><p>Feels confident about learning new skills on the internet.</p></li>
@@ -1989,31 +1798,43 @@ awareness index</td>
 <li><p>If I have problems using the internet, I think I could solve them all.</p></li>
 </ol>
 <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
-<li id="fn2"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
-<p>I know how to open a file on the computer</p>
-<p>I know how to create an account on a social network</p>
-<p>I know how to download/save a photo I found on the internet.</p>
-<p>I know how to use commands on the keyboard (e.g.&nbsp;ctrl+c to copy and ctrl+v to paste)</p>
-<p>I know how to open a new page in the browser</p>
-<p>I know how to bookmark a web page that interests me.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
-<p>I know how to connect to a wifi (wireless) network</p>
-<p>I know how to find a page I have visited before.</p>
-<p>I sometimes end up browsing websites without knowing how I got there.</p>
-<p>I find many websites confusing in the way they are designed</p>
-<p>I can decide what are the best terms to search for on the internet.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
-<p>I know what kind of information I can and cannot share on the internet.</p>
-<p>I know when I should and should not share information online.</p>
-<p>I take care that the comments and behaviours I engage in online are appropriate to the situation I am in online</p>
-<p>I take care to check if the information I find is up to date.</p>
-<p>I take care to check the trustworthiness of a website.</p>
-<p>I take care to check the information I find on one website against a different website.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Regarding your skills in handling new technologies, which of the following do you know how to do?</p>
-<p>I know how to create something new from videos/music and photos that already exist.</p>
-<p>I know how to make basic changes to content that others have created</p>
-<p>I know how to design a website (e.g., wordpress)<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>On a scale of 1 to 5 where 1 means “not at all” and 5 means “very much” How familiar are you with the following computer and internet related terms?</p>
+<li id="fn2"><p><strong>Regarding your skills in handling new technologies, which of the following do you know how to do?</strong></p>
+<ol type="1">
+<li><p>I know how to open a file on the computer</p></li>
+<li><p>I know how to create an account on a social network</p></li>
+<li><p>I know how to download/save a photo I found on the internet.</p></li>
+<li><p>I know how to use commands on the keyboard (e.g.&nbsp;ctrl+c to copy and ctrl+v to paste)</p></li>
+<li><p>I know how to open a new page in the browser</p></li>
+<li><p>I know how to bookmark a web page that interests me.</p></li>
+</ol>
+<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn3"><p><strong>Regarding your skills in handling new technologies, which of the following do you know how to do?</strong></p>
+<ol type="1">
+<li><p>I know how to connect to a wifi (wireless) network</p></li>
+<li><p>I know how to find a page I have visited before.</p></li>
+<li><p>I sometimes end up browsing websites without knowing how I got there.</p></li>
+<li><p>I find many websites confusing in the way they are designed</p></li>
+<li><p>I can decide what are the best terms to search for on the internet.</p></li>
+</ol>
+<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn4"><p><strong>Regarding your skills in handling new technologies, which of the following do you know how to do?</strong></p>
+<ol type="1">
+<li><p>I know what kind of information I can and cannot share on the internet.</p></li>
+<li><p>I know when I should and should not share information online.</p></li>
+<li><p>I take care that the comments and behaviours I engage in online are appropriate to the situation I am in online</p></li>
+<li><p>I take care to check if the information I find is up to date.</p></li>
+<li><p>I take care to check the trustworthiness of a website.</p></li>
+<li><p>I take care to check the information I find on one website against a different website.</p></li>
+</ol>
+<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn5"><p><strong>Regarding your skills in handling new technologies, which of the following do you know how to do?</strong></p>
+<ol type="1">
+<li><p>I know how to create something new from videos/music and photos that already exist.</p></li>
+<li><p>I know how to make basic changes to content that others have created</p></li>
+<li><p>I know how to design a website (e.g., wordpress)</p></li>
+</ol>
+<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn6"><p><strong>On a scale of 1 to 5 where 1 means “not at all” and 5 means “very much” How familiar are you with the following computer and internet related terms?</strong></p>
 <p>Advanced search [Algorithmic Literacy]</p>
 <p>PDF</p>
 <p>Wiki</p>
@@ -2033,12 +1854,15 @@ awareness index</td>
 <p>Hashtag [Social media Literacy]</p>
 <p>Gamer<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>To what extent are you aware of the following statements about the presence of algorithms on social media (Facebook, Instagram, TikTok, Twitter) and streaming platforms (Netflix, Disney+)?</p>
-<p>Algorithms are used to recommend me content (videos, photos, movies, series) on social networks and streaming platforms</p>
-<p>Algorithms are used to prioritise certain content (videos, photos, movies, series) over others on social networks and streaming platforms.</p>
-<p>The content (videos, photos, movies, series) that the algorithms recommend to me depends on my behaviour on social networks and streaming platforms.</p>
-<p>The content (videos, photos, movies, series) recommended to me by algorithms depends on the data I provide on social networks and streaming platforms.</p>
-<p>The use of my personal data in the algorithms has consequences for my online privacy.</p>
-<p>The content (videos, photos, movies, series) recommended by algorithms may be subject to human biases such as prejudice or stereotypes.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<ol type="1">
+<li><p>Algorithms are used to recommend me content (videos, photos, movies, series) on social networks and streaming platforms</p></li>
+<li><p>Algorithms are used to prioritise certain content (videos, photos, movies, series) over others on social networks and streaming platforms.</p></li>
+<li><p>The content (videos, photos, movies, series) that the algorithms recommend to me depends on my behaviour on social networks and streaming platforms.</p></li>
+<li><p>The content (videos, photos, movies, series) recommended to me by algorithms depends on the data I provide on social networks and streaming platforms.</p></li>
+<li><p>The use of my personal data in the algorithms has consequences for my online privacy.</p></li>
+<li><p>The content (videos, photos, movies, series) recommended by algorithms may be subject to human biases such as prejudice or stereotypes.</p></li>
+</ol>
+<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></li>
 </ol>
 </section></div></main>
 <!-- /main column -->

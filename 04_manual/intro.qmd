@@ -167,6 +167,6 @@ labelled_raw_2023_b %>% count(Comuna=comuna_urbano) |> gt() |>
   cols_label(Comuna="")
 labelled_raw_2023_a %>% count(Comuna=zona_rural) |> gt()|>
   cols_label(Comuna="")
-
-
 ```
+
+

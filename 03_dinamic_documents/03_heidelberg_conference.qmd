@@ -26,128 +26,125 @@ The next report contains a first exploration of the digital inclusion 2023 surve
     -   Social media literacy index
     -   Algorithmic literacy index
 -   Algorithmic awareness index (Zarouali)[^7]
--   Political polar position [Categorical]
+-   Political polar position \[Categorical\]
 
 [^1]: **On a scale of 1 to 3, where 1 means "Never" and 3 means "Frequently" How often do you feel the following?**
 
-    1. You feel safe using the internet to find information.
+    1.  You feel safe using the internet to find information.
 
-    2. Feels confident about learning new skills on the internet.
+    2.  Feels confident about learning new skills on the internet.
 
-    3. Feels confident in understanding terms related to the internet
+    3.  Feels confident in understanding terms related to the internet
 
-    4. If I have problems using the internet, I think I could solve them all.
-    
+    4.  If I have problems using the internet, I think I could solve them all.
+
 [^2]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
-    
-    1. I know how to open a file on the computer
-    
-    2. I know how to create an account on a social network
-    
-    3. I know how to download/save a photo I found on the internet.
-    
-    4. I know how to use commands on the keyboard (e.g. ctrl+c to copy and ctrl+v to paste)
-    
-    5. I know how to open a new page in the browser
-    
-    6. I know how to bookmark a web page that interests me.
+
+    1.  I know how to open a file on the computer
+
+    2.  I know how to create an account on a social network
+
+    3.  I know how to download/save a photo I found on the internet.
+
+    4.  I know how to use commands on the keyboard (e.g. ctrl+c to copy and ctrl+v to paste)
+
+    5.  I know how to open a new page in the browser
+
+    6.  I know how to bookmark a web page that interests me.
 
 [^3]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
-    
-    1. I know how to connect to a wifi (wireless) network
-    
-    2. I know how to find a page I have visited before.
-    
-    3. I sometimes end up browsing websites without knowing how I got there.
-    
-    4. I find many websites confusing in the way they are designed
-    
-    5. I can decide what are the best terms to search for on the internet.
-    
+
+    1.  I know how to connect to a wifi (wireless) network
+
+    2.  I know how to find a page I have visited before.
+
+    3.  I sometimes end up browsing websites without knowing how I got there.
+
+    4.  I find many websites confusing in the way they are designed
+
+    5.  I can decide what are the best terms to search for on the internet.
+
 [^4]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
 
-    1. I know what kind of information I can and cannot share on the internet.
-    
-    2. I know when I should and should not share information online.
-    
-    3. I take care that the comments and behaviours I engage in online are appropriate to the situation I am in online
-    
-    4. I take care to check if the information I find is up to date.
-    
-    5. I take care to check the trustworthiness of a website.
-    
-    6. I take care to check the information I find on one website against a different website.
-    
+    1.  I know what kind of information I can and cannot share on the internet.
+
+    2.  I know when I should and should not share information online.
+
+    3.  I take care that the comments and behaviours I engage in online are appropriate to the situation I am in online
+
+    4.  I take care to check if the information I find is up to date.
+
+    5.  I take care to check the trustworthiness of a website.
+
+    6.  I take care to check the information I find on one website against a different website.
+
 [^5]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
 
-    1. I know how to create something new from videos/music and photos that already exist.
-    
-    2. I know how to make basic changes to content that others have created
-    
-    3. I know how to design a website (e.g., wordpress)
-    
-[^6]:**On a scale of 1 to 5 where 1 means "not at all" and 5 means "very much" How familiar are you with the following computer and internet related terms?**
+    1.  I know how to create something new from videos/music and photos that already exist.
 
-    Advanced search [Algorithmic Literacy]
-    
+    2.  I know how to make basic changes to content that others have created
+
+    3.  I know how to design a website (e.g., wordpress)
+
+[^6]: **On a scale of 1 to 5 where 1 means "not at all" and 5 means "very much" How familiar are you with the following computer and internet related terms?**
+
+    Advanced search \[Algorithmic Literacy\]
+
     PDF
-    
+
     Wiki
-    
+
     Favourites
-    
+
     JPG
-    
+
     MP4
-    
+
     5G
-    
-    Influencer [Social media Literacy]
-    
-    Cache [Algorithmic Literacy]
-    
-    Cookie [Algorithmic Literacy]
-    
+
+    Influencer \[Social media Literacy\]
+
+    Cache \[Algorithmic Literacy\]
+
+    Cookie \[Algorithmic Literacy\]
+
     Phishing
-    
-    Tag [Social media Literacy]
-    
-    Followers [Social media Literacy]
-    
-    Privacy Settings [Algorithmic Literacy]
-    
-    Meme [Social media Literacy]
-    
-    Youtuber [Social media Literacy]
-    
-    Hashtag [Social media Literacy]
-    
+
+    Tag \[Social media Literacy\]
+
+    Followers \[Social media Literacy\]
+
+    Privacy Settings \[Algorithmic Literacy\]
+
+    Meme \[Social media Literacy\]
+
+    Youtuber \[Social media Literacy\]
+
+    Hashtag \[Social media Literacy\]
+
     Gamer
-    
+
 [^7]: To what extent are you aware of the following statements about the presence of algorithms on social media (Facebook, Instagram, TikTok, Twitter) and streaming platforms (Netflix, Disney+)?
 
-    1. Algorithms are used to recommend me content (videos, photos, movies, series) on social networks and streaming platforms
-    
-    2. Algorithms are used to prioritise certain content (videos, photos, movies, series) over others on social networks and streaming platforms.
-    
-    3. The content (videos, photos, movies, series) that the algorithms recommend to me depends on my behaviour on social networks and streaming platforms.
-    
-    4. The content (videos, photos, movies, series) recommended to me by algorithms depends on the data I provide on social networks and streaming platforms.
-    
-    5. The use of my personal data in the algorithms has consequences for my online privacy.
-    
-    6. The content (videos, photos, movies, series) recommended by algorithms may be subject to human biases such as prejudice or stereotypes.
+    1.  Algorithms are used to recommend me content (videos, photos, movies, series) on social networks and streaming platforms
+
+    2.  Algorithms are used to prioritise certain content (videos, photos, movies, series) over others on social networks and streaming platforms.
+
+    3.  The content (videos, photos, movies, series) that the algorithms recommend to me depends on my behaviour on social networks and streaming platforms.
+
+    4.  The content (videos, photos, movies, series) recommended to me by algorithms depends on the data I provide on social networks and streaming platforms.
+
+    5.  The use of my personal data in the algorithms has consequences for my online privacy.
+
+    6.  The content (videos, photos, movies, series) recommended by algorithms may be subject to human biases such as prejudice or stereotypes.
 
 The items to predict comes from the next question: *"When you surf the internet or use social media, how often have the following situations occurred to you?"*
 
 And the items are:
 
--   "I have shared information that subsequently turned out to be false or misleading"
--   "I have criticised someone for spreading false or misleading information"
--   "When I have received false or misleading news, I have and made it clear that it is false."
--   "I have blocked or unfollowed people because they they post false information"
--   "I have believed news that later turned out to be false or misleading"
 -   "I have seen or read false or misleading news"
+-   "I have believed news that later turned out to be false or misleading"
+-   "I have shared information that subsequently turned out to be false or misleading"
 
 # Data description
 
@@ -168,7 +165,8 @@ pacman::p_load(
   labelled, #col_labes
   corrplot, #Corrplot
   sjPlot, #Tab models
-  labelled #double manage
+  labelled, #double manage
+  sjmisc #to_label
   )
 
 raw_2023 <- read_sav("../01_input/01_raw_data/2023_survey_raw.sav") %>% clean_names()
@@ -301,16 +299,15 @@ val_labels(raw_2023$extreme_politization)<-c("Polarized"=2,"Centered"=1,"Non-sca
 # List of Cronbach's alphas
 
 Cronbach<-c(c2["alpha"],c3["alpha"],c3_1["alpha"],c3_2["alpha"],c3_3["alpha"],c3_4["alpha"],
-  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],NA,NA,NA,NA,NA,NA,NA)
+  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],NA,NA,NA,NA)
 
 ci<-c(c2["ci"],c3["ci"],c3_1["ci"],c3_2["ci"],c3_3["ci"],c3_4["ci"],
-            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],NA,NA,NA,NA,NA,NA,NA)
+            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],NA,NA,NA,NA)
 
 ```
 
-
 ```{r,results='asis'}
-raw_2023 %>% dplyr::select(starts_with(c("i_","extreme","c5"))) %>% 
+raw_2023 %>% dplyr::select(starts_with(c("i_","extreme")),c5_1,c5_2,c5_3) %>% 
   mutate_all(~ifelse(.==99,NA,.)) %>%
   skim() %>% as.data.frame()%>%
   mutate(Label= c("Self-efficacy index",
@@ -326,10 +323,7 @@ raw_2023 %>% dplyr::select(starts_with(c("i_","extreme","c5"))) %>%
                   "Political polarization [Categorical]",
                   "I have seen or read false or misleading news",
                   "I have believed news that later turned out to be false or misleading",
-                  "I have shared information that subsequently turned out to be false or misleading",
-                  "I have blocked or unfollowed people because they they post false information",
-                  "When I have received false or misleading news, I have and made it clear that it is                          false.",
-                  "I have criticised someone for spreading false or misleading information."),
+                  "I have shared information that subsequently turned out to be false or misleading"),
          Estimation=c("By means (1 - 3)",
                       "Sumative (0 - 6)",
                       "Sumative (0 - 5)",
@@ -341,9 +335,6 @@ raw_2023 %>% dplyr::select(starts_with(c("i_","extreme","c5"))) %>%
                       "By means (1 - 5)",
                       "By means (1 - 5)",
                       "Categorical recodification",
-                      "Raw data",
-                      "Raw data",
-                      "Raw data",
                       "Raw data",
                       "Raw data",
                       "Raw data"))%>%
@@ -374,19 +365,19 @@ All index's have strong positive correlation between them.
 *Political polar position was eliminated because the large missing cases it have.*
 
 ::: panel-tabset
-
 ### Visual summary
+
 ```{r, results='markup'}
 
-model_data <- raw_2023 %>% dplyr::select(starts_with(c("i_","extreme","c5")),
+model_data <- raw_2023 %>% dplyr::select(starts_with(c("i_","extreme")),c5_1,c5_2,c5_3,
                                          gender=a1,age=a2,ses=nse)%>%
               mutate(gender=ifelse(gender==2,1,0))%>%
               mutate_all(as.numeric)
 
-corr_matrix<-cor(model_data%>%dplyr::select(-c(extreme_politization,gender,age,ses))%>%
+corr_matrix<-cor(model_data%>%
                    drop_na())
 
-testRes = cor.mtest(model_data%>%dplyr::select(-c(extreme_politization,gender,age,ses))%>%
+testRes = cor.mtest(model_data%>%
                       drop_na(), conf.level = 0.95)
 
 
@@ -395,7 +386,8 @@ corrplot(corr_matrix, method = 'circle', type = 'lower',p.mat = testRes$p, insig
 
 ```
 
-### Table
+### Table {.scrollable}
+
 ```{r, results='markup'}
 var_label(model_data)<-c("Self-efficacy index",
                   "Operational skills index [Van Deuersen]",
@@ -408,12 +400,9 @@ var_label(model_data)<-c("Self-efficacy index",
                   "Hargittai's Digital literacy index (total)",
                   "Zarouali's Algorithmic awareness index",
                   "Extreme politization [Categorical]",
-                  "I have shared information that subsequently turned out to be false or misleading",
-                  "I have criticised someone for spreading false or misleading information.",
-                  "When I have received false or misleading news, I have and made it clear that it is false.",
-                  "I have blocked or unfollowed people because they they post false information",
-                  "I have believed news that later turned out to be false or misleading",
                   "I have seen or read false or misleading news",
+                  "I have believed news that later turned out to be false or misleading",
+                  "I have shared information that subsequently turned out to be false or misleading",
                      "Gender (Women=1)",
                      "Age",
                      "Socioeconomical Status")
@@ -437,11 +426,8 @@ In the next dashboard you can explore three index's. The first only have Algorit
 c5_1_a<-lm(c5_1 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
 c5_2_a<-lm(c5_2 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
 c5_3_a<-lm(c5_3 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_4_a<-lm(c5_4 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_6_a<-lm(c5_6 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_7_a<-lm(c5_7 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
 
-tab_model(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a, 
+tab_model(c5_1_a, c5_2_a,c5_3_a, 
           show.ci = FALSE, auto.label = TRUE,
           p.style = "stars",collapse.se = TRUE,
           show.re.var = FALSE,show.icc = FALSE,
@@ -454,40 +440,22 @@ tab_model(c5_1_a, c5_2_a,c5_3_a,c5_4_a,c5_6_a,c5_7_a,
 c5_1_b<-lm(c5_1 ~ i_digital_literacy + age + gender + ses, data = model_data)
 c5_2_b<-lm(c5_2 ~ i_digital_literacy + age + gender + ses, data = model_data)
 c5_3_b<-lm(c5_3 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_4_b<-lm(c5_4 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_6_b<-lm(c5_6 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_7_b<-lm(c5_7 ~ i_digital_literacy + age + gender + ses, data = model_data)
 
-tab_model(c5_1_b, c5_2_b,c5_3_b,c5_4_b,c5_6_b,c5_7_b, 
+tab_model(c5_1_b, c5_2_b,c5_3_b, 
           show.ci = FALSE, auto.label = TRUE,
           p.style = "stars",collapse.se = TRUE,
           show.re.var = FALSE,show.icc = FALSE,
           show.obs = FALSE,show.ngroups = FALSE)
 ```
 
-### Great model
+### Digital skills + control
 
 ```{r}
-c5_1_c<-lm(c5_1 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_2_c<-lm(c5_2 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_3_c<-lm(c5_3 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_4_c<-lm(c5_4 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_6_c<-lm(c5_6 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
-c5_7_c<-lm(c5_7 ~ i_digital_literacy + i_digital_skills +
-             i_algorithmic_awareness + i_tech_self_efficacy +
-             age + gender + ses, data = model_data)
+c5_1_c<-lm(c5_1 ~ i_digital_skills + age + gender + ses, data = model_data)
+c5_2_c<-lm(c5_2 ~ i_digital_skills + age + gender + ses, data = model_data)
+c5_3_c<-lm(c5_3 ~  i_digital_skills + age + gender + ses, data = model_data)
 
-tab_model(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c, 
+tab_model(c5_1_c, c5_2_c,c5_3_c, 
           show.ci = FALSE, auto.label = TRUE,
           p.style = "stars",collapse.se = TRUE,
           show.re.var = FALSE,show.icc = FALSE,
@@ -495,4 +463,39 @@ tab_model(c5_1_c, c5_2_c,c5_3_c,c5_4_c,c5_6_c,c5_7_c,
 ```
 :::
 
-Tables says algorithmic awareness and digital literacy have a negative effect to all the dependent variables for separated. But when Digital Skills enter as a control, the last two index mentioned start to have a positive effect. Also, the effects of algorithmic awareness are small.
+Tables says algorithmic awareness, digital literacy and digital skills have a negative effect to all the dependent variables for separated, what is counter-intuitive on first time. Probably, being a skilled and knowledgeable user of digital technologies and the internet is not a buffer against the false or misleading news that are circulating on the web.
+
+### Social media frequency use model
+
+```{r}
+
+social_media_data<-raw_2023%>%dplyr::select(Facebook=b12_2,
+                                            Twitter=b12_3,
+                                            Instagram=b12_4,
+                                            Whatsapp=b12_5,
+                                            TikTok=b12_6)%>%
+                    mutate_all(~ifelse(.==99,1,.)) #Missing values as non frequent users
+                         
+model_data <- cbind(model_data,social_media_data) %>%
+              mutate(extreme_politization=dplyr::recode(extreme_politization,
+                "_Non-scaled"=0,"Centered"=1,"Extreme wing"=2),
+                extreme_politization=as.factor(extreme_politization))
+
+c5_1_d<-lm(c5_1 ~ i_operational_skills + i_social_skills + i_algorithmic_awareness +
+             extreme_politization + Facebook + Twitter + Instagram + Whatsapp + TikTok +
+             age + gender + ses, data = model_data)
+c5_2_d<-lm(c5_2 ~ i_operational_skills + i_social_skills + i_algorithmic_awareness +
+             extreme_politization + Facebook + Twitter + Instagram + Whatsapp + TikTok +
+             age + gender + ses, data = model_data)
+c5_3_d<-lm(c5_3 ~  i_operational_skills + i_social_skills + i_algorithmic_awareness +
+             extreme_politization + Facebook + Twitter + Instagram + Whatsapp + TikTok +
+             age + gender + ses, data = model_data)
+
+tab_model(c5_1_d, c5_2_d,c5_3_d, 
+          show.ci = FALSE, auto.label = TRUE,
+          p.style = "stars",collapse.se = TRUE,
+          show.re.var = FALSE,show.icc = FALSE,
+          show.obs = TRUE,show.ngroups = FALSE)
+```
+
+
