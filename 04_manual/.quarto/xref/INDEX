@@ -10,5 +10,11 @@
   },
   "references.qmd": {
     "references.html": "bb0819dc"
+  },
+  "ficha.qmd": {
+    "ficha.html": "d5635df0"
+  },
+  "variables.qmd": {
+    "variables.html": "9db49ca3"
   }
 }

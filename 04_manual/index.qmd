@@ -1,14 +1,15 @@
 # Presentación {.unnumbered}
 
-El año 2023 se conforma el [Núcleo Milenio Desigualdades y Oportunidades Digitales](https://www.nudos.cl){target="_blank"}[^1], una asociación de académicos y académicas provenientes de Chile que buscan investigar el impacto de los procesos de digitalización en la sociedad. NUDOS tiene tres líneas de trabajo: Una línea comunicativa, una línea política y una línea social. Esta última se encarga de examinar brechas y asimetrías de acceso y uso de las tecnologías digitales en la población. El proyecto presentado a continuación se enmarca en esta línea social.
+El año 2023 se conforma el [Núcleo Milenio Desigualdades y Oportunidades Digitales](https://www.nudos.cl){target="_blank"}[^index-1], una asociación de académicos y académicas provenientes de Chile que buscan investigar el impacto de los procesos de digitalización en la sociedad. NUDOS tiene tres líneas de trabajo: Una línea comunicativa, una línea política y una línea social. Esta última se encarga de examinar brechas y asimetrías de acceso y uso de las tecnologías digitales en la población. El proyecto presentado a continuación se enmarca en esta línea social.
 
-La <<Encuesta de Inclusión Digital Chile 2023>> tiene como objetivo conocer la familiaridad que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información. Para esto, se propone medir el nivel de acceso, consciencia y uso de elementos relacionados con el internet y el espacio digital.
+[^index-1]: En adelante, NUDOS.
 
-La encuesta fue diseñada y dirigida por Teresa Correa[^2] e implementada por la empresa consultora Feedback Research durante agosto y septiembre de 2023. El libro fue creado con Quarto Markdown, a través de un código abierto y reproducible que se encuentra en el [repositorio Github de NUDOS](https://github.com/milenio-nudos/2023_digital_inclusion){target="_blank"}.
+La \<\<Encuesta de Inclusión Digital Chile 2023\>\> tiene como objetivo conocer la familiaridad que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información. Para esto, se propone medir el nivel de acceso, consciencia y uso de elementos relacionados con el internet y el espacio digital.
 
-[^1]: En adelante, NUDOS.
-[^2]: Investigadora Subalterna de NUDOS.
+La encuesta fue diseñada y dirigida por Teresa Correa[^index-2] e implementada por la empresa consultora Feedback Research durante agosto y septiembre de 2023. El libro fue creado con Quarto Markdown, a través de un código abierto y reproducible que se encuentra en el [repositorio Github de NUDOS](https://github.com/milenio-nudos/2023_digital_inclusion){target="_blank"}.
 
-:::{.column-body}
+[^index-2]: Directora Subalterna de NUDOS.
+
+::: column-body
 ![](images/portada.jpg)
 :::

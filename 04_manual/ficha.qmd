@@ -1,13 +1,13 @@
-# Ficha Técnica {.unnumbered}
+# Ficha Técnica
 
-La Estudio de inclusión Digital 2023 es una investigación cuantitativa que se enmarca en el desarrollo de la línea social de NUDOS. Tiene como objetivo conocer los niveles de acceso, uso y consciencia que tienen los habitantes de ciertas comunas rurales y urbanas sobre las tecnologías computacionales y de información asociadas al internet y los espacios digitales. 
+La Estudio de inclusión Digital 2023 es una investigación cuantitativa que se enmarca en el desarrollo de la línea social de NUDOS. Tiene como objetivo conocer los niveles de acceso, uso y consciencia que tienen los habitantes de ciertas comunas rurales y urbanas sobre las tecnologías computacionales y de información asociadas al internet y los espacios digitales.
 
 En el siguiente apartado se presentan los detalles metodológicos respecto al diseño y la implementación del estudio en cuestión.
 
 ## Diseño {.unnumbered}
 
-
 ### Diseño muestral {.unnumbered}
+
 ```{r}
 library(haven)
 library(sjmisc)
@@ -22,9 +22,9 @@ labelled_raw_2023_b <-raw_2023 %>% drop_na(comuna_urbano) %>% to_label()
 
 ```
 
-Se utilizó un diseño muestral probabilístico por áreas coumunales, aunque no proporcional a nivel regional. En ese sentido, el universo representado son hombres y mujeres mayores de 14 años que son residentes permanentes en las comunas que fueron seleccionadas[^2]. La muestra cuenta con mecanismos de selección diferenciados para localidades rurales y urbanas. Para el caso rural, los hogares fueron seleccionados según criterios de ruta aleatoria simple. Para el caso urbano, se establecieron conglomerados por manzana, y luego se hizo una ruta de selección sistemática de los hogares con individuos entrevistados.
+Se utilizó un diseño muestral probabilístico por áreas coumunales, aunque no proporcional a nivel regional. En ese sentido, el universo representado son hombres y mujeres mayores de 14 años que son residentes permanentes en las comunas que fueron seleccionadas[^ficha-1]. La muestra cuenta con mecanismos de selección diferenciados para localidades rurales y urbanas. Para el caso rural, los hogares fueron seleccionados según criterios de ruta aleatoria simple. Para el caso urbano, se establecieron conglomerados por manzana, y luego se hizo una ruta de selección sistemática de los hogares con individuos entrevistados.
 
-[^2]: Las comunas urbanas seleccionadas son: `r unique(labelled_raw_2023_b$comuna_urbano)`. Y las comunas rurales seleccionadas son `r unique(labelled_raw_2023_a$zona_rural)`.
+[^ficha-1]: Las comunas urbanas seleccionadas son: `r unique(labelled_raw_2023_b$comuna_urbano)`. Y las comunas rurales seleccionadas son `r unique(labelled_raw_2023_a$zona_rural)`.
 
 El error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza. En cada hogar se entrevistó a un solo individuo.
 
@@ -35,35 +35,40 @@ El instrumento de medición corresponde a un cuestionario digital aplicado cara 
 -   **Módulo A:** *Caracterización del hogar.*
 
 -   **Módulo B:** *Acceso y uso de internet.*
+
     -   Uso de dispositivos personales y del hogar.
     -   Adopción de internet en el hogar.
     -   Sistemas de conexión del hogar.
     -   Acceso personal a internet.
     -   Uso de redes sociales.
-    
+
 -   **Módulo C:** *Habilidades digitales*
+
     -   Autoeficacia e inseguridad con las tecnologías.
     -   Habilidades digitales operacionales.
     -   Habilidades digitales de navegación.
     -   Habilidades digitales sociales.
     -   Habilidades digitales creativas.
     -   Alfabetización digital.
-    
+
 -   **Módulo D:** *Consciencia Algorítmica*
+
     -   Alfabetización algorítmica.
     -   Filtración de contenidos.
     -   Interpelación humana.
     -   Consideraciones éticas.
-    
+
 -   **Módulo E:** *Actividades digitales.*
+
     -   Redes de apoyo digital
     -   Adquirir información en internet.
     -   Comunicación a través de internet.
     -   Recreación en internet.
     -   Comercio electrónico y emprendimiento online.
     -   Trámites digitales.
-    
+
 -   **Módulo F:** *Caracterización personal.*
+
     -   Distancia social.
     -   Personalidad innovadora.
     -   Sentimientos sobre internet.
@@ -71,18 +76,18 @@ El instrumento de medición corresponde a un cuestionario digital aplicado cara 
     -   Autoeficacia política.
     -   Capital social.
     -   Características de la localidad.
-    
+
 -   **Módulo G:** *Caracterización sociodemográfica*
+
     -   Ingresos.
     -   Ocupación.
     -   Nivel educacional.
 
-
 El usuario puede descargar el cuestionaro haciendo click en el botón a continuación:
 
-<div style="text-align: center;">
-  <a href="questionnaire.pdf" download class="button">Descargar Cuestionario</a>
-</div>
+::: {style="text-align: center;"}
+<a href="questionnaire.pdf" download class="button">Descargar Cuestionario</a>
+:::
 
 ## Implementación {.unnumbered}
 
@@ -148,8 +153,7 @@ read_xlsx("../01_input/04_codebook/sample_imp.xlsx") |>
 
 ```
 
-
-## Muestra final {.unnumbered}
+## Muestra lograda {.unnumbered}
 
 La muestra final cuenta con `r nrow(raw_2023)` casos. De estos, `r raw_2023 |> filter(tipo_zona==1) |> nrow()` pertenecen a población de asentamientos urbanos y `r raw_2023 |> filter(tipo_zona==2) |> nrow()` pertenecen a habitantes de sectores rurales. En la @tbl-zone-sample el usuario puede encontrar las comunas de Chile que fueron visitadas, y el total de casos de la muestra pertenecientes a ellas.
 
@@ -279,3 +283,12 @@ table<-table %>% select(-variableb,-variablea)
 
 ```
 
+## Tabla resumen
+
+```{r}
+#| label: tbl-resume
+#| tbl-cap: Resumen Ficha Técnica
+read_xlsx("../01_input/04_codebook/resume_tecnique.xlsx") |>
+  
+  gt()
+```

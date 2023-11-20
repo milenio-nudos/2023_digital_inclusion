@@ -8,7 +8,8 @@ book:
   date: "Última actualización: `r Sys.Date()`"
   chapters:
     - index.qmd
-    - intro.qmd
+    - ficha.qmd
+    - variables.qmd
   language: es
   sharing: [twitter, facebook, linkedin]
   repo-url: https://github.com/milenio-nudos/2023_digital_inclusion

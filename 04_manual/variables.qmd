@@ -1,0 +1,141 @@
+---
+css: styles.css
+---
+
+# Procesamiento y variables
+
+En el siguiente módulo se detalla el libro de códigos de la base de datos, así como las frecuencias y procesamientos que recibe la base de datos final.
+
+
+## Libro de códigos
+
+Para un uso adecuado de la base de datos de la encuesta se recomienda a las y los investigadores trabajar con el libro de códigos confeccionado por NUDOS. 
+
+Con el fin de sintetizar toda la información relevante sobre las variables de la base de datos en un formato común que facilite su uso. De manera genérica, la @tbl-codebook que resume el sentido de la información que contiente la base de datos:
+
+-   La primera columna muestra el código identificador de la columna a la que está asociado cada ítem del cuestionario. El código identificador cuenta con una letra que indica el módulo al que pertenece el ítem, seguidos por números que indican el lugar que ocupa la pregunta en términos de orden de la pregunta. 
+
+-   La segunda columna muestra la dimensión de análisis que se está midiendo con el item. 
+
+-   La tercerca columna muestrael fraseo de la pregunta a la que pertenece el ítem en cuestión. En caso de ser una batería de preguntas, la cuarta columna muestra los ítems que contiene. 
+
+-   La última columna despliega las alternativas de respuesta que tiene el entrevistado para responder. En caso de estar vacía, **la pregunta tiene respuestas numéricas o abiertas**.
+
+```{r}
+#| label: tbl-codebook
+#| tbl-cap: Libro de códigos
+
+library(readxl)
+library(gt)
+library(kableExtra)
+library(gtsummary)
+library(sjlabelled)
+library(janitor)
+library(haven)
+
+read_xlsx("../01_input/04_codebook/codebook.xlsx")[,2:6] |> 
+  
+  gt(rowname_col = "code") |>
+  
+  sub_missing(missing_text = "") |>
+  
+  tab_row_group(
+    group = "Módulo G: Caracterización sociodemográfica",
+    rows = 253:262
+  ) |>
+  
+  tab_row_group(
+    group = "Módulo F: Caracterización Personal",
+    rows = 198:252
+  ) |>
+  
+  tab_row_group(
+    group = "Módulo E: Actividades Digitales",
+    rows = 142:197
+  ) |>
+  
+  tab_row_group(
+    group = "Módulo D: Consciencia Algorítmica",
+    rows = 135:141
+  ) |>
+  
+  tab_row_group(
+    group = "Módulo C: Habilidades digitales",
+    rows = 82:134
+  ) |>
+  
+  tab_row_group(
+    group = "Módulo B: Acceso a internet",
+    rows = 6:81
+  ) |>
+  
+  tab_row_group(
+    group = "Módulo A: Caracterización del hogar",
+    rows = 1:5
+  ) |>
+  
+  cols_label(
+    sub_dimension = "Dimensión de análisis",
+    question = "Fraseo de pregunta",
+    items = "Items",
+    response_categories = "Categorías de respuesta"
+  ) |>
+  
+  tab_options(
+    container.height = "600px",
+    container.overflow.y = TRUE
+  )
+
+  
+```
+
+## Frecuencias
+
+Además del libro de códigos, el manual contiene las frecuencias de todas las variables presentadas en el libro de códigos. En la @tbl-frequency se encuentra el total de respuestas válidas por ítem (N), así como la frequencia de cada una de las alternativas de respuesta. Los participantes filtrados en las preguntas que lo requieren se muestran en una fila con la categoría *<<Unkown>>*.
+
+```{r}
+#| label: tbl-frequency
+#| tbl-cap: Frecuencias y casos perdidos
+
+raw_2023<-read_sav("../01_input/01_raw_data/2023_survey_raw.sav") |> clean_names()
+
+raw_2023[,36:ncol(raw_2023)] |> clean_names() |> 
+  to_label() |> select(-c(h3,nse)) |>
+  tbl_summary() |>
+  add_n() |>
+  bold_labels() |>
+  as_kable_extra() |>
+  scroll_box(height = "500px")
+
+```
+
+## Manipulación y creación de índices
+
+```{r}
+#| label: tbl-index
+#| tbl-cap: Descripción de índices
+
+index_table <- source("../02_scripts/02_index_creations.R") |>
+                as.data.frame() 
+
+names(index_table) <- gsub("^.{1,6}", "", names(index_table))
+
+
+
+  gt(index_table) |>
+  sub_missing(missing_text = "") |>
+  cols_label(
+    Variable = "Código",
+    Label = "Índice",
+    Estimation = "Tipo de estimación",
+    Rango = "Rango de valores",
+    Mean = "Mean",
+    SD = "Desviación típica",
+    N_Missing = "Casos perdidos",
+    Complete_rate = "% de casos validos",
+    Hist = "Histograma",
+    Cronbach = "Alpha de Cronbach",
+    C.I...2.5..97.5.. = "I.C. Cronbach"
+  )
+```
+
