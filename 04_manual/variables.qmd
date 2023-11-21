@@ -1,7 +1,3 @@
----
-css: styles.css
----
-
 # Procesamiento y variables
 
 En el siguiente módulo se detalla el libro de códigos de la base de datos, así como las frecuencias y procesamientos que recibe la base de datos final.
@@ -25,6 +21,7 @@ Con el fin de sintetizar toda la información relevante sobre las variables de l
 #| label: tbl-codebook
 #| tbl-cap: Libro de códigos
 
+library(knitr)
 library(readxl)
 library(gt)
 library(kableExtra)
@@ -91,7 +88,7 @@ read_xlsx("../01_input/04_codebook/codebook.xlsx")[,2:6] |>
 
 ## Frecuencias
 
-Además del libro de códigos, el manual contiene las frecuencias de todas las variables presentadas en el libro de códigos. En la @tbl-frequency se encuentra el total de respuestas válidas por ítem (N), así como la frequencia de cada una de las alternativas de respuesta. Los participantes filtrados en las preguntas que lo requieren se muestran en una fila con la categoría *<<Unkown>>*.
+Además del libro de códigos, el manual contiene las frecuencias de todas las variables presentadas en el libro de códigos. En la @tbl-frequency se encuentra el total de respuestas válidas por ítem (N), así como la frequencia de cada una de las alternativas de respuesta. Los participantes filtrados en las preguntas que lo requieren se muestran en una fila con la categoría *"Unkown"*.
 
 ```{r}
 #| label: tbl-frequency
@@ -111,12 +108,22 @@ raw_2023[,36:ncol(raw_2023)] |> clean_names() |>
 
 ## Manipulación y creación de índices
 
+Además de lo anterior, la base de datos cuenta con escalas estimadas a partir de algunos de los ítems recién presentados. Estas escalas permiten al usuario trabajar con los principales constructos que busca medir el estudio, sin tener que procesar los datos por su cuenta.
+
+-   La primera columna de la @tbl-index muestra el código de la columna que aparece en la base de datos. La segunda el nombre del constructo que indica la escala. 
+-   La tercera columna detalla el modo en el que fue estimado el índice: "*Por promedio*" significa que se promedió el puntaje de los ítems que componen la escala, en cambio "*Sumativo*" significa que la escala se compone de la suma total de ítems que son tratados como dummy. La cuarta columna muestra el rango de posibles valores en los que puede variar el puntaje de la escala. 
+-   Las últimas columnas estadísticos descriptivos de la distribución de los puntajes de la escala, así como su cantidad de casos validos y consistencia interna (Alfa de Cronbach).
+
+**Se sugiere trabajar con estos índices para reducir la complejidad de los análisis en cuestión**.
+
 ```{r}
 #| label: tbl-index
 #| tbl-cap: Descripción de índices
 
-index_table <- source("../02_scripts/02_index_creations.R") |>
-                as.data.frame() 
+load("../01_input/02_proc_data/digital_inclusion_2023.RData")
+
+index_table <- source("../02_scripts/02_index_validation.R") |>
+                as.data.frame()
 
 names(index_table) <- gsub("^.{1,6}", "", names(index_table))
 
@@ -126,7 +133,7 @@ names(index_table) <- gsub("^.{1,6}", "", names(index_table))
   sub_missing(missing_text = "") |>
   cols_label(
     Variable = "Código",
-    Label = "Índice",
+    Label = "Escala",
     Estimation = "Tipo de estimación",
     Rango = "Rango de valores",
     Mean = "Mean",
@@ -136,6 +143,76 @@ names(index_table) <- gsub("^.{1,6}", "", names(index_table))
     Hist = "Histograma",
     Cronbach = "Alpha de Cronbach",
     C.I...2.5..97.5.. = "I.C. Cronbach"
+  ) |>
+    
+  cols_hide(columns = 12)|>
+    
+  tab_footnote(
+    footnote = "Construído a partir de c1_1, c1_2, c1_3 y c1_4",
+    locations = cells_body(columns = Variable, rows = 1)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído a partir de c2_1, c2_2, c2_3 y c2_4",
+    locations = cells_body(columns = Variable, rows = 2)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído a partir de c3_1_1, c3_1_2, c3_1_3, c3_1_4, c3_1_5 y c3_1_6",
+    locations = cells_body(columns = Variable, rows = 3)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído a partir de c3_2_1, c3_2_2, c3_2_3, c3_2_4 y c3_2_5",
+    locations = cells_body(columns = Variable, rows = 4)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído a partir de c3_3_1, c3_3_2, c3_3_3, c3_3_4, c3_3_5 y c3_3_6",
+    locations = cells_body(columns = Variable, rows = 5)
+    ) |>
+    
+    
+    tab_footnote(
+    footnote = "Construído a partir de c3_4_1, c3_4_2 y c3_4_3",
+    locations = cells_body(columns = Variable, rows = 6)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído desde c3_1_1 hasta c3_4_2",
+    locations = cells_body(columns = Variable, rows = 7)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído desde c4_1 hasta c4_19",
+    locations = cells_body(columns = Variable, rows = 8)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído a partir de d2_1_1, d2_1_2, d2_2_1, d2_2_2, d2_3_1 y d2_3_2",
+    locations = cells_body(columns = Variable, rows = 9)
+    ) |>
+  
+    tab_footnote(
+    footnote = "Construído a partir de f2_1, f2_2 y f2_3",
+    locations = cells_body(columns = Variable, rows = 10)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído desde f6_1 hasta f6_13",
+    locations = cells_body(columns = Variable, rows = 11)
+    ) |>
+    
+    tab_footnote(
+    footnote = "Construído a partir de variables módulo G",
+    locations = cells_body(columns = Variable, rows = 12)
+    ) |>
+  
+  tab_options(
+    container.height = "600px",
+    container.overflow.y = TRUE
   )
+  
+  
 ```
 

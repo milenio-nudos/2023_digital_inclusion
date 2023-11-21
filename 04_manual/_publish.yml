@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 8efc5dbc-052b-4851-81ec-7c05ddb9f8f4
+      url: 'https://stalwart-halva-718e9b.netlify.app'

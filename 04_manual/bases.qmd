@@ -1,0 +1,35 @@
+# Bases de datos
+
+Las y los investigadores de NUDOS suscriben a principios de **Ciencia Abierta**. Se busca poner a disposición del público general los datos levantados como organización, una vez que son revisadas y procesadas.
+
+## Descarga
+
+La base de datos del Estudio de Inclusión Digital 2023 se encuentra en el [repositorio Github de NUDOS](https://github.com/milenio-nudos/2023_digital_inclusion). Sin embargo, para facilitar su obtención, se añaden un botón que automatiza su descarga en formato `.sav` y `.rds`.
+
+```{=html}
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+```
+```{=html}
+<style>
+  .center-button {
+    text-align: center;
+  }
+</style>
+```
+<div class="center-button">
+
+<a class="github-button" href="https://github.com/milenio-nudos/2023_digital_inclusion/tree/main/01_input/02_proc_data/archive/HEAD.zip" data-icon="octicon-download" data-size="large" aria-label="Download oles-cl/olas on GitHub" target="_blank">Descargar Base de datos</a>
+
+## Cita en APA
+
+Cualquier publicación que utilice las bases de datos de la encuesta, en cualquiera de sus versiones, debe citar la fuente de la siguiente forma:
+
+-   Núcleo Milenio de Desigualdades y Oportunidades Digitales. (2023). *Encuesta de Inclusión Digital* \[base de datos\]. Recuperado de [Link del manual](https://nudos.cl){target="_blank"}.
+
+Para citar el presente manual, se roga utilizar la siguiente propuesta:
+
+-   Núcleo Milenio de Desigualdades y Oportunidades Digitales. (2023). *Encuesta de Inclusión Digital 2023. Manual de uso metodológico*. Recuperado de [Link del manual](https://nudos.cl){target="_blank"}.
+
+## Dudas y consultas
+
+En caso de que detecte problemas con la base de datos, quiera plantear solicitudes y/o tenga dudas sobre aspectos no cubiertos por el presente Manual de Usuario, las cuales no puedan ser resueltas por otros medios, puede comunicarse con el Equipo de NUDOS al correo electrónico [nucleomilenionudos\@gmail.com](mailto:nucleomilenionudos@gmail.com). El equipo procesará su solicitud y tratará de contestar en el más breve plazo.

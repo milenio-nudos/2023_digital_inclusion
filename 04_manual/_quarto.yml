@@ -5,17 +5,22 @@ book:
   title: "Encuesta de Inclusión Digital NUDOS 2023"
   subtitle: "Manual de uso metodológico"
   author: "Teresa Correa & Nicolás Tobar"
-  date: "Última actualización: `r Sys.Date()`"
+  date: "11/24/2023"
+  favicon: images/logo.png
+  image: images/logo.png
   chapters:
     - index.qmd
     - ficha.qmd
     - variables.qmd
+    - bases.qmd
   language: es
   sharing: [twitter, facebook, linkedin]
   repo-url: https://github.com/milenio-nudos/2023_digital_inclusion
+  repo-actions: [issue, source]
 
 format:
   html:
+    language: es
     theme: cosmo
 
 execute: 

@@ -4,7 +4,7 @@ El año 2023 se conforma el [Núcleo Milenio Desigualdades y Oportunidades Digit
 
 [^index-1]: En adelante, NUDOS.
 
-La \<\<Encuesta de Inclusión Digital Chile 2023\>\> tiene como objetivo conocer la familiaridad que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información. Para esto, se propone medir el nivel de acceso, consciencia y uso de elementos relacionados con el internet y el espacio digital.
+La "Encuesta de Inclusión Digital Chile 2023" tiene como objetivo conocer la familiaridad que tienen los habitantes de ciertas comunas rurales y urbanas con las tecnologías computacionales y de información. Para esto, se propone medir el nivel de acceso, consciencia y uso de elementos relacionados con el internet y el espacio digital.
 
 La encuesta fue diseñada y dirigida por Teresa Correa[^index-2] e implementada por la empresa consultora Feedback Research durante agosto y septiembre de 2023. El libro fue creado con Quarto Markdown, a través de un código abierto y reproducible que se encuentra en el [repositorio Github de NUDOS](https://github.com/milenio-nudos/2023_digital_inclusion){target="_blank"}.
 
