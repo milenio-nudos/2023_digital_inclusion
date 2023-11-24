@@ -386,6 +386,9 @@ corrplot(corr_matrix, method = 'circle', type = 'lower',p.mat = testRes$p, insig
 ### Table {.scrollable}
 
 ```{r, results='markup'}
+model_data <- model_data %>%
+  mutate_all(~ifelse(.==99,NA,.))
+
 var_label(model_data)<-c("Self-efficacy index",
                   "Operational skills index [Van Deuersen]",
                   "Informative skills index [Van Deuersen]",
@@ -403,7 +406,7 @@ var_label(model_data)<-c("Self-efficacy index",
                      "Age",
                      "Socioeconomical Status")
 
-sjPlot::tab_corr(model_data, na.deletion = "listwise",
+sjPlot::tab_corr(model_data, na.deletion = "pairwise",
 corr.method = "pearson", title = "Title of Table", show.p = TRUE, digits = 2)
 
 ```

@@ -1,6 +1,6 @@
 # Bases de datos
 
-Las y los investigadores de NUDOS suscriben a principios de **Ciencia Abierta**. Se busca poner a disposición del público general los datos levantados como organización, una vez que son revisadas y procesadas.
+Las y los investigadores de NUDOS suscriben a principios de **Ciencia Abierta**. Una vez que son revisados y procesados, Se busca poner a disposición del público general los datos levantados como organización.
 
 ## Descarga
 
@@ -32,4 +32,4 @@ Para citar el presente manual, se roga utilizar la siguiente propuesta:
 
 ## Dudas y consultas
 
-En caso de que detecte problemas con la base de datos, quiera plantear solicitudes y/o tenga dudas sobre aspectos no cubiertos por el presente Manual de Usuario, las cuales no puedan ser resueltas por otros medios, puede comunicarse con el Equipo de NUDOS al correo electrónico [nucleomilenionudos\@gmail.com](mailto:nucleomilenionudos@gmail.com). El equipo procesará su solicitud y tratará de contestar en el más breve plazo.
+En caso de que detecte problemas con la base de datos, quiera plantear solicitudes y/o tenga dudas sobre aspectos no cubiertos por el presente Manual de Usuario, las cuales no puedan ser resueltas por otros medios, puede comunicarse con el Equipo de NUDOS al correo electrónico [nudos\@uc.cl](mailto:nudos@uc.cl). El equipo procesará su solicitud y tratará de contestar en el más breve plazo.

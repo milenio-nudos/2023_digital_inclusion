@@ -26,11 +26,11 @@ Se utilizó un diseño muestral probabilístico por áreas coumunales, aunque no
 
 [^ficha-1]: Las comunas urbanas seleccionadas son: `r unique(labelled_raw_2023_b$comuna_urbano)`. Y las comunas rurales seleccionadas son `r unique(labelled_raw_2023_a$zona_rural)`.
 
-El error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza. En cada hogar se entrevistó a un solo individuo.
+El error muestral del estudio es de ±2,8% para el total de los participantes bajo los supuestos de muestreo aleatorio simple, varianza máxima y 95% de confianza. En cada hogar se entrevistó a un solo individuo; Se utilizó una tabla Kish para consignar los habitantes del hogar, dentro de los cuales se seleccionó aleatoriamente al encuestado entre los presentes al momento de la visita.
 
 ### Diseño del instrumento de medición {.unnumbered}
 
-El instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Se hizo un riguroso proceso de revisión por pares entre investigadores e investigadoras con experiencia en estudios sobre brechas digitales antes de definir el instrumento final. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple. Se dividió la entrevista en siete módulos, que abordan las siguientes dimensiones:
+El instrumento de medición corresponde a un cuestionario digital aplicado cara a cara a través de una aplicación digital MOBINET dipuesta en una tablet electrónica. Las y los investigadores de NUDOS diseñaron el cuestionario esperando obtener información respecto a las oportunidades de acceso a internet del individuo, su uso cotidiano, habilidades y alfabetización con conceptos digitales, entre otras. Se hizo un riguroso proceso de revisión por pares entre investigadores e investigadoras con experiencia en estudios sobre brechas digitales antes de definir el instrumento final. Este cuestionario está compuesto por preguntas cerradas de carácter dicotómico, simple y múltiple. Se dividió la entrevista en siete módulos, que abordan las siguientes dimensiones:
 
 -   **Módulo A:** *Caracterización del hogar.*
 
@@ -95,6 +95,8 @@ El levantamiento de los datos se desarrolló entre el 31 de agosto y el 6 de sep
 
 Antes de contestar la encuesta, las personas invitadas tuvieron acceso a leer un consentimiento informado describiendo las características de la encuesta y las implicancias de la participación en el estudio. Solamente pudieron participar aquellas personas que firmaron el consentimiento informado.
 
+La supervisión de la correcta aplicación de la encuesta fue realizada de manera telefónica sobre el 30% de la muestra, donde se consultó a los participantes la veracidad de la aplicación de la encuesta y se le hicieron preguntas de caracterización para validar sus respuestas anteriores. Igualmente, los coordinadores de Feedback visitaron las zonas constatando que el trabajo de campo se estuviese realizando en las condiciones solicitadas. Sumado a esto, en oficina se supervisa la consistencia de las respuestas y la geolocalización entregada por Mobinet para confirmar la ejecución de la encuesta en el lugar indicado.
+
 En total, se visitaron 2.971 hogares de los cuales se logró contactar a 1704. De lo hogares contactados, se lograron 1.200 entrevistas correctas. En otras palabras, la encuesta cuenta una tasa de rechazo de 30% aproximadamente. Para ver los detalles del levantamiento de los datos, se sugiere revisar la @tbl-levantamiento.
 
 ```{r}
@@ -156,6 +158,8 @@ read_xlsx("../01_input/04_codebook/sample_imp.xlsx") |>
 ## Muestra lograda {.unnumbered}
 
 La muestra final cuenta con `r nrow(raw_2023)` casos. De estos, `r raw_2023 |> filter(tipo_zona==1) |> nrow()` pertenecen a población de asentamientos urbanos y `r raw_2023 |> filter(tipo_zona==2) |> nrow()` pertenecen a habitantes de sectores rurales. En la @tbl-zone-sample el usuario puede encontrar las comunas de Chile que fueron visitadas, y el total de casos de la muestra pertenecientes a ellas.
+
+No se calcularon factores de ponderación debido a las características tan específicas de las zonas encuestadas (localidades rurales) de las cuales no se cuenta con información sociodemográfica precisa como para ponderar sus respuestas en cuanto al universo.
 
 ```{r}
 #| label: tbl-zone-sample
@@ -285,10 +289,17 @@ table<-table %>% select(-variableb,-variablea)
 
 ## Tabla resumen
 
+En la @tbl-resume se hace un resumen de los principales aspectos técnicos del estudio.
+
 ```{r}
 #| label: tbl-resume
 #| tbl-cap: Resumen Ficha Técnica
 read_xlsx("../01_input/04_codebook/resume_tecnique.xlsx") |>
   
-  gt()
+  gt()|>
+  
+  tab_header(
+    title = "Resumen ficha técnica",
+    subtitle = "Estudio Inclusión Digital 2023"
+  ) 
 ```

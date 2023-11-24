@@ -65,7 +65,7 @@ data %>% dplyr::select(starts_with("i_"),nse) %>% mutate(nse=as.numeric(nse)) %>
                "Por promedio",
                "Por promedio",
                "Sumativo",
-               "Indicador"),
+               "Método AIM"),
   
   Rango=c("[1-3]",
           "[1-3]",
