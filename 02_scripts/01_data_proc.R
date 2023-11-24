@@ -29,86 +29,110 @@ data <- raw_2023 |> dplyr::select(-c(folio,
 
 # Anxiety with technologies
 
-data <- data %>% mutate_at(.vars=vars(starts_with("c1_")),
-                           .funs=list(~ifelse(.==99,NA,.)))
-
-data$i_tech_insecurity <- data %>% dplyr::select(starts_with("c1_"))%>%
-  mutate_all(as.integer)%>%rowMeans(na.rm=T)
+data$tech_anxiety <- data %>% 
+                      mutate_at(.vars=vars(starts_with("c1_")),
+                                .funs=list(~ifelse(.==99,NA,.))) %>%
+                      dplyr::select(starts_with("c1_")) %>%
+                      mutate_all(as.numeric) %>%
+                      rowMeans(na.rm=T)
 
 # Technological Self-efficacy
 
 
-data <- data %>% mutate_at(.vars=vars(starts_with("c2_")),
-                           .funs=list(~ifelse(.==99,NA,.)))
-
-data$i_tech_self_efficacy <- data %>% dplyr::select(starts_with("c2_"))%>%
-  mutate_all(as.integer)%>%rowMeans(na.rm=T)
+data$tech_self_efficacy <- data %>% mutate_at(.vars=vars(starts_with("c2_")),
+                                              .funs=list(~ifelse(.==99,NA,.))) %>%
+                                    dplyr::select(starts_with("c2_"))%>%
+                                    mutate_all(as.numeric) %>%
+                                    rowMeans(na.rm=T)
 
 # Digital skills
 
-data <- data %>% 
-  mutate_at(
-    .vars = vars(c3_2_3, c3_2_4),
-    .funs = list(
-      ~case_when(. == 1 ~ 2,
-                 . == 2 ~ 1,
-                 TRUE ~ .)
-    )) #Change direction of contradictory items
-
-data <- data %>% mutate_at(.vars=vars(starts_with("c3_")),
-                           .funs=list(~ifelse(.==2,0,.))) # Recode dummy
+data_skills <- data %>% mutate_at(.vars=vars(starts_with("c3_")),
+                                  .funs=list(~ifelse(.==2,0,.))) # Recode dummy
 ## Operational skills
-data$i_operational_skills <- data %>% dplyr::select(starts_with("c3_1"))%>%
-  mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-  mutate_all(as.integer)%>% rowSums(na.rm = T)
+data$tech_operational_skills <- data_skills %>% 
+                            dplyr::select(starts_with("c3_1")) %>%
+                            mutate(across(everything(),
+                                          ~ifelse(.==99,NA,.))) %>%
+                            mutate_all(as.numeric) %>%
+                            rowSums(na.rm = T)
 
 ## Informative skills
-data$i_informative_skills <- data %>% dplyr::select(starts_with("c3_2"))%>%
-  mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-  mutate_all(as.integer)%>% rowSums(na.rm = T)
+data$tech_informative_skills <- data_skills %>% 
+                            dplyr::select(starts_with("c3_2"))%>%
+                            #Change direction of contradictory items
+                            mutate_at(
+                            .vars = vars(c3_2_3, c3_2_4),
+                            .funs = list(
+                            ~case_when(. == 0 ~ 1,
+                                       . == 0 ~ 1,
+                                       TRUE ~ .)
+                                       )) %>% 
+                            mutate(across(everything(),
+                                          ~ifelse(.==99,NA,.))) %>%
+                            mutate_all(as.numeric) %>% 
+                            rowSums(na.rm = T)
 
 ## Social skills
-data$i_social_skills <- data %>% dplyr::select(starts_with("c3_3"))%>%
-  mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-  mutate_all(as.integer)%>% rowSums(na.rm = T)
+data$tech_social_skills <- data_skills %>% 
+                       dplyr::select(starts_with("c3_3")) %>%
+                       mutate(across(everything(),~ifelse(.==99,NA,.))) %>%
+                       mutate_all(as.numeric) %>% 
+                       rowSums(na.rm = T)
 
 ## Creative skills
-data$i_creative_skills <- data %>% dplyr::select(starts_with("c3_4"))%>%
-  mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-  mutate_all(as.integer)%>% rowSums(na.rm = T)
+data$tech_creative_skills <- data_skills %>% 
+                         dplyr::select(starts_with("c3_4")) %>%
+                         mutate(across(everything(),
+                                       ~ifelse(.==99,NA,.))) %>%
+                         mutate_all(as.numeric) %>% 
+                         rowSums(na.rm = T)
 
 ## Digital skills (total)
-data$i_digital_skills <- data %>% dplyr::select(starts_with("c3"))%>%
-  mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-  mutate_all(as.integer)%>% rowSums(na.rm = T)
+data$digital_skills <- data_skills %>% 
+                          dplyr::select(starts_with("c3")) %>%
+                          mutate(across(everything(),
+                                        ~ifelse(.==99,NA,.))) %>%
+                          mutate_all(as.numeric) %>% 
+                          rowSums(na.rm = T)
 
 # Digital Literacy
 
-data <- data %>% mutate(across(starts_with("c4_"),~ifelse(.==99,NA,.)))
-
-data$i_digital_literacy <- data %>% dplyr::select(starts_with("c4_"))%>%
-  mutate_all(as.integer)%>%rowMeans(na.rm=T)
+data$digital_literacy <- data %>%
+                          dplyr::select(starts_with("c4_")) %>%
+                          mutate_all(as.numeric) %>%
+                          mutate(across(everything(),
+                                        ~ifelse(.==99,NA,.))) %>% 
+                          rowMeans(na.rm=T)
 
 # Algorithmic awareness
 
-data <- data %>% mutate(across(starts_with("d2"),~ifelse(.==99,NA,.)))
-
-data$i_algorithmic_awareness <- data %>% dplyr::select(starts_with("d2"))%>%
-  mutate_all(as.integer)%>%rowMeans(na.rm=T)
+data$algorithmic_awareness <- data %>% 
+                               mutate(across(starts_with("d2"),
+                                             ~ifelse(.==99,1,.))) %>%
+                               dplyr::select(starts_with("d2")) %>%
+                               mutate_all(as.numeric) %>% 
+                               rowMeans(na.rm=T)
 
 # Innovative personality
 
-data <- data %>% mutate_at(.vars=vars(starts_with("f2_")),
-                           .funs=list(~ifelse(.==99,NA,.)))
-
-data$i_innovative_personality <- data %>% dplyr::select(starts_with("f2_"))%>%
-  mutate_all(as.integer)%>%rowMeans(na.rm=T)
+data$innovative_personality <- data %>% 
+                                mutate_at(.vars=vars(starts_with("f2_")),
+                                          .funs=list(~ifelse(.==99,NA,.))) %>% 
+                                dplyr::select(starts_with("f2_")) %>%
+                                mutate_all(as.numeric) %>% 
+                                rowMeans(na.rm=T)
 
 # Social capital
 
-data$i_social_capital <- data %>% dplyr::select(starts_with("f6_"))%>%
-  mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-  mutate_all(as.integer)%>% rowSums(na.rm = T)
+data$social_capital <- data %>% 
+                          dplyr::select(starts_with("f6_")) %>%
+                          mutate(across(everything(),
+                                        ~ifelse(.==99,NA,.))) %>%
+                          mutate(across(everything(),
+                                        ~ifelse(.==2,0,.))) %>%
+                          mutate_all(as.numeric) %>% 
+                          rowSums(na.rm = T)
 
 # 3. Export data ----
 

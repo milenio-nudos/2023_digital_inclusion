@@ -16,8 +16,6 @@ editor: visual
 
 The next report contains a first exploration of the digital inclusion 2023 survey, that is oriented for the presentation of Teresa Correa on Heidelberg University. In this case, the exploration is about some constructed index about digital knowledge from the database to explain the variation of attitudes to false information on the internet. The independent variables are:
 
--   Self-efficacy index[^1]
-
 -   Digital skills index (Van Deuersen)
 
     -   Operational skills index[^2]
@@ -175,104 +173,16 @@ pacman::p_load(
   corrplot, #Corrplot
   sjPlot, #Tab models
   labelled, #double manage
-  sjmisc #to_label
-  )
+  sjmisc, #to_label
+  Hmisc)
 
-raw_2023 <- read_sav("../01_input/01_raw_data/2023_survey_raw.sav") %>% clean_names()
+load("../01_input/02_proc_data/digital_inclusion_2023.RData")
 
 options(digits = 2)
 
 # 1. Index creation ----
 
-# Technological Self-efficacy
-
-
-raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(starts_with("c2_")),
-                                   .funs=list(~ifelse(.==99,NA,.)))
-
-c2 <-cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c2_")) %>%
-                 drop_na(), CI=TRUE) #Alpha of index
-
-raw_2023$i_tech_self_efficacy <- raw_2023 %>% dplyr::select(starts_with("c2_"))%>%
-                                   mutate_all(as.integer)%>%rowMeans(na.rm=T)
-
-# Digital skills
-
-raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(starts_with("c3_")),
-                                   .funs=list(~ifelse(.==2,0,.)))
-## Operational skills
-raw_2023$i_operational_skills <- raw_2023 %>% dplyr::select(starts_with("c3_1"))%>%
-                               mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-                               mutate_all(as.integer)%>% rowSums(na.rm = T)
-
-## Informative skills
-raw_2023$i_informative_skills <- raw_2023 %>% dplyr::select(starts_with("c3_2"))%>%
-                               mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-                               mutate_all(as.integer)%>% rowSums(na.rm = T)
-
-## Social skills
-raw_2023$i_social_skills <- raw_2023 %>% dplyr::select(starts_with("c3_3"))%>%
-                          mutate(across(everything(),~ifelse(.==99,1,.)))%>%
-                          mutate_all(as.integer)%>% rowSums(na.rm = T)
-
-
-## Creative skills
-raw_2023$i_creative_skills <- raw_2023 %>% dplyr::select(starts_with("c3_4"))%>%
-                            mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-                            mutate_all(as.integer)%>% rowSums(na.rm = T)
-
-
-## Digital skills (total)
-raw_2023$i_digital_skills <- raw_2023$operational_skills <- raw_2023 %>% dplyr::select(starts_with("c3"))%>%
-                           mutate(across(everything(),~ifelse(.==99,NA,.)))%>%
-                           mutate_all(as.integer)%>% rowSums(na.rm = T)
-
-# Digital Literacy
-
-## Social media literacy
-
-raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18),
-                                   .funs=list(~ ifelse(.==99,NA,.)))
-
-c4_a <- cronbach.alpha(raw_2023 %>% dplyr::select(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18) %>%
-                 drop_na(), CI=TRUE) #Alpha of index
-
-raw_2023$i_social_media_literacy <- raw_2023 %>% 
-  dplyr::select(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18)%>%
-  mutate_all(as.integer)%>%rowMeans(na.rm=T)
-
-## Algorithmic literacy
-
-raw_2023 <- raw_2023 %>% mutate_at(.vars=vars(c4_10,c4_9,c4_14,c4_1,d1),
-                                   .funs=list(~ifelse(.==99,NA,.)))
-
-c4_b <- cronbach.alpha(raw_2023 %>% dplyr::select(c4_10,c4_9,c4_14,c4_1,d1) %>%
-                 drop_na(), CI=TRUE) #Alpha of index
-
-raw_2023$i_algorithmic_literacy <- raw_2023 %>% dplyr::select(starts_with("c4_"))%>%
-  mutate_all(as.integer)%>%rowMeans(na.rm=T)
-
-## Digital literacy (total)
-
-raw_2023 <- raw_2023 %>% mutate(across(starts_with("c4_"),~ifelse(.==99,NA,.)))
-
-c4 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("c4_")) %>%
-                 drop_na(), CI=TRUE) #Alpha of index
-
-raw_2023$i_digital_literacy <- raw_2023 %>% dplyr::select(starts_with("c4_"))%>%
-                             mutate_all(as.integer)%>%rowMeans(na.rm=T)
-
-# Algorithmic awareness
-
-raw_2023 <- raw_2023 %>% mutate(across(starts_with("d2"),~ifelse(.==99,1,.))) #NS-NR as non-awareness
-
-d2 <- cronbach.alpha(raw_2023 %>% dplyr::select(starts_with("d2")) %>%
-                 drop_na(), CI=TRUE) #Alpha of index
-
-raw_2023$i_algorithmic_awareness <- raw_2023 %>% dplyr::select(starts_with("d2"))%>%
-                             mutate_all(as.integer)%>%rowMeans(na.rm=T)
-
-# Extreme political position index
+# Extreme political position index (Not used)
 
 # raw_2023<-raw_2023 %>% 
  # mutate(i_extreme_politics=case_when(f18%in%c(1,10)~5,
@@ -283,41 +193,122 @@ raw_2023$i_algorithmic_awareness <- raw_2023 %>% dplyr::select(starts_with("d2")
 
 # Extreme politization variable
 
-raw_2023 <- raw_2023 %>%
-            mutate(
-              extreme_politization=case_when(f18%in%c(1,2,3,8,9,10)~"[a. Polarized]",
-                                             f18%in%c(4,5,6,7)~"[b. Centered]",
-                                             f18==99 ~ "[c. Non-scaled]"))
+data <- data %>%
+         mutate(
+          extreme_politization=case_when(f18%in%c(1,2,3,8,9,10)~"[a. Polarized]",
+                                         f18%in%c(4,5,6,7)~"[b. Centered]",
+                                         f18==99 ~ "[c. Non-scaled]"))
+
+# Anti fake-news sharing scale
+
+data$anti_fake_news <- 
+         data %>% 
+         mutate_at(.vars=vars(starts_with("c5_")),
+                   .funs=list(~ifelse(.==99,NA,.))) %>%
+         dplyr::select(c5_4,
+                       c5_5,
+                       c5_6) %>%
+         mutate_all(as.numeric) %>%
+         rowMeans(na.rm=T)
+
+# Social media literacy
+
+data$social_media_literacy <- 
+            data %>% 
+             mutate_at(.vars=vars(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18),
+                       .funs=list(~ ifelse(.==99,NA,.))) %>% 
+             dplyr::select(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18) %>%
+             mutate_all(as.numeric) %>%
+             rowMeans(na.rm=T)
+
+# Algorithmic literacy
+
+data$algorithmic_literacy <- 
+            data %>% mutate_at(.vars=vars(c4_10,c4_9,c4_14,c4_1,d1),
+                               .funs=list(~ifelse(.==99,NA,.))) %>% 
+             dplyr::select(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18) %>%
+             mutate_all(as.numeric) %>%
+             rowMeans(na.rm=T)
+
+
+
+# 2. Create alpha objects ----
+c1 <-cronbach.alpha(data %>% dplyr::select(starts_with("c1_")) %>%
+                      drop_na(), CI=TRUE) #Alpha of index
+
+c2 <-cronbach.alpha(data %>% dplyr::select(starts_with("c2_")) %>%
+                      drop_na(), CI=TRUE) #Alpha of index
+
+c4 <- cronbach.alpha(data %>% dplyr::select(starts_with("c4_")) %>%
+                       drop_na(), CI=TRUE) #Alpha of index
+
+c4_a <- cronbach.alpha(data %>% 
+                       dplyr::select(c4_12,c4_13,c4_15,c4_16,c4_17,c4_18) %>%
+                       drop_na(), CI=TRUE)
+
+c4_b <- cronbach.alpha(data %>% 
+                       dplyr::select(c4_10,c4_9,c4_14,c4_1,d1) %>%
+                       drop_na(), CI=TRUE) #Alpha of index
+
+d2 <- cronbach.alpha(data %>% dplyr::select(starts_with("d2")) %>%
+                       drop_na(), CI=TRUE) #Alpha of index
+
+c5_x <- cronbach.alpha(data %>% dplyr::select(c5_4,c5_5,c5_6) %>%
+                      drop_na(), CI=TRUE) #Alpha of index
 
 # List of Cronbach's alphas
 
-Cronbach<-c(c2["alpha"],NA,NA,NA,NA,
-  c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],NA,NA,NA,NA)
+Cronbach<-c(c1["alpha"], c2["alpha"],NA,NA,NA,NA,NA,
+            c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],
+            NA,NA,NA,NA,NA,c5_x)
 
-ci<-c(c2["ci"],NA,NA,NA,NA,
-            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],NA,NA,NA,NA)
+ci<-c(c1["alpha"], c2["alpha"],NA,NA,NA,NA,NA,
+            c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],
+            NA,NA,NA,NA,NA,c5_x)
 
 ```
 
 ### Numerical data
 ```{r,results='asis'}
-raw_2023 %>% dplyr::select(starts_with(c("i_")),c5_1,c5_2,c5_3) %>% 
-  mutate_all(~ifelse(.==99,NA,.)) %>%
-  skim() %>% as.data.frame()%>%
-  mutate(Label= c("Self-efficacy index",
-                  "Operational skills index [Van Deuersen]",
-                  "Informative skills index [Van Deuersen]",
-                  "Social skills index [Van Deuersen]",
-                  "Creative skills index [Van Deuersen]",
-                  "Van Deursen's Digital skills index (total)",
-                  "Social media literacy index [Hargittai]",
-                  "Algorithmic literacy index [Hargittai]",
-                  "Hargittai's Digital literacy index (total)",
-                  "Zarouali's Algorithmic awareness index",
+data %>% 
+  dplyr::select(tech_anxiety,
+                tech_self_efficacy,
+                tech_operational_skills,
+                tech_informative_skills,
+                tech_social_skills,
+                tech_creative_skills,
+                digital_skills,
+                social_media_literacy,
+                algorithmic_literacy,
+                digital_literacy,
+                algorithmic_awareness,
+                social_capital,
+                extreme_politization,
+                c5_1,c5_2,c5_3,
+                anti_fake_news) %>% 
+  skim() %>% 
+  as.data.frame()%>%
+  
+  mutate(Label= c("Technological anxiety scale",
+                  "Technological Self-efficacy scale",
+                  "Technological Operational skills scale [Van Deuersen]",
+                  "Technological Informative skills scale [Van Deuersen]",
+                  "Technological Social skills scale [Van Deuersen]",
+                  "Technological Creative skills scale [Van Deuersen]",
+                  "Van Deursen's Technological Digital skills scale (total)",
+                  "Social media literacy scale [Hargittai]",
+                  "Algorithmic literacy scale [Hargittai]",
+                  "Hargittai's Digital literacy scale (total)",
+                  "Zarouali's Algorithmic awareness scale",
+                  "Social capital",
+                  "Extreme politization",
                   "I have seen or read false or misleading news",
                   "I have believed news that later turned out to be false or misleading",
-                  "I have shared information that subsequently turned out to be false or misleading"),
+                  "I have shared information that subsequently turned out to be false or misleading",
+                  "Anti-fake news actions scale"),
+         
          Estimation=c("By means (1 - 3)",
+                      "By means (1 - 3)",
                       "Sumative (0 - 6)",
                       "Sumative (0 - 5)",
                       "Sumative (0 - 6)",
@@ -327,9 +318,12 @@ raw_2023 %>% dplyr::select(starts_with(c("i_")),c5_1,c5_2,c5_3) %>%
                       "By means (1 - 5)",
                       "By means (1 - 5)",
                       "By means (1 - 5)",
+                      "Sumative (1-13)",
+                      "Categorical",
                       "Raw data",
                       "Raw data",
-                      "Raw data"))%>%
+                      "Raw data",
+                      "By means (1 - 5)"))%>%
     dplyr::select(Variable=skim_variable,
                 Label,
                 Estimation,
@@ -341,8 +335,8 @@ raw_2023 %>% dplyr::select(starts_with(c("i_")),c5_1,c5_2,c5_3) %>%
   mutate(Mean=round(Mean,2),
          SD=round(SD,2),
          Complete_rate=paste0(round(Complete_rate*100,2),"%"),
-         Cronbach=Cronbach,
-         "C.I. [2.5%;97.5%]"=ci)%>%
+         Cronbach=Cronbach[1:17],
+         "C.I. [2.5%;97.5%]"=ci[1:17])%>%
 
   gt() %>%
   sub_missing(missing_text = "")
@@ -351,84 +345,95 @@ raw_2023 %>% dplyr::select(starts_with(c("i_")),c5_1,c5_2,c5_3) %>%
 
 # Correlations
 
-About the relationships between variables, we see all the dependent variables have negative correlation with all the index's. In other words, more is the knowledge about digital technologies, less are the probabilities of encountering, believe or share fake news on the web. But the effect size of all indexs with fake news network experiences are slow; don't overpass 0.25 in all cases, so probably this could change if variance is controlled by other variables.
-
-Another observations:
--   All digital indexs have strong positive correlation between them. Probably could be colineality. The same with fake new experience items.
--   Age is the most related variable with the indexs. Have a negative strong effect with all of them.
--   Gender effects are non-significative.
--   Socioeconomic status have a positive correlation with digital indexs. More the status, more the knowledge.
-
-*Political polar position was eliminated because is categorical data*
-
-::: panel-tabset
-### Visual summary
+### Table of correlations
 
 ```{r, results='markup'}
 
-model_data <- raw_2023 %>% dplyr::select(starts_with(c("i_")),c5_1,c5_2,c5_3,
-                                         gender=a1,age=a2,ses=nse)%>%
-              mutate(gender=ifelse(gender==2,1,0))%>%
-              mutate_all(as.numeric)
-
-corr_matrix<-cor(model_data%>%
-                   drop_na())
-
-testRes = cor.mtest(model_data%>%
-                      drop_na(), conf.level = 0.95)
-
-
-corrplot(corr_matrix, method = 'circle', type = 'lower',p.mat = testRes$p, insig = 'blank',order = 'AOE', diag=FALSE)
-
-
+model_data <- data %>% dplyr::select(
+                tech_anxiety,
+                tech_self_efficacy,
+                tech_operational_skills,
+                tech_informative_skills,
+                tech_social_skills,
+                tech_creative_skills,
+                digital_skills,
+                social_media_literacy,
+                algorithmic_literacy,
+                digital_literacy,
+                algorithmic_awareness,
+                social_capital,
+                extreme_politization,
+                c5_1,c5_2,c5_3,
+                anti_fake_news, 
+                gender=a1,
+                age=a2,
+                ses=nse,
+                tipo_zona) %>%
+              mutate(gender=ifelse(gender==2,1,0),
+                     tipo_zona=ifelse(tipo_zona==2,0,1)) %>%
+              mutate_all(as.numeric)%>%
+              mutate_all(~ifelse(.==99,NA,.))
 ```
+::: panel-tabset
 
 ### Table {.scrollable}
 
 ```{r, results='markup'}
-model_data <- model_data %>%
-  mutate_all(~ifelse(.==99,NA,.))
-
-var_label(model_data)<-c("Self-efficacy index",
-                  "Operational skills index [Van Deuersen]",
-                  "Informative skills index [Van Deuersen]",
-                  "Social skills index [Van Deuersen]",
-                  "Creative skills index [Van Deuersen]",
-                  "Van Deursen's Digital skills index (total)",
-                  "Social media literacy index [Hargittai]",
-                  "Algorithmic literacy index [Hargittai]",
-                  "Hargittai's Digital literacy index (total)",
-                  "Zarouali's Algorithmic awareness index",
+var_label(model_data)<-c("Technological anxiety scale",
+                  "Technological Self-efficacy scale",
+                  "Technological Operational skills scale [Van Deuersen]",
+                  "Technological Informative skills scale [Van Deuersen]",
+                  "Technological Social skills scale [Van Deuersen]",
+                  "Technological Creative skills scale [Van Deuersen]",
+                  "Van Deursen's Technological Digital skills scale (total)",
+                  "Social media literacy scale [Hargittai]",
+                  "Algorithmic literacy scale [Hargittai]",
+                  "Hargittai's Digital literacy scale (total)",
+                  "Zarouali's Algorithmic awareness scale",
+                  "Social capital",
+                  "Extreme politization",
                   "I have seen or read false or misleading news",
                   "I have believed news that later turned out to be false or misleading",
                   "I have shared information that subsequently turned out to be false or misleading",
-                     "Gender (Women=1)",
-                     "Age",
-                     "Socioeconomical Status")
+                  "Anti-fake news actions scale",
+                  "Gender (Women=1)",
+                  "Age",
+                  "Socioeconomical Status",
+                  "Tipo de zona(Rural=1)")
 
-sjPlot::tab_corr(model_data, na.deletion = "pairwise",
-corr.method = "pearson", title = "Title of Table", show.p = TRUE, digits = 2)
+#Eliminar categóricas
+cor_data <- model_data %>% dplyr::select(-c(age,ses,gender,
+                                            extreme_politization,tipo_zona))
+
+sjPlot::tab_corr(cor_data, na.deletion = "pairwise",
+                 corr.method = "pearson", title = "Correlations", 
+                 show.p = TRUE, digits = 2)
+
+```
+
+### Summary
+
+```{r}
+corrplot(cor(cor_data, use = "pairwise.complete.obs",
+    method = "pearson"), 
+    method = 'circle', type = 'lower', 
+    order = 'AOE', diag=FALSE)
 
 ```
 :::
 
 # Models
 
-In the next dashboard you can explore three index's multivariate regression models. The first only have Algorithmic awareness as an importante predictor (Zarouali index), the second only digital literacy (Hargittai index), and the third one use Van Deursen's digital skills scale as the independent variable. All of them controlled by age, gender and socioeconomic status.
-
-Results show all of them have negative effect to the three dependent variables. In other words, controlling by sociodemographic characteristics, if the frequency of encountering, believe or share fake news on the web increases one point, then the algorithmic awareness decrease by 1 to 1.40 points, digital literacy decrease by 2 to 2.40 points and digital skills  decrease by 0.70-0.80 points. 
-
-In other words, as people is less prepared in the digital world, more is the probability of recognise seeing, believing or sharing fake news. But the model have a little explicative power, considering none of them have more than a 0.08 square R.
-
 ::: panel-tabset
 ### Algorithmic awareness + control
 
 ```{r}
-c5_1_a<-lm(c5_1 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_2_a<-lm(c5_2 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
-c5_3_a<-lm(c5_3 ~ i_algorithmic_awareness + age + gender + ses, data = model_data)
+c5_1_a<-lm(c5_1 ~ algorithmic_awareness + tipo_zona + age + gender + ses, data = model_data)
+c5_2_a<-lm(c5_2 ~ algorithmic_awareness + tipo_zona + age + gender + ses, data = model_data)
+c5_3_a<-lm(c5_3 ~ algorithmic_awareness + tipo_zona + age + gender + ses, data = model_data)
+c5_x_a<-lm(anti_fake_news ~ algorithmic_awareness + tipo_zona + age + gender + ses, data = model_data)
 
-tab_model(c5_1_a, c5_2_a,c5_3_a, 
+tab_model(c5_1_a,c5_2_a,c5_3_a,c5_x_a,
           show.ci = FALSE, auto.label = TRUE,
           p.style = "stars",collapse.se = TRUE,
           show.re.var = FALSE,show.icc = FALSE,
@@ -438,11 +443,11 @@ tab_model(c5_1_a, c5_2_a,c5_3_a,
 ### Digital literacy + control
 
 ```{r}
-c5_1_b<-lm(c5_1 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_2_b<-lm(c5_2 ~ i_digital_literacy + age + gender + ses, data = model_data)
-c5_3_b<-lm(c5_3 ~ i_digital_literacy + age + gender + ses, data = model_data)
-
-tab_model(c5_1_b, c5_2_b,c5_3_b, 
+c5_1_b<-lm(c5_1 ~ digital_literacy + tipo_zona + age + gender + ses, data = model_data)
+c5_2_b<-lm(c5_2 ~ digital_literacy + tipo_zona + age + gender + ses, data = model_data)
+c5_3_b<-lm(c5_3 ~ digital_literacy + tipo_zona + age + gender + ses, data = model_data)
+c5_x_b<-lm(anti_fake_news ~ digital_literacy + tipo_zona + age + gender + ses, data = model_data)
+tab_model(c5_1_b, c5_2_b,c5_3_b,c5_x_b, 
           show.ci = FALSE, auto.label = TRUE,
           p.style = "stars",collapse.se = TRUE,
           show.re.var = FALSE,show.icc = FALSE,
@@ -452,11 +457,12 @@ tab_model(c5_1_b, c5_2_b,c5_3_b,
 ### Digital skills + control
 
 ```{r}
-c5_1_c<-lm(c5_1 ~ i_digital_skills + age + gender + ses, data = model_data)
-c5_2_c<-lm(c5_2 ~ i_digital_skills + age + gender + ses, data = model_data)
-c5_3_c<-lm(c5_3 ~  i_digital_skills + age + gender + ses, data = model_data)
+c5_1_c<-lm(c5_1 ~ digital_skills + tipo_zona + age + gender + ses, data = model_data)
+c5_2_c<-lm(c5_2 ~ digital_skills + tipo_zona + age + gender + ses, data = model_data)
+c5_3_c<-lm(c5_3 ~ digital_skills + tipo_zona + age + gender + ses, data = model_data)
+c5_x_c<-lm(anti_fake_news ~ digital_skills + tipo_zona + age + gender + ses, data = model_data)
 
-tab_model(c5_1_c, c5_2_c,c5_3_c, 
+tab_model(c5_1_c, c5_2_c,c5_3_c,c5_x_c, 
           show.ci = FALSE, auto.label = TRUE,
           p.style = "stars",collapse.se = TRUE,
           show.re.var = FALSE,show.icc = FALSE,
@@ -466,31 +472,20 @@ tab_model(c5_1_c, c5_2_c,c5_3_c,
 
 ### Social media frequency use model
 
-To construct a more explicative model, the exploratory analysis finish with an integrative model, which add social media frequency use, breaks down dimensions of Van Deursen's index and add self efficacy and extreme politization variables.
-
-Results show operative skills is not an important dimension for fake news experience, because have little and non-significative effects. But social digital skills get all significant, strong and negative coefficients. So less the capacities to distinct false information, more the frequency of see, believe and share fake news. 
-
-Algorithmic awareness obtained non-significant negative coefficients. Without confidence, data show people with less awareness of how the social medias select the information to the user tends to encounter, believe and share more fake news. 
-
-In extreme politization the reference category is polarized people, in other words, ones who recognise the left-right scale and select one of the wings of the scale. Centered people tends to see, believe and share more fake news than extreme politized, but people who do not recognise them in the right-wing scale tends to be the less fake news believers and sharers by a big distance from polarized people. This are non-significant results.
-
-About social media frequency use, all significant coefficients are positive (facebook and instagram). Also in non-significant whatsapp coefficients. So, we can say that more the frequency of use of these three apps, more the exposure to fake news and the probability to share and believe them. In instagram this tendencies is more strong than in the other apps mentioned.
-
-Important to mention: Gender categorical coefficients expose that, in mean, women have between 3.8 less points than men in frequency of seeing fake news, 3.4 less in frequency of believing and 2.5 less in sharing fake news. with confidence, womens are less related to false informativon propagation on the internet.
-
-In summary, with confidence, we can say social digital skills and technological self efficacy are necessary to prevent fake news propagation, but the most explicative factor to be a fake new believer/sharer is the frequency of use of social medias, especially in instagram, and gender. Also, there's not many differences between centered or polarized politized people, but there is between politized and non politized people.
-
 ```{r}
 
-social_media_data<-raw_2023%>%dplyr::select(Facebook=b12_2,
+social_media_data<-data%>%dplyr::select(    Youtube=b12_1,
+                                            Facebook=b12_2,
                                             Twitter=b12_3,
                                             Instagram=b12_4,
                                             Whatsapp=b12_5,
-                                            TikTok=b12_6,
-                                            extreme_politization)%>%
-                    replace(is.na(.), 1) #Missing values as non-frequent users
+                                            TikTok=b12_6)%>%
+                    replace(is.na(.), 0)%>% #Missing values as non-registered users
+                    mutate_all(~ifelse(.==99,NA,.))
 
-var_labels(social_media_data) <- c("Facebook frequency of use",
+  
+var_label(social_media_data) <- c("Youtube frequency of use",
+                                   "Facebook frequency of use",
                                    "Twitter frequency of use",
                                    "Instagram frequency of use",
                                    "Whatsapp frequency of use",
@@ -499,20 +494,24 @@ var_labels(social_media_data) <- c("Facebook frequency of use",
 model_data <- cbind(model_data,social_media_data)
 
 
-c5_1_d<-lm(c5_1 ~ i_operational_skills + i_social_skills + i_algorithmic_awareness +
-             extreme_politization + i_tech_self_efficacy +
-             Facebook + Twitter + Instagram + Whatsapp + TikTok +
-             age + gender + ses, data = model_data)
-c5_2_d<-lm(c5_2 ~ i_operational_skills + i_social_skills + i_algorithmic_awareness +
-             extreme_politization + i_tech_self_efficacy +
-             Facebook + Twitter + Instagram + Whatsapp + TikTok +
-             age + gender + ses, data = model_data)
-c5_3_d<-lm(c5_3 ~  i_operational_skills + i_social_skills + i_algorithmic_awareness +
-             extreme_politization + i_tech_self_efficacy +
-             Facebook + Twitter + Instagram + Whatsapp + TikTok +
-             age + gender + ses, data = model_data)
+c5_1_d<-lm(c5_1 ~ age + gender + ses + tipo_zona +
+           algorithmic_awareness +
+           Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
+           data = model_data)
+c5_2_d<-lm(c5_2 ~ age + gender + ses + tipo_zona +
+           algorithmic_awareness +
+           Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
+           data = model_data)
+c5_3_d<-lm(c5_3 ~ age + gender + ses + tipo_zona +
+           algorithmic_awareness +
+           Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
+           data = model_data)
+c5_x_d<-lm(anti_fake_news ~ age + gender + ses + tipo_zona +
+           algorithmic_awareness +
+           Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
+           data = model_data)
 
-tab_model(c5_1_d, c5_2_d,c5_3_d, 
+tab_model(c5_1_d, c5_2_d,c5_3_d,c5_x_d, 
           show.ci = FALSE, auto.label = TRUE,
           p.style = "stars",collapse.se = TRUE,
           show.re.var = FALSE,show.icc = FALSE,
