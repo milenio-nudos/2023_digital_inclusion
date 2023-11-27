@@ -18,31 +18,33 @@ The next report contains a first exploration of the digital inclusion 2023 surve
 
 -   Digital skills index (Van Deuersen)
 
-    -   Operational skills index[^2]
-    -   Informative skills index[^3]
-    -   Social skills index[^4]
-    -   Creative skills index[^5]
-    
--   Digital literacy index (Hargittai)[^6]
+    -   Operational skills index[^1]
+    -   Informative skills index[^2]
+    -   Social skills index[^3]
+    -   Creative skills index[^4]
+
+-   Digital literacy index (Hargittai)[^5]
 
     -   Social media literacy index
     -   Algorithmic literacy index
-    
--   Algorithmic awareness index (Zarouali)[^7]
+
+-   Algorithmic awareness index (Zarouali)[^6]
 
 -   Political polar position \[Categorical\]
 
-[^1]: **On a scale of 1 to 3, where 1 means "Never" and 3 means "Frequently" How often do you feel the following?**
+-   Technological anxiety scale [^7]
 
-    1.  You feel safe using the internet to find information.
+-   Technological self-efficacy scale [^8]
 
-    2.  Feels confident about learning new skills on the internet.
+-   Frequency of use of social media [^9]
 
-    3.  Feels confident in understanding terms related to the internet
+    -   Facebook.
+    -   Twitter.
+    -   Instagram.
+    -   Whatsapp.
+    -   TikTok.
 
-    4.  If I have problems using the internet, I think I could solve them all.
-
-[^2]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+[^1]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
 
     1.  I know how to open a file on the computer
 
@@ -56,7 +58,7 @@ The next report contains a first exploration of the digital inclusion 2023 surve
 
     6.  I know how to bookmark a web page that interests me.
 
-[^3]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+[^2]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
 
     1.  I know how to connect to a wifi (wireless) network
 
@@ -68,7 +70,7 @@ The next report contains a first exploration of the digital inclusion 2023 surve
 
     5.  I can decide what are the best terms to search for on the internet.
 
-[^4]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+[^3]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
 
     1.  I know what kind of information I can and cannot share on the internet.
 
@@ -82,7 +84,7 @@ The next report contains a first exploration of the digital inclusion 2023 surve
 
     6.  I take care to check the information I find on one website against a different website.
 
-[^5]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
+[^4]: **Regarding your skills in handling new technologies, which of the following do you know how to do?**
 
     1.  I know how to create something new from videos/music and photos that already exist.
 
@@ -90,7 +92,7 @@ The next report contains a first exploration of the digital inclusion 2023 surve
 
     3.  I know how to design a website (e.g., wordpress)
 
-[^6]: **On a scale of 1 to 5 where 1 means "not at all" and 5 means "very much" How familiar are you with the following computer and internet related terms?**
+[^5]: **On a scale of 1 to 5 where 1 means "not at all" and 5 means "very much" How familiar are you with the following computer and internet related terms?**
 
     Advanced search \[Algorithmic Literacy\]
 
@@ -128,7 +130,7 @@ The next report contains a first exploration of the digital inclusion 2023 surve
 
     Gamer
 
-[^7]: To what extent are you aware of the following statements about the presence of algorithms on social media (Facebook, Instagram, TikTok, Twitter) and streaming platforms (Netflix, Disney+)?
+[^6]: To what extent are you aware of the following statements about the presence of algorithms on social media (Facebook, Instagram, TikTok, Twitter) and streaming platforms (Netflix, Disney+)?
 
     1.  Algorithms are used to recommend me content (videos, photos, movies, series) on social networks and streaming platforms
 
@@ -142,6 +144,36 @@ The next report contains a first exploration of the digital inclusion 2023 surve
 
     6.  The content (videos, photos, movies, series) recommended by algorithms may be subject to human biases such as prejudice or stereotypes.
 
+[^7]: On a scale of 1 to 3, where 1 means "Never" and 3 means "Frequently" How often do you feel the following?
+
+    1.  I feel nervous when using new technologies
+
+    2.  I avoid using new technologies for fear of making mistakes.
+
+    3.  I think that technological devices and antennas can damage my health.
+
+    4.  I distrust new technologies because other people can obtain private information through it.
+
+[^8]: On a scale of 1 to 3, where 1 means "Never" and 3 means "Frequently" How often do you feel the following?
+
+    1.  Feel confident using the internet to find information.
+
+    2.  Feel confident about learning new skills on the internet.
+
+    3.  Feels confident in understanding terms related to the internet.
+
+    4.  If I have problems using the internet, I feel I could solve them on my own.
+
+[^9]: How often do you visit the following sites or use the following applications?
+
+    1.  Every day.
+
+    2.  At least once a week.
+
+    3.  Two or three times a month.
+
+    4.  Never or less than once a month.
+
 The items to predict comes from the next question: *"When you surf the internet or use social media, how often have the following situations occurred to you?"*
 
 And the items are:
@@ -150,12 +182,18 @@ And the items are:
 -   "I have believed news that later turned out to be false or misleading"
 -   "I have shared information that subsequently turned out to be false or misleading"
 
+Also, from the same battery was constructed a scale of anti fake news actions of the user. The items that composed the scale are:
+
+-   "I have blocked or unfollowed people for posting false information"
+-   "When I have received false or misleading news, I have denied it and made it clear that it is false"
+-   "I have criticised someone for disseminating false or misleading information"
+
 # Data description
 
 The table show the different variables, how they were created or calculated, some descriptive statistics and the Cronbach alpha (only for index's). Some advises:
 
--   Algorithmic awareness index first had 207	missing values (19% of total cases). All of them were recoded as "1" [Not awareness].
--   Political polar position variable is a recodification of 1 [left] - 10 [right] political position scale. Extreme positions of both wings (1,2,3/8,9,10) were recoded as "Polarized" people, center positions (4,5,6,7) were recoded as "Centered" people, and people who don't recognise them with the scale (principally Don't know/ Don't answer) were recoded as "Non-scaled". The last group represent the 55% cases of the sample.
+-   Algorithmic awareness index first had 207 missing values (19% of total cases). All of them were recoded as "1" \[Not awareness\].
+-   Political polar position variable is a recodification of 1 \[left\] - 10 \[right\] political position scale. Extreme positions of both wings (1,2,3/8,9,10) were recoded as "Polarized" people, center positions (4,5,6,7) were recoded as "Centered" people, and people who don't recognise them with the scale (principally Don't know/ Don't answer) were recoded as "Non-scaled". The last group represent the 55% cases of the sample.
 -   Van Deursen's digital skill index is contained totally by the other four index's. Meanwhile, Hargittai's digital literacy index is not totally contained by social media and algorithmic literacy index, because have other items that are not in this scale.
 -   All alpha's of mean constructed index's, with at least 95 of confidence, have a score more than 0.90, so the indexs used have internal consistency.
 
@@ -199,7 +237,7 @@ data <- data %>%
                                          f18%in%c(4,5,6,7)~"[b. Centered]",
                                          f18==99 ~ "[c. Non-scaled]"))
 
-# Anti fake-news sharing scale
+# corrective fake-news scale
 
 data$anti_fake_news <- 
          data %>% 
@@ -258,18 +296,37 @@ c5_x <- cronbach.alpha(data %>% dplyr::select(c5_4,c5_5,c5_6) %>%
 
 # List of Cronbach's alphas
 
-Cronbach<-c(c1["alpha"], c2["alpha"],NA,NA,NA,NA,NA,
+Cronbach<-c(NA,c1["alpha"], c2["alpha"],NA,NA,NA,NA,NA,
             c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],
-            NA,NA,NA,NA,NA,c5_x)
+            NA,NA,NA,c5_x["alpha"],NA,NA,NA,NA,NA)
 
-ci<-c(c1["alpha"], c2["alpha"],NA,NA,NA,NA,NA,
-            c4_a["alpha"],c4_b["alpha"],c4["alpha"],d2["alpha"],
-            NA,NA,NA,NA,NA,c5_x)
+ci<-c(NA,c1["ci"], c2["ci"],NA,NA,NA,NA,NA,
+            c4_a["ci"],c4_b["ci"],c4["ci"],d2["ci"],
+            NA,NA,NA,c5_x["ci"],NA,NA,NA,NA,NA)
 
 ```
 
 ### Numerical data
+
 ```{r,results='asis'}
+
+social_media_data<-data%>%dplyr::select(    Youtube=b12_1,
+                                            Facebook=b12_2,
+                                            Twitter=b12_3,
+                                            Instagram=b12_4,
+                                            Whatsapp=b12_5,
+                                            TikTok=b12_6)%>%
+                    replace(is.na(.), 0)%>% #Missing values because filter as non-registered users
+                    mutate_all(~ifelse(.==99,NA,.)) #NS-NR answers as NA 
+
+  
+var_label(social_media_data) <- c("Youtube use [1-5]",
+                                   "Facebook use [1-5]",
+                                   "Twitter use [1-5]",
+                                   "Instagram use [1-5]",
+                                   "Whatsapp use [1-5]",
+                                   "TikTok use [1-5]")
+
 data %>% 
   dplyr::select(tech_anxiety,
                 tech_self_efficacy,
@@ -282,14 +339,17 @@ data %>%
                 algorithmic_literacy,
                 digital_literacy,
                 algorithmic_awareness,
-                social_capital,
                 extreme_politization,
                 c5_1,c5_2,c5_3,
                 anti_fake_news) %>% 
+  mutate_at(.vars=vars(starts_with("c5_")),
+            .funs=list(~ifelse(.==99,NA,.))) %>% #c5
+  cbind(social_media_data)%>%
   skim() %>% 
   as.data.frame()%>%
   
-  mutate(Label= c("Technological anxiety scale",
+  mutate(Label= c("Extreme politization",
+                  "Technological anxiety scale",
                   "Technological Self-efficacy scale",
                   "Technological Operational skills scale [Van Deuersen]",
                   "Technological Informative skills scale [Van Deuersen]",
@@ -300,14 +360,20 @@ data %>%
                   "Algorithmic literacy scale [Hargittai]",
                   "Hargittai's Digital literacy scale (total)",
                   "Zarouali's Algorithmic awareness scale",
-                  "Social capital",
-                  "Extreme politization",
                   "I have seen or read false or misleading news",
                   "I have believed news that later turned out to be false or misleading",
                   "I have shared information that subsequently turned out to be false or misleading",
-                  "Anti-fake news actions scale"),
+                  "Missinformation corrective actions scale",
+                  "Youtube use",
+                  "Facebook use",
+                  "Twitter use",
+                  "Instagram use",
+                  "Whatsapp use",
+                  "TikTok use"
+                  ),
          
-         Estimation=c("By means (1 - 3)",
+         Estimation=c("Categorical",
+                      "By means (1 - 3)",
                       "By means (1 - 3)",
                       "Sumative (0 - 6)",
                       "Sumative (0 - 5)",
@@ -318,12 +384,16 @@ data %>%
                       "By means (1 - 5)",
                       "By means (1 - 5)",
                       "By means (1 - 5)",
-                      "Sumative (1-13)",
-                      "Categorical",
                       "Raw data",
                       "Raw data",
                       "Raw data",
-                      "By means (1 - 5)"))%>%
+                      "By means (1 - 5)",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data",
+                      "Raw data"))%>%
     dplyr::select(Variable=skim_variable,
                 Label,
                 Estimation,
@@ -335,17 +405,16 @@ data %>%
   mutate(Mean=round(Mean,2),
          SD=round(SD,2),
          Complete_rate=paste0(round(Complete_rate*100,2),"%"),
-         Cronbach=Cronbach[1:17],
-         "C.I. [2.5%;97.5%]"=ci[1:17])%>%
+         Cronbach=Cronbach[1:22],
+         "C.I. [2.5%;97.5%]"=ci[1:22])%>%
 
   gt() %>%
   sub_missing(missing_text = "")
 ```
 
-
 # Correlations
 
-### Table of correlations
+The table shows that all the scales have a positive relation with the fake news variables, but the effect size is more in in fake news reading than believing, sharing or anti-fake news attitudes. One of the strongest relationship are algorithmic awareness and digital literacy.
 
 ```{r, results='markup'}
 
@@ -370,36 +439,37 @@ model_data <- data %>% dplyr::select(
                 ses=nse,
                 tipo_zona) %>%
               mutate(gender=ifelse(gender==2,1,0),
-                     tipo_zona=ifelse(tipo_zona==2,0,1)) %>%
+                     tipo_zona=ifelse(tipo_zona==2,0,1)) %>% #Urban as 1
               mutate_all(as.numeric)%>%
               mutate_all(~ifelse(.==99,NA,.))
 ```
-::: panel-tabset
 
+::: panel-tabset
 ### Table {.scrollable}
 
 ```{r, results='markup'}
-var_label(model_data)<-c("Technological anxiety scale",
+var_label(model_data)<-c(
+                  "Technological anxiety scale",
                   "Technological Self-efficacy scale",
                   "Technological Operational skills scale [Van Deuersen]",
                   "Technological Informative skills scale [Van Deuersen]",
                   "Technological Social skills scale [Van Deuersen]",
                   "Technological Creative skills scale [Van Deuersen]",
-                  "Van Deursen's Technological Digital skills scale (total)",
+                  "Technological Digital skills scale",
                   "Social media literacy scale [Hargittai]",
-                  "Algorithmic literacy scale [Hargittai]",
-                  "Hargittai's Digital literacy scale (total)",
-                  "Zarouali's Algorithmic awareness scale",
+                  "Algorithmic literacy scale []",
+                  "Digital literacy scale []",
+                  "Algorithmic awareness scale [1-5]",
                   "Social capital",
                   "Extreme politization",
-                  "I have seen or read false or misleading news",
-                  "I have believed news that later turned out to be false or misleading",
-                  "I have shared information that subsequently turned out to be false or misleading",
-                  "Anti-fake news actions scale",
+                  "Missinformation exposure [1-5]",
+                  "Missinformation believe [1-5]",
+                  "Missinformation sharing [1-5]",
+                  "Missinformation corrective actions scale [1-5]",
                   "Gender (Women=1)",
-                  "Age",
-                  "Socioeconomical Status",
-                  "Tipo de zona(Rural=1)")
+                  "Age (Continuos)",
+                  "SES",
+                  "Geographical Zone (Urban=1)")
 
 #Eliminar categóricas
 cor_data <- model_data %>% dplyr::select(-c(age,ses,gender,
@@ -423,6 +493,10 @@ corrplot(cor(cor_data, use = "pairwise.complete.obs",
 :::
 
 # Models
+
+Firs models have only one independent scale variable and socio-economical control variables. Results shows Algorithmic awareness, digital literacy and digital skills have a positive significant impact to all fake news attitudes, but tends to be stronger in seeing or reading than in anyone else.
+
+Also, it's interest to mention that rural zones have a significative negative effect in believing in all the scales. People from rural isolated areas recognise they believe more in fake news than others.
 
 ::: panel-tabset
 ### Algorithmic awareness + control
@@ -472,44 +546,61 @@ tab_model(c5_1_c, c5_2_c,c5_3_c,c5_x_c,
 
 ### Social media frequency use model
 
+But all this questions are measuring some type of fake news awareness over fake news. To have the awareness about it, it's necessary to be a frequently user of social medias, where the fake news goes viral. This final model include variables of frequency of use of social media to predict fake news attitudes, combinated with algorithmic awareness scale.
+
+The rural type results mantains in this model. Algorithmic awareness have a significative positive effect in reading bt negative in sharing. Then social medias as youtube, twitter or facebook tends to have a positive effect, but others like whatsapp, in general, have a negative effect, specially when it's about sharing and make anti-fake news actions.
+
+In other words, people form Youtube, Twitter or Facebook have more experiencies with fake news, but also more initiative to stop them. Meanwhile Whatsapp users think they do not encounter as much fake news online, nor do they take as much initiative as users of other social media.
+
 ```{r}
-
-social_media_data<-data%>%dplyr::select(    Youtube=b12_1,
-                                            Facebook=b12_2,
-                                            Twitter=b12_3,
-                                            Instagram=b12_4,
-                                            Whatsapp=b12_5,
-                                            TikTok=b12_6)%>%
-                    replace(is.na(.), 0)%>% #Missing values as non-registered users
-                    mutate_all(~ifelse(.==99,NA,.))
-
-  
-var_label(social_media_data) <- c("Youtube frequency of use",
-                                   "Facebook frequency of use",
-                                   "Twitter frequency of use",
-                                   "Instagram frequency of use",
-                                   "Whatsapp frequency of use",
-                                   "TikTok frequency of use")
                          
-model_data <- cbind(model_data,social_media_data)
+model_data_1 <- cbind(model_data,social_media_data) %>% mutate_all(~(scale(.) %>% as.vector))
 
+var_label(model_data_1)<-c(
+                  "Technological anxiety scale",
+                  "Technological Self-efficacy scale",
+                  "Technological Operational skills scale [Van Deuersen]",
+                  "Technological Informative skills scale [Van Deuersen]",
+                  "Technological Social skills scale [Van Deuersen]",
+                  "Technological Creative skills scale [Van Deuersen]",
+                  "Technological Digital skills scale",
+                  "Social media literacy scale [Hargittai]",
+                  "Algorithmic literacy scale []",
+                  "Digital literacy scale []",
+                  "Algorithmic awareness scale [1-5]",
+                  "Social capital",
+                  "Extreme politization",
+                  "Awareness Misinformation exposure [1-5]",
+                  "Awareness Misinformation believe [1-5]",
+                  "Misinformation sharing [1-5]",
+                  "Misinformation corrective actions [1-5]",
+                  "Gender (Women=1)",
+                  "Age (Continuos)",
+                  "SES",
+                  "Geographic Zone (Urban=1)",
+                  "Youtube use",
+                  "Facebook use",
+                  "Twitter (X) use",
+                  "Instagram use",
+                  "Whatsapp use",
+                  "TikTok use")
 
 c5_1_d<-lm(c5_1 ~ age + gender + ses + tipo_zona +
            algorithmic_awareness +
            Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
-           data = model_data)
+           data = model_data_1)
 c5_2_d<-lm(c5_2 ~ age + gender + ses + tipo_zona +
            algorithmic_awareness +
            Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
-           data = model_data)
+           data = model_data_1)
 c5_3_d<-lm(c5_3 ~ age + gender + ses + tipo_zona +
            algorithmic_awareness +
            Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
-           data = model_data)
+           data = model_data_1)
 c5_x_d<-lm(anti_fake_news ~ age + gender + ses + tipo_zona +
            algorithmic_awareness +
            Youtube + Facebook + Twitter + Instagram + Whatsapp + TikTok,
-           data = model_data)
+           data = model_data_1)
 
 tab_model(c5_1_d, c5_2_d,c5_3_d,c5_x_d, 
           show.ci = FALSE, auto.label = TRUE,
@@ -517,5 +608,35 @@ tab_model(c5_1_d, c5_2_d,c5_3_d,c5_x_d,
           show.re.var = FALSE,show.icc = FALSE,
           show.obs = TRUE,show.ngroups = FALSE)
 ```
+
+
+# Plots
+
+To summary all the model information, we made three important plots.
+
+```{r}
+plot_model(c5_1_d, vline.color = "red",show.values = TRUE,value.offset = .4,
+           value.size = 3) +
+  theme_bw()+
+  labs(subtitle = "I have seen or read false or misleading news",
+       caption = "Adjusted R2: 0.279")
+```
+
+```{r}
+plot_model(c5_3_d, vline.color = "red",show.values = TRUE,value.offset = .4,
+           value.size = 3) +
+  theme_bw()+
+  labs(subtitle = "I have shared information that subsequently turned out to be false or misleading",
+       caption = "Adjusted R2: 0.083")
+```
+
+```{r}
+plot_model(c5_x_d, vline.color = "red",show.values = TRUE,value.offset = .4,
+           value.size = 3) +
+  theme_bw()+
+  labs(subtitle = "Constructed index",
+       caption = "Adjusted R2: 0.144")
+```
+
 
 
