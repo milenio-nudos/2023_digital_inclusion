@@ -118,7 +118,7 @@ Además de lo anterior, la base de datos cuenta con escalas estimadas a partir d
 -   La tercera columna detalla el modo en el que fue estimado el índice: "*Por promedio*" significa que se promedió el puntaje de los ítems que componen la escala, en cambio "*Sumativo*" significa que la escala se compone de la suma total de ítems que son tratados como dummy. La cuarta columna muestra el rango de posibles valores en los que puede variar el puntaje de la escala.
 -   Las últimas columnas estadísticos descriptivos de la distribución de los puntajes de la escala, así como su cantidad de casos validos y consistencia interna (Alfa de Cronbach).
 
-**Se sugiere trabajar con estos índices para reducir la complejidad de los análisis en cuestión**.
+**Se sugiere trabajar con estos índices para reducir la complejidad de los análisis en cuestión**. El código R de procesamiento y construcción de los índices es abierto y reproducible. Puedes revisarlo haciendo [click aqui](https://github.com/milenio-nudos/2023_digital_inclusion/blob/main/02_scripts/01_data_proc.R) 
 
 ```{r}
 #| label: tbl-index

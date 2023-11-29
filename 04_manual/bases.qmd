@@ -18,7 +18,8 @@ La base de datos del Estudio de Inclusión Digital 2023 se encuentra en el [repo
 ```
 <div class="center-button">
 
-<a class="github-button" href="https://github.com/milenio-nudos/2023_digital_inclusion/tree/main/01_input/02_proc_data/digital_inclusion_2023.zip" data-icon="octicon-download" data-size="large" aria-label="Download oles-cl/olas on GitHub" target="_blank">Descargar Base de datos</a>
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/milenio-nudos/public_digital_inclusion_2023_data/archive/HEAD.zip" data-icon="octicon-download" data-size="large" aria-label="Download milenio-nudos/public_digital_inclusion_2023_data on GitHub">Descargar bases de datos</a>
 
 ## Cita en APA
 
