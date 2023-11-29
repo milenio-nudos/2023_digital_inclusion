@@ -19,17 +19,18 @@ La base de datos del Estudio de Inclusión Digital 2023 se encuentra en el [repo
 <div class="center-button">
 
 <!-- Place this tag where you want the button to render. -->
+
 <a class="github-button" href="https://github.com/milenio-nudos/public_digital_inclusion_2023_data/archive/HEAD.zip" data-icon="octicon-download" data-size="large" aria-label="Download milenio-nudos/public_digital_inclusion_2023_data on GitHub">Descargar bases de datos</a>
 
 ## Cita en APA
 
 Cualquier publicación que utilice las bases de datos de la encuesta, en cualquiera de sus versiones, debe citar la fuente de la siguiente forma:
 
--   Núcleo Milenio de Desigualdades y Oportunidades Digitales. (2023). *Encuesta de Inclusión Digital* \[base de datos\]. Recuperado de [Link del manual](https://nudos.cl){target="_blank"}.
+-   Núcleo Milenio de Desigualdades y Oportunidades Digitales. (2023). *Encuesta de Inclusión Digital* \[base de datos\]. Recuperado de [https://nudos.quarto.pub/manual-inclusion-digital-2023/](https://nudos.quarto.pub/manual-inclusion-digital-2023/){target="_blank"}.
 
 Para citar el presente manual, se roga utilizar la siguiente propuesta:
 
--   Núcleo Milenio de Desigualdades y Oportunidades Digitales. (2023). *Encuesta de Inclusión Digital 2023. Manual de uso metodológico*. Recuperado de [Link del manual](https://nudos.cl){target="_blank"}.
+-   Núcleo Milenio de Desigualdades y Oportunidades Digitales. (2023). *Encuesta de Inclusión Digital 2023. Manual de uso metodológico*. Recuperado de [https://nudos.quarto.pub/manual-inclusion-digital-2023/](https://nudos.quarto.pub/manual-inclusion-digital-2023/){target="_blank"}.
 
 ## Dudas y consultas
 
