@@ -39,7 +39,8 @@ ci<-c(c1["ci"],c2["ci"],NA,NA,NA,NA,NA,c4["ci"],d2["ci"],f2["ci"],NA,NA)
 
 # 2. Descriptive Table
 
-data %>% dplyr::select(starts_with("i_"),nse) %>% mutate(nse=as.numeric(nse)) %>%
+data[,268:279] %>% relocate(nse, .after = last_col()) %>%
+  mutate(nse=as.numeric(nse)) %>%
   mutate_all(~ifelse(.==99,NA,.)) %>% skim() %>% as.data.frame()%>%
   mutate(Label= c("Inseguridad tecnológica",
                   "Autoeficacia tecnológica",
