@@ -29,7 +29,9 @@ pacman::p_load(haven, #Read sav database
                summarytools, #Descriptive tables
                gt, #Tables
                sjPlot,
-               labelled 
+               labelled ,
+               car,
+               ResourceSelection
                )
 
 options(digits = 1) #round results to 2 digits
@@ -453,12 +455,33 @@ texreg::htmlreg(l=list(glm_2015,glm_2023),
                                     ),
                 custom.model.names = c("2015","2023"))
 
+vif(glm_2015)
+vif(glm_2023)
+
+hoslem.test(
+  glm_2015$y,  # Observed binary outcome
+  fitted(glm_2015),  # Predicted probabilities
+  g = 10  # Number of groups to bin data
+)
+
+
+hoslem.test(
+  glm_2023$y,  # Observed binary outcome
+  fitted(glm_2023),  # Predicted probabilities
+  g = 10  # Number of groups to bin data
+)
+
 ```
 
 ## Lifetime internet User
 
 ```{r,results='asis'}
+```
 
+```{r,results='asis'}
+```
+
+```{r,results='asis'}
 glm_2015 <- glm(user~age+sex+innovative+education+income+transport+soc_net+childs,
                 data = beyond_2015%>%mutate_all(as.numeric),family = "binomial")
 
@@ -486,6 +509,42 @@ texreg::htmlreg(l=list(glm_2015,glm_2023),
                                     ),
                 custom.model.names = c("2015","2023"))
 
+vif(glm_2015)
+vif(glm_2023)
+
+
+hoslem.test(
+  glm_2015$y,  # Observed binary outcome
+  fitted(glm_2015),  # Predicted probabilities
+  g = 10  # Number of groups to bin data
+)
+
+
+hoslem.test(
+  glm_2023$y,  # Observed binary outcome
+  fitted(glm_2023),  # Predicted probabilities
+  g = 10  # Number of groups to bin data
+)
+
 ```
+
+```{r}
+count(beyond_2015,user,adoption)
+
+problem <- beyond_2015 |> filter(user == 0 & adoption == 1)
+problem2 <- beyond_2023 |> filter(user == 0 & adoption == 1)
+
+summary(problem$age)
+summary(problem2$age)
+
+47/598
+29/449
+
+
+```
+
+```{r}
+```
+
 
 # References

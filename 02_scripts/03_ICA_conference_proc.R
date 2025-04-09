@@ -8,9 +8,10 @@ pacman::p_load(haven, #Read sav database
                ltm, #Cronbach alpha
                summarytools)
 
+
 # Read 
-raw_2015 <- read_sav("input/01_raw_data/2015_survey_raw.sav") %>% clean_names()
-raw_2023 <- read_sav("input/01_raw_data/2023_survey_raw.sav") %>% clean_names()
+raw_2015 <- read_sav("01_input/01_raw_data/2015_survey_raw.sav") %>% clean_names()
+raw_2023 <- read_sav("01_input/01_raw_data/2023_survey_raw.sav") %>% clean_names()
 
 # Filter zones measured in both studies
 raw_2023 <- raw_2023 %>% filter(tipo_zona==2)
