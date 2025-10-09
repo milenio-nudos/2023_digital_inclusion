@@ -18,3 +18,6 @@ The structure of the repository is as follows:
 |
 ├─── 04_manual: Folder from which the methodological manual of the database is derived.
 ```
+
+## Reports
+[ICA 2026 proposal](https://milenio-nudos.github.io/2023_digital_inclusion/03_dinamic_documents/04_ICA_2026.html)
