@@ -546,5 +546,4 @@ summary(problem2$age)
 ```{r}
 ```
 
-
 # References

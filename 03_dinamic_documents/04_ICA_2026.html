@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Teresa Correa, Catalina Farías &amp; Nicolás Tobar">
+<meta name="dcterms.date" content="2024-02-11">
+
+<title>ICA 2026</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="04_ICA_2026_files/libs/clipboard/clipboard.min.js"></script>
+<script src="04_ICA_2026_files/libs/quarto-html/quarto.js"></script>
+<script src="04_ICA_2026_files/libs/quarto-html/popper.min.js"></script>
+<script src="04_ICA_2026_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="04_ICA_2026_files/libs/quarto-html/anchor.min.js"></script>
+<link href="04_ICA_2026_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="04_ICA_2026_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="04_ICA_2026_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="04_ICA_2026_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="04_ICA_2026_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="04_ICA_2026_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+<script src="04_ICA_2026_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+<link href="04_ICA_2026_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="04_ICA_2026_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="04_ICA_2026_files/libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+
+<script src="04_ICA_2026_files/libs/datatables-binding-0.33/datatables.js"></script>
+
+<script src="04_ICA_2026_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="04_ICA_2026_files/libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="04_ICA_2026_files/libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
+<script src="04_ICA_2026_files/libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
+<link href="04_ICA_2026_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="04_ICA_2026_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">ICA 2026</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Teresa Correa, Catalina Farías &amp; Nicolás Tobar </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 11, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- PACKAGE MANAGEMENT ----</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This block loads (and installs if necessary) all required packages</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  tidyverse,    <span class="co"># data wrangling (dplyr, ggplot2, etc.)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  haven,        <span class="co"># import SPSS/Stata/SAS data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  labelled,     <span class="co"># manage variable and value labels</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  psych,        <span class="co"># reliability tests (Cronbach's alpha)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  sjlabelled,   <span class="co"># labeling utilities compatible with tidyverse</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  car,          <span class="co"># regression diagnostics (VIF, etc.)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  lmtest,       <span class="co"># regression tests</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  sandwich,     <span class="co"># lm specifications</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  Hmisc,        <span class="co"># Correlation matrix</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  scales,       <span class="co"># normalization and rescaling</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  dplyr,        <span class="co"># ensure dplyr functions are active</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  psych,        <span class="co"># cronbach alpha</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  readr,        <span class="co"># reading csv or txt data</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  tidyr,        <span class="co"># data tidying</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  stringr,      <span class="co"># string handling</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  sjPlot,       <span class="co"># Plot analysis</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  ggplot2,      <span class="co"># data visualization</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  knitr,        <span class="co"># Markdown knit</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  KableExtra,    <span class="co"># Personalize design knit</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  flextable     <span class="co"># export tables </span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#Open data</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"~/GitHub/milenio_nudos/2023_digital_inclusion/01_input/02_proc_data/digital_inclusion_2023.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- INCOME VARIABLES ----</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecciona columnas de ingresos y reemplaza 99 por NA</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>income_vars <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"g3_"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">na_if</span>(<span class="fu">as.integer</span>(.), <span class="dv">99</span>)))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combina todas las columnas en una sola variable "incomes"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>incomes <span class="ot">&lt;-</span> <span class="fu">do.call</span>(coalesce, income_vars)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Opcional: elimina las columnas originales si ya no las necesitas</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"g3_"</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- SOCIODEMOGRAPHIC VARIABLES ----</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Gender: 0 = male, 1 = female</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">a1 =</span> <span class="fu">ifelse</span>(a1 <span class="sc">==</span> <span class="dv">2</span>, <span class="dv">1</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>         <span class="fu">ifelse</span>(a1 <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, <span class="cn">NA</span>)),</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">gender =</span> <span class="fu">factor</span>(a1,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Change age variable name</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> a2,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Type of residence: 1 = urban, 2 = ral</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">residence =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      tipo_zona <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Urban"</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      tipo_zona <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Rural"</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">residence =</span> <span class="fu">factor</span>(residence, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Urban"</span>, <span class="st">"Rural"</span>)),</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Educational level (recoded into 6 categories)</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">g7 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>      g7 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">~</span> <span class="dv">1</span>,     <span class="co"># Incomplete primary</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>      g7 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">2</span>,             <span class="co"># Complete primary</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>      g7 <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="dv">3</span>,             <span class="co"># Incomplete high school</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>      g7 <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">4</span>,             <span class="co"># Complete high school</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>      g7 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>) <span class="sc">~</span> <span class="dv">5</span>,     <span class="co"># Incomplete college</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>      g7 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">10</span>) <span class="sc">~</span> <span class="dv">6</span>, <span class="co"># College education</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">education =</span> <span class="fu">factor</span>(g7,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Incomplete primary"</span>,</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Complete primary"</span>,</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Incomplete high school"</span>,</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Complete high school"</span>,</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"Incomplete college"</span>,</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"College education"</span>)),</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Household income as ordinal variable (1–9)</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">income_num =</span> <span class="fu">as.numeric</span>(incomes)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: Add value labels if using the labelled package</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"labelled"</span> <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())) {</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">val_labels</span>(data<span class="sc">$</span>g7) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Incomplete primary"</span> <span class="ot">=</span> <span class="dv">1</span>, </span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Complete primary"</span> <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Incomplete high school"</span> <span class="ot">=</span> <span class="dv">3</span>,</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Complete high school"</span> <span class="ot">=</span> <span class="dv">4</span>,</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Incomplete college"</span> <span class="ot">=</span> <span class="dv">5</span>,</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    <span class="st">"College education"</span> <span class="ot">=</span> <span class="dv">6</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- DIGITAL SKILLS INDICES (van Deursen, 2014; 2020) ----</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each subscale is built from items in battery C3 following your structure.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define item groups</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>operational_items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"c3_1_1"</span>, <span class="st">"c3_1_2"</span>, <span class="st">"c3_1_3"</span>, <span class="st">"c3_1_4"</span>, <span class="st">"c3_1_5"</span>, <span class="st">"c3_1_6"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>informative_items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"c3_2_1"</span>, <span class="st">"c3_2_2"</span>, <span class="st">"c3_2_3"</span>, <span class="st">"c3_2_4"</span>, <span class="st">"c3_2_5"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>social_items      <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"c3_3_1"</span>, <span class="st">"c3_3_2"</span>, <span class="st">"c3_3_3"</span>, <span class="st">"c3_3_4"</span>, <span class="st">"c3_3_5"</span>, <span class="st">"c3_3_6"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>creative_items    <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"c3_4_1"</span>, <span class="st">"c3_4_2"</span>, <span class="st">"c3_4_3"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Ensure C3 items are numeric ----</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convertir items c3 a 0/1 y reemplazar 99 por NA</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"c3"</span>), <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    . <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    . <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    . <span class="sc">==</span> <span class="dv">99</span> <span class="sc">~</span> <span class="cn">NA_integer_</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_integer_</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  ))) <span class="sc">%&gt;%</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Asegurar que las sub-dimensiones sean numéricas</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(<span class="fu">c</span>(operational_items, informative_items, social_items, creative_items)), <span class="sc">~</span> <span class="fu">as.numeric</span>(.)))</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- SUMMATIVE INDICES (raw sums) with NA-if-all-missing protection ----</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Operational (sum of c3_1_*)</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">op_n =</span> <span class="fu">rowSums</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(operational_items)))),</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">op_sum =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(operational_items)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_operational_skills_raw =</span> <span class="fu">if_else</span>(op_n <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA_real_</span>, op_sum),</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Informative (sum of c3_2_*)</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">inf_n =</span> <span class="fu">rowSums</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(informative_items)))),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">inf_sum =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(informative_items)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_informative_skills_raw =</span> <span class="fu">if_else</span>(inf_n <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA_real_</span>, inf_sum),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Social (sum of c3_3_*)</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">soc_n =</span> <span class="fu">rowSums</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(social_items)))),</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">soc_sum =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(social_items)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_social_skills_raw =</span> <span class="fu">if_else</span>(soc_n <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA_real_</span>, soc_sum),</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Creative (sum of c3_4_*)</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">cre_n =</span> <span class="fu">rowSums</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(creative_items)))),</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">cre_sum =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., <span class="fu">all_of</span>(creative_items)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_creative_skills_raw =</span> <span class="fu">if_else</span>(cre_n <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA_real_</span>, cre_sum)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- NORMALIZATION to 0-1 (observed min-max) ----</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co"># keep normalize function (observed min-max)</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>normalize <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (x <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>                         (<span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_operational_skills =</span> <span class="fu">normalize</span>(tech_operational_skills_raw),</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_informative_skills =</span> <span class="fu">normalize</span>(tech_informative_skills_raw),</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_social_skills      =</span> <span class="fu">normalize</span>(tech_social_skills_raw),</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">tech_creative_skills    =</span> <span class="fu">normalize</span>(tech_creative_skills_raw)</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- RELIABILITY CHECK (OPTIONAL) ----</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Cronbach’s alpha for each subscale (recommended for reporting)</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="co">#library(psych)</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">#alpha_operational &lt;- psych::alpha(data %&gt;% select(all_of(operational_items)))</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="co">#alpha_informative &lt;- psych::alpha(data %&gt;% select(all_of(informative_items)))</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="co">#alpha_social      &lt;- psych::alpha(data %&gt;% select(all_of(social_items)))</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="co">#alpha_creative    &lt;- psych::alpha(data %&gt;% select(all_of(creative_items)))</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="co">#cat("\nCronbach's alpha coefficients:\n")</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="co">#cat("Operational skills: ", round(alpha_operational$total$raw_alpha, 2), "\n")</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="co">#cat("Informative skills: ", round(alpha_informative$total$raw_alpha, 2), "\n")</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="co">#cat("Social skills: ", round(alpha_social$total$raw_alpha, 2), "\n")</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="co">#cat("Creative skills: ", round(alpha_creative$total$raw_alpha, 2), "\n")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- ALGORITHMIC AWARENESS INDEX (MEAN SCALE) ----</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Based on items from battery D2 (Algorithmic Media Content Awareness - AMCA)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Convert all D2 items to numeric</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"d2"</span>), as.numeric))<span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"d2"</span>), <span class="sc">~</span> <span class="fu">ifelse</span>(. <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, .)))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Compute the mean index for algorithmic awareness</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#    The index represents the average awareness level across all D2 items</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">algorithmic_awareness =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"d2"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Normalize to 0–1 range (optional, for comparability with other indices)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>normalize <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (x <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                         (<span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">algorithmic_awareness =</span> <span class="fu">normalize</span>(algorithmic_awareness)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Reliability check (Cronbach’s alpha)</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>awareness_items <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">select</span>(data, <span class="fu">starts_with</span>(<span class="st">"d2"</span>)))</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>alpha_awareness <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(data <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">all_of</span>(awareness_items)))</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Cronbach's alpha coefficient:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Cronbach's alpha coefficient:</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Algorithmic awareness: "</span>, <span class="fu">round</span>(alpha_awareness<span class="sc">$</span>total<span class="sc">$</span>raw_alpha, <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Algorithmic awareness:  0.97 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- PROCESS SOCIAL MEDIA USE VARIABLES ----</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Recode missing values (99 -&gt; NA) for all b12 items</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"b12"</span>), <span class="sc">~</span> <span class="fu">ifelse</span>(. <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, .))) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ---- Transform only e2_3_3 (Netflix) ----</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">e2_3_3 =</span> <span class="fu">ifelse</span>(e2_3_3 <span class="sc">==</span> <span class="dv">99</span>, <span class="cn">NA</span>, e2_3_3),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">e2_3_3 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">~</span> <span class="dv">1</span>,  <span class="co"># Never done + Done 3 months ago</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">2</span>,          <span class="co"># Once or three per month</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="dv">3</span>,          <span class="co"># All the weeks</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">4</span>,          <span class="co"># Once a day or more</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="dv">5</span>,  <span class="co"># Once a day or more</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rename variables for clarity</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">yt      =</span> b12_1,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">fb      =</span> b12_2,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">tw      =</span> b12_3,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">ig      =</span> b12_4,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">wsp     =</span> b12_5,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">tiktok  =</span> b12_6,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">netflix =</span> e2_3_3</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ensure all are numeric</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), as.numeric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="methods" class="level1">
+<h1>Methods</h1>
+<section id="study-design" class="level2">
+<h2 class="anchored" data-anchor-id="study-design">Study design</h2>
+<p>This study draws on data from the National Digital Inclusion Survey conducted in Chile between August and October 2023, encompassing both rural and urban localities across the country. The survey was administered face-to-face by trained interviewers from a professional polling firm (Feedback).</p>
+<p>The sample is probabilistic and representative of individuals aged 14 and older who are permanent residents of the selected locations. In urban areas, a stratified cluster sampling strategy was employed, with random selection of households within predefined blocks. In rural areas—characterized by smaller, dispersed populations—a random-route method was used, approximating a near-census coverage in each locality. One respondent per household was randomly selected for interview. The final analytic sample consists of 1,200 respondents, of whom 751 (62.6%) reside in urban areas and 449 (37.4%) in rural communities. The overall response rate (RR4), calculated following the American Association for Public Opinion Research guidelines, was 47.5%.</p>
+</section>
+<section id="measures" class="level2">
+<h2 class="anchored" data-anchor-id="measures">Measures</h2>
+<p><em>Algorithmic Awareness</em></p>
+<p>The dependent variable follows the Algorithmic Media Content Awareness (AMCA) scale (Zarouali et al., 2021), capturing respondents’ awareness that algorithms curate online content. It includes three items measuring: content filtering, behavioral dependence, and ethical implications (e.g., “Algorithms use my personal data, which has consequences for my online privacy”). Responses were rated on a five-point Likert scale (1 = Not at all aware to 5 = Completely aware) and averaged into a single scale (α &gt; .80). Higher scores indicate greater algorithmic awareness.</p>
+<p><em>Digital skills</em></p>
+<p>Digital skills were measured following van Deursen’s (CITA) multidimensional framework, encompassing four subdimensions derived from items in battery C3:</p>
+<ul>
+<li><p>Operational skills — ability to manage basic technological operations such as installing apps or adjusting device settings [6 items].</p></li>
+<li><p>Informational skills — capacity to search for, evaluate, and organize online information [5 items].</p></li>
+<li><p>Social skills — ability to communicate, interact, and manage privacy on social media [6 items].</p></li>
+<li><p>Creative skills — ability to create, edit, and share original digital content [3 items].</p></li>
+</ul>
+<p>Each scales are sumative from dichotomical items phrased as know how to do (1). The scales have different number of items, so to conserve comparability, they were standardized (0–1). Higher values denote stronger digital competencies in each domain.</p>
+<p><em>Social media and platforms use</em></p>
+<p>Social media use was measured through a battery of six items capturing the frequency of use of major platforms: Facebook, Instagram, YouTube, WhatsApp, TikTok, X (Twitter) and Netflix. Responses ranged from 1 (Never or less than once a month) to 5 (Several times a day).</p>
+<p><em>Sociodemographic Controls</em></p>
+<p>Control variables included are age (continuos, in years), gender (0 = male; 1 = female), educational status (1 = primary or less, to 5 = college or more), household income (9 values ordinal scale with ranges adapted to number of members) and the type of residence, coded as urban or rural following the national Statistics Institute’s classification.</p>
+<div class="cell" data-lbl="descriptives">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Model variables ----</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"algorithmic_awareness"</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"age"</span>, <span class="st">"gender"</span>, <span class="st">"education"</span>, <span class="st">"incomes"</span>, <span class="st">"residence"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tech_operational_skills"</span>, <span class="st">"tech_informative_skills"</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tech_social_skills"</span>, <span class="st">"tech_creative_skills"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"yt"</span>, <span class="st">"fb"</span>, <span class="st">"tw"</span>, <span class="st">"ig"</span>, <span class="st">"wsp"</span>, <span class="st">"tiktok"</span>, <span class="st">"netflix"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Descriptive table ----</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>desc_table <span class="ot">&lt;-</span> <span class="fu">lapply</span>(model_vars, <span class="cf">function</span>(v){</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> data[[v]]</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.numeric</span>(x)){</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    desc <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">mean</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>), <span class="st">" ("</span>, <span class="fu">round</span>(<span class="fu">sd</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>),<span class="dv">2</span>), <span class="st">")"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    tab <span class="ot">&lt;-</span> <span class="fu">table</span>(x, <span class="at">useNA=</span><span class="st">"ifany"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    pct <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(tab)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    desc <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">names</span>(tab), <span class="st">" ("</span>, <span class="fu">as.vector</span>(tab), <span class="st">", "</span>, <span class="fu">as.vector</span>(pct), <span class="st">"%)"</span>, <span class="at">collapse =</span> <span class="st">"; "</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="fu">as.character</span>(v),</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type =</span> <span class="fu">ifelse</span>(<span class="fu">is.numeric</span>(x), <span class="st">"Numeric"</span>, <span class="st">"Categorical"</span>),</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">Description =</span> desc,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_observed =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)),</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(x)),</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cronbach_alpha =</span> <span class="cn">NA</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>()</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Cronbach's alpha for indices ----</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>indices_list <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Algorithmic Awareness"</span> <span class="ot">=</span> <span class="fu">grep</span>(<span class="st">"algorithmic_awareness"</span>, <span class="fu">names</span>(data), <span class="at">value=</span><span class="cn">TRUE</span>),</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Operational Skills"</span> <span class="ot">=</span> operational_items,</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Informative Skills"</span> <span class="ot">=</span> informative_items,</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Social Skills"</span> <span class="ot">=</span> social_items,</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Creative Skills"</span> <span class="ot">=</span> creative_items</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>alpha_table <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">names</span>(indices_list), <span class="cf">function</span>(idx_name){</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  vars <span class="ot">&lt;-</span> <span class="fu">intersect</span>(indices_list[[idx_name]], <span class="fu">names</span>(data))</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(vars) <span class="sc">&gt;</span> <span class="dv">1</span>){</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    alpha_val <span class="ot">&lt;-</span> <span class="fu">round</span>(psych<span class="sc">::</span><span class="fu">alpha</span>(data[, vars], <span class="at">check.keys=</span><span class="cn">TRUE</span>)<span class="sc">$</span>total<span class="sc">$</span>raw_alpha,<span class="dv">2</span>)</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> { alpha_val <span class="ot">&lt;-</span> <span class="cn">NA</span> }</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> idx_name,</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type =</span> <span class="st">"Index"</span>,</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">Description =</span> <span class="cn">NA</span>,</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_observed =</span> <span class="cn">NA</span>,</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_missing =</span> <span class="cn">NA</span>,</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cronbach_alpha =</span> alpha_val,</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>()</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Combine descriptive and alpha tables ----</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>final_table <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(desc_table, alpha_table)</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Create flextable for Word ----</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>ft_final <span class="ot">&lt;-</span> <span class="fu">flextable</span>(final_table) <span class="sc">%&gt;%</span></span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autofit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_header_labels</span>(</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">"Variable"</span>,</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">Type =</span> <span class="st">"Type"</span>,</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">Description =</span> <span class="st">"Description (Mean±SD or categories)"</span>,</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_observed =</span> <span class="st">"N Observed"</span>,</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_missing =</span> <span class="st">"N Missing"</span>,</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">Cronbach_alpha =</span> <span class="st">"Cronbach's Alpha"</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Display table ----</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>ft_final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-86ae4206{}.cl-86a52fe0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-86a89036{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-86a8904a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-86a8b084{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b08e{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b098{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b099{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0a2{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0ac{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0ad{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0ae{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0b6{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0b7{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0b8{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0c0{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0c1{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0ca{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0d4{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0d5{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0d6{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0de{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0df{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0e8{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0e9{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0f2{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0fc{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b0fd{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b106{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b107{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b110{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b111{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b112{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b11a{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b124{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b125{width:0.854in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b126{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b12e{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b12f{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-86a8b138{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-86ae4206"><caption><p>Descriptive table</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-86a8b084"><p class="cl-86a89036"><span class="cl-86a52fe0">Variable</span></p></th><th class="cl-86a8b08e"><p class="cl-86a89036"><span class="cl-86a52fe0">Type</span></p></th><th class="cl-86a8b098"><p class="cl-86a89036"><span class="cl-86a52fe0">Description (Mean±SD or categories)</span></p></th><th class="cl-86a8b099"><p class="cl-86a8904a"><span class="cl-86a52fe0">N Observed</span></p></th><th class="cl-86a8b0a2"><p class="cl-86a8904a"><span class="cl-86a52fe0">N Missing</span></p></th><th class="cl-86a8b0ac"><p class="cl-86a8904a"><span class="cl-86a52fe0">Cronbach's Alpha</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">algorithmic_awareness</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">0.4 (0.39)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">993</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">207</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">age</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">51.07 (18.6)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,200</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">0</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">gender</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">1.58 (0.49)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,197</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">3</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">education</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">3.71 (1.68)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,195</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">5</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">incomes</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">2.91 (1.09)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,046</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">154</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">residence</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">1.37 (0.48)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,200</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">0</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">tech_operational_skills</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">0.53 (0.45)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,195</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">5</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">tech_informative_skills</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">0.51 (0.39)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,197</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">3</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">tech_social_skills</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">0.63 (0.43)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,175</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">25</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">tech_creative_skills</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">0.26 (0.38)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,185</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">15</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">yt</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">3.09 (1.3)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">970</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">230</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">fb</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">3.28 (1.36)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">976</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">224</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">tw</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">1.49 (1.04)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">948</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">252</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">ig</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">2.84 (1.65)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">960</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">240</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">wsp</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">4.54 (0.77)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">981</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">219</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">tiktok</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">2.54 (1.58)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">956</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">244</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0ad"><p class="cl-86a89036"><span class="cl-86a52fe0">netflix</span></p></td><td class="cl-86a8b0ae"><p class="cl-86a89036"><span class="cl-86a52fe0">Numeric</span></p></td><td class="cl-86a8b0b6"><p class="cl-86a89036"><span class="cl-86a52fe0">2.1 (1.2)</span></p></td><td class="cl-86a8b0b7"><p class="cl-86a8904a"><span class="cl-86a52fe0">1,187</span></p></td><td class="cl-86a8b0b8"><p class="cl-86a8904a"><span class="cl-86a52fe0">13</span></p></td><td class="cl-86a8b0c0"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0c1"><p class="cl-86a89036"><span class="cl-86a52fe0">Algorithmic Awareness</span></p></td><td class="cl-86a8b0ca"><p class="cl-86a89036"><span class="cl-86a52fe0">Index</span></p></td><td class="cl-86a8b0d4"><p class="cl-86a89036"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b0d5"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b0d6"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b0de"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b0df"><p class="cl-86a89036"><span class="cl-86a52fe0">Operational Skills</span></p></td><td class="cl-86a8b0e8"><p class="cl-86a89036"><span class="cl-86a52fe0">Index</span></p></td><td class="cl-86a8b0e9"><p class="cl-86a89036"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b0f2"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b0fc"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b0fd"><p class="cl-86a8904a"><span class="cl-86a52fe0">0.96</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b106"><p class="cl-86a89036"><span class="cl-86a52fe0">Informative Skills</span></p></td><td class="cl-86a8b107"><p class="cl-86a89036"><span class="cl-86a52fe0">Index</span></p></td><td class="cl-86a8b110"><p class="cl-86a89036"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b111"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b112"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b11a"><p class="cl-86a8904a"><span class="cl-86a52fe0">0.84</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b106"><p class="cl-86a89036"><span class="cl-86a52fe0">Social Skills</span></p></td><td class="cl-86a8b107"><p class="cl-86a89036"><span class="cl-86a52fe0">Index</span></p></td><td class="cl-86a8b110"><p class="cl-86a89036"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b111"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b112"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b11a"><p class="cl-86a8904a"><span class="cl-86a52fe0">0.95</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-86a8b124"><p class="cl-86a89036"><span class="cl-86a52fe0">Creative Skills</span></p></td><td class="cl-86a8b125"><p class="cl-86a89036"><span class="cl-86a52fe0">Index</span></p></td><td class="cl-86a8b126"><p class="cl-86a89036"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b12e"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b12f"><p class="cl-86a8904a"><span class="cl-86a52fe0"></span></p></td><td class="cl-86a8b138"><p class="cl-86a8904a"><span class="cl-86a52fe0">0.86</span></p></td></tr></tbody></table></div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Optionally save to Word ----</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># save_as_docx(ft_final, path = "Descriptive_Table.docx")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="analytical-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="analytical-strategy">Analytical strategy</h2>
+<p>We estimated a series of linear regression models to examine the predictors of algorithmic awareness. The main independent variables were the four dimensions of digital skills and the six social media use indicators, controlling for demographical variables. All continuous variables were mean-centered prior to analysis to facilitate interpretation. Robust standard errors were computed to account for potential heteroskedasticity.</p>
+<p>Model diagnostics confirmed the absence of multicollinearity (all VIF &lt; 2.5) and normal distribution of residuals. Analyses were conducted using R 4.4.2 software. Marginal effects and standardized coefficients are reported for comparability. Statistical significance was set at p &lt; .05.</p>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="correlation-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-matrix">Correlation matrix</h2>
+<div class="cell" data-lbl="corr-matrix" data-tbl-cap="Correlation matrix">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- CORRELATION MATRIX ----</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select variables for correlation</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>corr_vars <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    algorithmic_awareness,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    age,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    residence,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    gender,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    education,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    incomes,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    tech_operational_skills,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    tech_informative_skills,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    tech_social_skills,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    tech_creative_skills,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    yt, fb, tw, ig, wsp, tiktok, netflix</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlations with p-values</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>corr_test <span class="ot">&lt;-</span> Hmisc<span class="sc">::</span><span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(corr_vars), <span class="at">type =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract correlation coefficients and p-values</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">round</span>(corr_test<span class="sc">$</span>r, <span class="dv">2</span>)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> corr_test<span class="sc">$</span>P</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine correlation and p-value into one string</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>corr_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(r, <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, <span class="fu">ifelse</span>(p <span class="sc">&lt;</span> <span class="fl">0.001</span>, <span class="st">"&lt;.001"</span>, <span class="fu">round</span>(p, <span class="dv">3</span>)), <span class="st">")"</span>),</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="fu">ncol</span>(r)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(corr_table) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(r)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(corr_table) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(r)</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to data frame for printing</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>corr_table_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(corr_table)</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Usa tu mismo código para preparar la tabla ---</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co"># (Selección de variables, cálculo de corrs, etc.)</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Solo cambia el paso final de knitr::kable a DT::datatable</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>  corr_table_df,</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Pearson Correlation Matrix with p-values"</span>,</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">scrollX =</span> <span class="cn">TRUE</span>,  <span class="co"># ¡Esta es la opción clave para el desplazamiento horizontal!</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">pageLength =</span> <span class="dv">10</span>, <span class="co"># Controla cuántas filas se muestran por página</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">columnDefs =</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">className =</span> <span class="st">'dt-center'</span>, <span class="at">targets =</span> <span class="st">"_all"</span>)) <span class="co"># Centrar texto</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">class =</span> <span class="st">'cell-border stripe'</span> <span class="co"># Estilo visual</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-c508df70f9b19000ce61" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c508df70f9b19000ce61">{"x":{"filter":"none","vertical":false,"caption":"<caption>Pearson Correlation Matrix with p-values<\/caption>","data":[["algorithmic_awareness","age","residence","gender","education","incomes","tech_operational_skills","tech_informative_skills","tech_social_skills","tech_creative_skills","yt","fb","tw","ig","wsp","tiktok","netflix"],["1\n(NA)","-0.6\n(&lt;.001)","-0.19\n(&lt;.001)","-0.08\n(0.008)","0.5\n(&lt;.001)","0.36\n(&lt;.001)","0.7\n(&lt;.001)","0.64\n(&lt;.001)","0.56\n(&lt;.001)","0.56\n(&lt;.001)","0.37\n(&lt;.001)","0.09\n(0.009)","0.34\n(&lt;.001)","0.48\n(&lt;.001)","0.14\n(&lt;.001)","0.36\n(&lt;.001)","0.56\n(&lt;.001)"],["-0.6\n(&lt;.001)","1\n(NA)","0.05\n(0.064)","0.01\n(0.727)","-0.45\n(&lt;.001)","-0.22\n(&lt;.001)","-0.66\n(&lt;.001)","-0.66\n(&lt;.001)","-0.61\n(&lt;.001)","-0.49\n(&lt;.001)","-0.34\n(&lt;.001)","-0.16\n(&lt;.001)","-0.23\n(&lt;.001)","-0.52\n(&lt;.001)","-0.15\n(&lt;.001)","-0.42\n(&lt;.001)","-0.59\n(&lt;.001)"],["-0.19\n(&lt;.001)","0.05\n(0.064)","1\n(NA)","0.03\n(0.352)","-0.36\n(&lt;.001)","-0.2\n(&lt;.001)","-0.23\n(&lt;.001)","-0.18\n(&lt;.001)","-0.19\n(&lt;.001)","-0.13\n(&lt;.001)","-0.06\n(0.048)","0.01\n(0.67)","-0.06\n(0.054)","-0.15\n(&lt;.001)","-0.15\n(&lt;.001)","-0.1\n(0.001)","-0.21\n(&lt;.001)"],["-0.08\n(0.008)","0.01\n(0.727)","0.03\n(0.352)","1\n(NA)","-0.05\n(0.118)","-0.16\n(&lt;.001)","-0.01\n(0.648)","-0.01\n(0.78)","0\n(0.912)","-0.06\n(0.048)","-0.06\n(0.051)","0.14\n(&lt;.001)","-0.06\n(0.083)","0.08\n(0.014)","0.05\n(0.12)","0.08\n(0.013)","-0.02\n(0.493)"],["0.5\n(&lt;.001)","-0.45\n(&lt;.001)","-0.36\n(&lt;.001)","-0.05\n(0.118)","1\n(NA)","0.52\n(&lt;.001)","0.64\n(&lt;.001)","0.59\n(&lt;.001)","0.64\n(&lt;.001)","0.44\n(&lt;.001)","0.21\n(&lt;.001)","0.18\n(&lt;.001)","0.26\n(&lt;.001)","0.41\n(&lt;.001)","0.26\n(&lt;.001)","0.19\n(&lt;.001)","0.47\n(&lt;.001)"],["0.36\n(&lt;.001)","-0.22\n(&lt;.001)","-0.2\n(&lt;.001)","-0.16\n(&lt;.001)","0.52\n(&lt;.001)","1\n(NA)","0.34\n(&lt;.001)","0.34\n(&lt;.001)","0.35\n(&lt;.001)","0.32\n(&lt;.001)","0.15\n(&lt;.001)","0.07\n(0.047)","0.29\n(&lt;.001)","0.25\n(&lt;.001)","0.09\n(0.01)","0.1\n(0.005)","0.27\n(&lt;.001)"],["0.7\n(&lt;.001)","-0.66\n(&lt;.001)","-0.23\n(&lt;.001)","-0.01\n(0.648)","0.64\n(&lt;.001)","0.34\n(&lt;.001)","1\n(NA)","0.8\n(&lt;.001)","0.72\n(&lt;.001)","0.61\n(&lt;.001)","0.36\n(&lt;.001)","0.27\n(&lt;.001)","0.32\n(&lt;.001)","0.58\n(&lt;.001)","0.22\n(&lt;.001)","0.38\n(&lt;.001)","0.62\n(&lt;.001)"],["0.64\n(&lt;.001)","-0.66\n(&lt;.001)","-0.18\n(&lt;.001)","-0.01\n(0.78)","0.59\n(&lt;.001)","0.34\n(&lt;.001)","0.8\n(&lt;.001)","1\n(NA)","0.77\n(&lt;.001)","0.58\n(&lt;.001)","0.38\n(&lt;.001)","0.3\n(&lt;.001)","0.35\n(&lt;.001)","0.53\n(&lt;.001)","0.21\n(&lt;.001)","0.38\n(&lt;.001)","0.57\n(&lt;.001)"],["0.56\n(&lt;.001)","-0.61\n(&lt;.001)","-0.19\n(&lt;.001)","0\n(0.912)","0.64\n(&lt;.001)","0.35\n(&lt;.001)","0.72\n(&lt;.001)","0.77\n(&lt;.001)","1\n(NA)","0.5\n(&lt;.001)","0.31\n(&lt;.001)","0.31\n(&lt;.001)","0.26\n(&lt;.001)","0.49\n(&lt;.001)","0.25\n(&lt;.001)","0.31\n(&lt;.001)","0.54\n(&lt;.001)"],["0.56\n(&lt;.001)","-0.49\n(&lt;.001)","-0.13\n(&lt;.001)","-0.06\n(0.048)","0.44\n(&lt;.001)","0.32\n(&lt;.001)","0.61\n(&lt;.001)","0.58\n(&lt;.001)","0.5\n(&lt;.001)","1\n(NA)","0.32\n(&lt;.001)","0.14\n(&lt;.001)","0.37\n(&lt;.001)","0.45\n(&lt;.001)","0.12\n(&lt;.001)","0.32\n(&lt;.001)","0.42\n(&lt;.001)"],["0.37\n(&lt;.001)","-0.34\n(&lt;.001)","-0.06\n(0.048)","-0.06\n(0.051)","0.21\n(&lt;.001)","0.15\n(&lt;.001)","0.36\n(&lt;.001)","0.38\n(&lt;.001)","0.31\n(&lt;.001)","0.32\n(&lt;.001)","1\n(NA)","0.21\n(&lt;.001)","0.26\n(&lt;.001)","0.38\n(&lt;.001)","0.25\n(&lt;.001)","0.32\n(&lt;.001)","0.33\n(&lt;.001)"],["0.09\n(0.009)","-0.16\n(&lt;.001)","0.01\n(0.67)","0.14\n(&lt;.001)","0.18\n(&lt;.001)","0.07\n(0.047)","0.27\n(&lt;.001)","0.3\n(&lt;.001)","0.31\n(&lt;.001)","0.14\n(&lt;.001)","0.21\n(&lt;.001)","1\n(NA)","0.13\n(&lt;.001)","0.38\n(&lt;.001)","0.24\n(&lt;.001)","0.25\n(&lt;.001)","0.22\n(&lt;.001)"],["0.34\n(&lt;.001)","-0.23\n(&lt;.001)","-0.06\n(0.054)","-0.06\n(0.083)","0.26\n(&lt;.001)","0.29\n(&lt;.001)","0.32\n(&lt;.001)","0.35\n(&lt;.001)","0.26\n(&lt;.001)","0.37\n(&lt;.001)","0.26\n(&lt;.001)","0.13\n(&lt;.001)","1\n(NA)","0.34\n(&lt;.001)","0.05\n(0.166)","0.31\n(&lt;.001)","0.21\n(&lt;.001)"],["0.48\n(&lt;.001)","-0.52\n(&lt;.001)","-0.15\n(&lt;.001)","0.08\n(0.014)","0.41\n(&lt;.001)","0.25\n(&lt;.001)","0.58\n(&lt;.001)","0.53\n(&lt;.001)","0.49\n(&lt;.001)","0.45\n(&lt;.001)","0.38\n(&lt;.001)","0.38\n(&lt;.001)","0.34\n(&lt;.001)","1\n(NA)","0.25\n(&lt;.001)","0.49\n(&lt;.001)","0.51\n(&lt;.001)"],["0.14\n(&lt;.001)","-0.15\n(&lt;.001)","-0.15\n(&lt;.001)","0.05\n(0.12)","0.26\n(&lt;.001)","0.09\n(0.01)","0.22\n(&lt;.001)","0.21\n(&lt;.001)","0.25\n(&lt;.001)","0.12\n(&lt;.001)","0.25\n(&lt;.001)","0.24\n(&lt;.001)","0.05\n(0.166)","0.25\n(&lt;.001)","1\n(NA)","0.17\n(&lt;.001)","0.21\n(&lt;.001)"],["0.36\n(&lt;.001)","-0.42\n(&lt;.001)","-0.1\n(0.001)","0.08\n(0.013)","0.19\n(&lt;.001)","0.1\n(0.005)","0.38\n(&lt;.001)","0.38\n(&lt;.001)","0.31\n(&lt;.001)","0.32\n(&lt;.001)","0.32\n(&lt;.001)","0.25\n(&lt;.001)","0.31\n(&lt;.001)","0.49\n(&lt;.001)","0.17\n(&lt;.001)","1\n(NA)","0.4\n(&lt;.001)"],["0.56\n(&lt;.001)","-0.59\n(&lt;.001)","-0.21\n(&lt;.001)","-0.02\n(0.493)","0.47\n(&lt;.001)","0.27\n(&lt;.001)","0.62\n(&lt;.001)","0.57\n(&lt;.001)","0.54\n(&lt;.001)","0.42\n(&lt;.001)","0.33\n(&lt;.001)","0.22\n(&lt;.001)","0.21\n(&lt;.001)","0.51\n(&lt;.001)","0.21\n(&lt;.001)","0.4\n(&lt;.001)","1\n(NA)"]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>algorithmic_awareness<\/th>\n      <th>age<\/th>\n      <th>residence<\/th>\n      <th>gender<\/th>\n      <th>education<\/th>\n      <th>incomes<\/th>\n      <th>tech_operational_skills<\/th>\n      <th>tech_informative_skills<\/th>\n      <th>tech_social_skills<\/th>\n      <th>tech_creative_skills<\/th>\n      <th>yt<\/th>\n      <th>fb<\/th>\n      <th>tw<\/th>\n      <th>ig<\/th>\n      <th>wsp<\/th>\n      <th>tiktok<\/th>\n      <th>netflix<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":10,"columnDefs":[{"className":"dt-center","targets":"_all"},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"algorithmic_awareness","targets":1},{"name":"age","targets":2},{"name":"residence","targets":3},{"name":"gender","targets":4},{"name":"education","targets":5},{"name":"incomes","targets":6},{"name":"tech_operational_skills","targets":7},{"name":"tech_informative_skills","targets":8},{"name":"tech_social_skills","targets":9},{"name":"tech_creative_skills","targets":10},{"name":"yt","targets":11},{"name":"fb","targets":12},{"name":"tw","targets":13},{"name":"ig","targets":14},{"name":"wsp","targets":15},{"name":"tiktok","targets":16},{"name":"netflix","targets":17}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="linear-models" class="level2">
+<h2 class="anchored" data-anchor-id="linear-models">Linear Models</h2>
+<p>Three nested models were then specified to assess the explanatory power of demographic factors, digital skills, and social media platform use. Diagnostic tests were performed to ensure the validity of the model, revealing that none of the variables exhibited a Variance Inflation Factor (VIF) greater than 5. This result is favorable, as it indicates that multicollinearity is not a concern, thereby strengthening the reliability and stability of the coefficient estimates.</p>
+<p>The evaluation of the models’ goodness-of-fit indicates that Model 2 offers the most parsimonious and robust explanation for the variance in algorithmic awareness. This model, which incorporates both demographic variables and digital skills, presents the highest adjusted R² value (R² adj. = .547) and the lowest Akaike Information Criterion (AIC = 161.033). The inclusion of social media usage variables in Model 3 did not improve the model’s fit; rather, it weakened it slightly and reduced the number of observations.</p>
+<p>The analysis of the coefficients from the superior Model 2 reveals the preponderant influence of digital skills as the most significant set of predictors. Specifically, operational skills (β = 0.31, p&lt;.001), creative skills (β = 0.16, p&lt;.001), and informative skills (β = 0.12, p&lt;.05) are all positively and significantly associated with greater algorithmic awareness. Regarding demographic variables, the effect of educational level, which was significant in Model 1 (β = 0.04, p&lt;.001), becomes non-significant in Model 2 (β = -0.00, n.s.) after the introduction of digital skills. This result suggests that the impact of formal education on algorithmic awareness is mediated by the development of digital competencies. Furthermore, household income (β = 0.03, p&lt;.01) and residence in urban areas (β = -0.06, p&lt;.01) maintain a positive and significant association. Age presents a small but significant negative relationship (β = -0.00, p&lt;.001).</p>
+<p>Although Model 3 demonstrated a weaker fit, its coefficients offer relevant nuances regarding platform use. The use of Twitter (β = 0.04, p&lt;.001) and Netflix (β = 0.04, p&lt;.001) is positively associated with algorithmic awareness, whereas the use of Facebook correlates negatively (β = -0.02, p&lt;.05). The use of other platforms such as YouTube, Instagram, or TikTok yielded no statistically significant effects. In conclusion, the findings demonstrate that digital skills are the central predictor of algorithmic awareness, surpassing the importance of traditional sociodemographic factors and the usage patterns of specific social platforms.</p>
+<div class="cell" data-lbl="models">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- REGRESSION MODELS ----</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- MODEL 1: Demographics only ----</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  algorithmic_awareness <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> education <span class="sc">+</span> incomes <span class="sc">+</span> residence,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- MODEL 2: Adds Digital Skills ----</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  algorithmic_awareness <span class="sc">~</span>age <span class="sc">+</span> gender <span class="sc">+</span> education <span class="sc">+</span> incomes <span class="sc">+</span> residence <span class="sc">+</span> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    tech_operational_skills <span class="sc">+</span> tech_informative_skills <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    tech_social_skills <span class="sc">+</span> tech_creative_skills,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- MODEL 3: Full Model (adds social media use) ----</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  algorithmic_awareness <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> education <span class="sc">+</span> incomes <span class="sc">+</span> residence <span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    tech_operational_skills <span class="sc">+</span> tech_informative_skills <span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    tech_social_skills <span class="sc">+</span> tech_creative_skills <span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    yt <span class="sc">+</span> fb <span class="sc">+</span> tw <span class="sc">+</span> ig <span class="sc">+</span> wsp <span class="sc">+</span> tiktok <span class="sc">+</span> netflix,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Apply robust standard errors (HC3) ----</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co">#cov1 &lt;- vcovHC(model1, type = "HC3")</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#cov2 &lt;- vcovHC(model2, type = "HC3")</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co">#cov3 &lt;- vcovHC(model3, type = "HC3")</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Display models with variable labels ----</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  model1, model2, model3,</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse.se =</span> <span class="cn">TRUE</span>,      <span class="co"># muestra errores estándar entre paréntesis</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.aic =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.r2 =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.fstat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv.labels =</span> <span class="fu">c</span>(</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 1: Demographics"</span>,</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 2: + Digital Skills"</span>,</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 3: + Social Media Use"</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Linear Regression Models Predicting Algorithmic Awareness"</span>,</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ---- Variable labels ----</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> <span class="fu">c</span>(</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Intercept"</span>,</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>,</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Gender (ref: Male)"</span>,       <span class="co"># ejemplo de categoría de referencia</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Educational level"</span>,</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Household Income"</span>,</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Residence (ref: Urban)"</span>,</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Operational Skills"</span>,</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Informative Skills"</span>,</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Social Skills"</span>,</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Creative Skills"</span>,</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"YouTube Use"</span>,</span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Facebook Use"</span>,</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Twitter Use"</span>,</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Instagram Use"</span>,</span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"WhatsApp Use"</span>,</span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TikTok Use"</span>,</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Netflix Use"</span></span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Summary linear models</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Model 1: Demographics</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Model 2: + Digital Skills</td>
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Model 3: + Social Media Use</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Intercept</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.72 <sup>***</sup><br>
+(0.08)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.33 <sup>***</sup><br>
+(0.08)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.24 <sup>*</sup><br>
+(0.11)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Age</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup>***</sup><br>
+(0.00)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.00 <sup>***</sup><br>
+(0.00)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.00 <sup>**</sup><br>
+(0.00)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Gender (ref: Male)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup></sup><br>
+(0.02)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup></sup><br>
+(0.02)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup></sup><br>
+(0.02)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Educational level</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup>***</sup><br>
+(0.01)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.00 <sup></sup><br>
+(0.01)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.00 <sup></sup><br>
+(0.01)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Household Income</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup>***</sup><br>
+(0.01)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.03 <sup>**</sup><br>
+(0.01)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.02 <sup>*</sup><br>
+(0.01)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Residence (ref: Urban)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.08 <sup>***</sup><br>
+(0.02)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.06 <sup>**</sup><br>
+(0.02)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.07 <sup>**</sup><br>
+(0.02)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Operational Skills</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.31 <sup>***</sup><br>
+(0.04)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.25 <sup>***</sup><br>
+(0.05)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Informative Skills</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.12 <sup>*</sup><br>
+(0.05)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.11 <sup>*</sup><br>
+(0.05)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Social Skills</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup></sup><br>
+(0.04)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.03 <sup></sup><br>
+(0.04)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Creative Skills</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.16 <sup>***</sup><br>
+(0.03)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.12 <sup>***</sup><br>
+(0.03)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">YouTube Use</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.02 <sup></sup><br>
+(0.01)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Facebook Use</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup>*</sup><br>
+(0.01)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Twitter Use</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup>***</sup><br>
+(0.01)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Instagram Use</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01 <sup></sup><br>
+(0.01)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">WhatsApp Use</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.03 <sup></sup><br>
+(0.02)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">TikTok Use</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01 <sup></sup><br>
+(0.01)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Netflix Use</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup>***</sup><br>
+(0.01)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">851</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">842</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">695</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.440 / 0.437</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.552 / 0.547</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.538 / 0.527</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">AIC</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">345.281</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">161.033</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">173.873</td>
+</tr>
+<tr class="odd">
+<td colspan="4" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+</section>
+<section id="revisión-multicoliniealidad-vif" class="level1">
+<h1>Revisión Multicoliniealidad (VIF)</h1>
+<div class="cell" data-lbl="vif">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model3)<span class="sc">|&gt;</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>VIF test model 3</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">2.033737</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">gender</td>
+<td style="text-align: right;">1.126624</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">education</td>
+<td style="text-align: right;">2.061266</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">incomes</td>
+<td style="text-align: right;">1.464578</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">residence</td>
+<td style="text-align: right;">1.189861</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tech_operational_skills</td>
+<td style="text-align: right;">3.590358</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tech_informative_skills</td>
+<td style="text-align: right;">2.612415</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tech_social_skills</td>
+<td style="text-align: right;">2.099257</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tech_creative_skills</td>
+<td style="text-align: right;">1.645771</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">yt</td>
+<td style="text-align: right;">1.375326</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fb</td>
+<td style="text-align: right;">1.242348</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tw</td>
+<td style="text-align: right;">1.326310</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ig</td>
+<td style="text-align: right;">2.194975</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wsp</td>
+<td style="text-align: right;">1.161654</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tiktok</td>
+<td style="text-align: right;">1.421188</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">netflix</td>
+<td style="text-align: right;">1.638997</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
