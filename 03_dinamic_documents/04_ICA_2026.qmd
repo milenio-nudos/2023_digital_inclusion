@@ -45,18 +45,6 @@ load("~/GitHub/milenio_nudos/2023_digital_inclusion/01_input/02_proc_data/digita
 ```
 
 ```{r proc demographics}
-# ---- INCOME VARIABLES ----
-# Selecciona columnas de ingresos y reemplaza 99 por NA
-income_vars <- data %>%
-  select(starts_with("g3_")) %>%
-  mutate(across(everything(), ~ na_if(as.integer(.), 99)))
-
-# Combina todas las columnas en una sola variable "incomes"
-data$incomes <- do.call(coalesce, income_vars)
-
-# Opcional: elimina las columnas originales si ya no las necesitas
-data <- data %>% select(-starts_with("g3_"))
-
 # ---- SOCIODEMOGRAPHIC VARIABLES ----
 data <- data %>%
   mutate(
@@ -77,43 +65,39 @@ data <- data %>%
       tipo_zona == 2 ~ "Rural",
       TRUE ~ NA_character_
     ),
-    residence = factor(residence, levels = c("Urban", "Rural")),
-
-    # Educational level (recoded into 6 categories)
-    g7 = case_when(
-      g7 %in% c(1, 2) ~ 1,     # Incomplete primary
-      g7 == 3 ~ 2,             # Complete primary
-      g7 == 4 ~ 3,             # Incomplete high school
-      g7 == 5 ~ 4,             # Complete high school
-      g7 %in% c(6, 8) ~ 5,     # Incomplete college
-      g7 %in% c(7, 9, 10) ~ 6, # College education
-      TRUE ~ NA_real_
-    ),
-
-    education = factor(g7,
-                       levels = 1:6,
-                       labels = c("Incomplete primary",
-                                  "Complete primary",
-                                  "Incomplete high school",
-                                  "Complete high school",
-                                  "Incomplete college",
-                                  "College education")),
-
-    # Household income as ordinal variable (1–9)
-    income_num = as.numeric(incomes)
+    residence = factor(residence, levels = c("Urban", "Rural"))
   )
 
-# Optional: Add value labels if using the labelled package
-if ("labelled" %in% rownames(installed.packages())) {
-  val_labels(data$g7) <- c(
-    "Incomplete primary" = 1, 
-    "Complete primary" = 2,
-    "Incomplete high school" = 3,
-    "Complete high school" = 4,
-    "Incomplete college" = 5,
-    "College education" = 6
-  )
-}
+# Innovative personality
+innovative_variables_2023 <- data %>% dplyr::select(starts_with("f2_"))%>%
+                             mutate(across(everything(),~case_when(.==1~4,
+                                                          .==2~3,
+                                                          .==3~2,
+                                                          .==4~1,
+                                                          TRUE ~ NA_real_)))
+
+data$innovative_personality <- innovative_variables_2023 %>% 
+  mutate_all(as.integer)%>%
+  rowMeans(na.rm=T)
+
+#Social network
+data$soc_net <- data %>% 
+  dplyr::select(starts_with("f6_")) %>%
+  mutate_all(as.integer) %>%
+  mutate(across(everything(),~case_when(.==2~0,
+                                        .==1~1,
+                                        TRUE~NA_real_)))%>%
+  rowSums(na.rm=T)
+
+#Childs in house (taken from raw_data)
+raw_2023 <- read_sav("../01_input/01_raw_data/2023_survey_raw.sav") %>% 
+  janitor::clean_names()
+
+data$childs <- raw_2023 %>% 
+  dplyr::select(starts_with("edad")) %>%
+  mutate_all(~case_when(.<=18~1,.>18~0,TRUE~NA_real_)) %>%
+  rowSums(.,na.rm = T)%>%as.numeric()
+
 ```
 
 ```{r proc digital skills}
@@ -201,7 +185,7 @@ data <- data %>%
 # 1. Convert all D2 items to numeric
 data <- data %>%
   mutate(across(starts_with("d2"), as.numeric))%>%
-  mutate(across(starts_with("d2"), ~ ifelse(. == 99, NA, .)))
+  mutate(across(starts_with("d2"), ~ ifelse(. == 99, 1, .)))
 
 # 2. Compute the mean index for algorithmic awareness
 #    The index represents the average awareness level across all D2 items
@@ -261,8 +245,36 @@ data <- data %>%
   ) %>%
   
   # Ensure all are numeric
-  mutate(across(everything(), as.numeric))
+  mutate(
+    across(
+      !c(gender, residence, region),  # exclude categorical variables
+      ~ suppressWarnings(as.numeric(.))
+    )
+  )
+
+# ---- PROCESS SOCIAL MEDIA BREADTH ----
+# ---- MEDIA BREADTH INDEX ----
+# Dichotomize use frequency for each platform (1 = weekly or more)
+# Then sum across platforms to compute the total "media breadth" score
+
+data$media_breadth <- data %>%
+  # Temporarily recode use frequency for each social media platform
+  mutate(across(
+    c(yt, fb, tw, ig, wsp, tiktok, netflix),
+    ~ case_when(
+      . %in% c(4, 5) ~ 1,       # Frequent use (weekly or daily)
+      . %in% c(1, 2, 3) ~ 0,    # Infrequent use
+      TRUE ~ NA_integer_
+    )
+  )) %>%
+  # Select only the recoded social media variables
+  select(yt, fb, tw, ig, wsp, tiktok, netflix) %>%
+  # Compute the number of frequently used platforms
+  mutate(media_breadth = rowSums(., na.rm = FALSE)) %>%
+  pull(media_breadth)
+
 ```
+
 # Methods
 
 ## Study design
@@ -275,25 +287,25 @@ The sample is probabilistic and representative of individuals aged 14 and older 
 
 *Algorithmic Awareness*
 
-The dependent variable follows the Algorithmic Media Content Awareness (AMCA) scale (Zarouali et al., 2021), capturing respondents’ awareness that algorithms curate online content. It includes three items measuring: content filtering, behavioral dependence, and ethical implications (e.g., “Algorithms use my personal data, which has consequences for my online privacy”). Responses were rated on a five-point Likert scale (1 = Not at all aware to 5 = Completely aware) and averaged into a single scale (α > .80). Higher scores indicate greater algorithmic awareness.
+The dependent variable follows the Algorithmic Media Content Awareness (AMCA) scale (Zarouali et al., 2021), capturing respondents’ awareness that algorithms curate online content. It includes three items measuring: content filtering, behavioral dependence, and ethical implications (e.g., “Algorithms use my personal data, which has consequences for my online privacy”). Responses were rated on a five-point Likert scale (1 = Not at all aware to 5 = Completely aware) and averaged into a single scale (α \> .80). Higher scores indicate greater algorithmic awareness. Non-response value were codified as 1.
 
 *Digital skills*
 
 Digital skills were measured following van Deursen’s (CITA) multidimensional framework, encompassing four subdimensions derived from items in battery C3:
 
--   Operational skills — ability to manage basic technological operations such as installing apps or adjusting device settings [6 items].
+-   Operational skills — ability to manage basic technological operations such as installing apps or adjusting device settings \[6 items\].
 
--   Informational skills — capacity to search for, evaluate, and organize online information [5 items].
+-   Informational skills — capacity to search for, evaluate, and organize online information \[5 items\].
 
--   Social skills — ability to communicate, interact, and manage privacy on social media [6 items].
+-   Social skills — ability to communicate, interact, and manage privacy on social media \[6 items\].
 
--   Creative skills — ability to create, edit, and share original digital content [3 items].
+-   Creative skills — ability to create, edit, and share original digital content \[3 items\].
 
 Each scales are sumative from dichotomical items phrased as know how to do (1). The scales have different number of items, so to conserve comparability, they were standardized (0–1). Higher values denote stronger digital competencies in each domain.
 
 *Social media and platforms use*
 
-Social media use was measured through a battery of six items capturing the frequency of use of major platforms: Facebook, Instagram, YouTube, WhatsApp, TikTok, X (Twitter) and Netflix. Responses ranged from 1 (Never or less than once a month) to 5 (Several times a day).
+Social media use was measured through a battery of seven items capturing the frequency of use of major platforms: Facebook, Instagram, YouTube, WhatsApp, TikTok, X (Twitter), and Netflix. Responses ranged from 1 (Never or less than once a month) to 5 (Several times a day). In addition to the individual frequency measures, we constructed a composite scale of social media breadth, which represents the number of platforms each respondent reported using at least weekly. This additive indicator captures the overall diversity of social media engagement, ranging from 0 (no platforms used weekly or more) to 7 (all platforms used weekly or more).
 
 *Sociodemographic Controls*
 
@@ -303,66 +315,75 @@ Control variables included are age (continuos, in years), gender (0 = male; 1 = 
 #| lbl: descriptives
 #| tbl-cap: Descriptive table
 
-# ---- Model variables ----
+# ---- Variables to summarize ----
 model_vars <- c(
   "algorithmic_awareness", 
-  "age", "gender", "education", "incomes", "residence",
+  "age", "gender", "nse", "residence",
+  "innovative_personality", "soc_net", "childs",
   "tech_operational_skills", "tech_informative_skills", 
   "tech_social_skills", "tech_creative_skills",
-  "yt", "fb", "tw", "ig", "wsp", "tiktok", "netflix"
+  "yt", "fb", "tw", "ig", "wsp", "tiktok", "netflix",
+  "media_breadth"
 )
 
-# ---- Descriptive table ----
+data <- data%>%
+  mutate(gender = as_factor(gender),
+         residence = as_factor(residence))
+# ---- Predefine item sets for Cronbach’s alpha ----
+index_items <- list(
+  algorithmic_awareness   = grep("^d2_", names(data), value = TRUE),
+  tech_operational_skills = grep("^c3_1_", names(data), value = TRUE),
+  tech_informative_skills = grep("^c3_2_", names(data), value = TRUE),
+  tech_social_skills      = grep("^c3_3_", names(data), value = TRUE),
+  tech_creative_skills    = grep("^c3_4_", names(data), value = TRUE),
+  innovative_personality  = grep("^p1_", names(data), value = TRUE),
+  soc_net                 = grep("^s1_", names(data), value = TRUE)
+)
+
+# ---- Compute Cronbach’s alpha for each index ----
+alpha_values <- sapply(index_items, function(vars) {
+  vars <- intersect(vars, names(data))
+  if (length(vars) > 1) {
+    round(psych::alpha(data[, vars], check.keys = TRUE)$total$raw_alpha, 2)
+  } else {
+    NA
+  }
+})
+
+# ---- Build descriptive table ----
 desc_table <- lapply(model_vars, function(v){
   x <- data[[v]]
-  if(is.numeric(x)){
-    desc <- paste0(round(mean(x, na.rm=TRUE),2), " (", round(sd(x, na.rm=TRUE),2), ")")
-  } else {
-    tab <- table(x, useNA="ifany")
-    pct <- round(prop.table(tab)*100,1)
+  
+  # Detect variable type
+  if (is.factor(x) || v %in% c("gender", "residence")) {
+    tab <- table(x, useNA = "ifany")
+    pct <- round(prop.table(tab) * 100, 1)
     desc <- paste0(names(tab), " (", as.vector(tab), ", ", as.vector(pct), "%)", collapse = "; ")
+    v_type <- "Categorical"
+  } else if (is.numeric(x)) {
+    desc <- paste0(round(mean(x, na.rm = TRUE), 2), " (", round(sd(x, na.rm = TRUE), 2), ")")
+    v_type <- "Numeric"
+  } else {
+    desc <- NA
+    v_type <- "Other"
   }
+  
+  # Add alpha if relevant
+  alpha_val <- ifelse(v %in% names(alpha_values), alpha_values[v], NA)
+  
   data.frame(
-    Variable = as.character(v),
-    Type = ifelse(is.numeric(x), "Numeric", "Categorical"),
+    Variable = v,
+    Type = v_type,
     Description = desc,
     N_observed = sum(!is.na(x)),
     N_missing = sum(is.na(x)),
-    Cronbach_alpha = NA,
-    stringsAsFactors = FALSE
-  )
-}) %>% bind_rows()
-
-# ---- Cronbach's alpha for indices ----
-indices_list <- list(
-  "Algorithmic Awareness" = grep("algorithmic_awareness", names(data), value=TRUE),
-  "Operational Skills" = operational_items,
-  "Informative Skills" = informative_items,
-  "Social Skills" = social_items,
-  "Creative Skills" = creative_items
-)
-
-alpha_table <- lapply(names(indices_list), function(idx_name){
-  vars <- intersect(indices_list[[idx_name]], names(data))
-  if(length(vars) > 1){
-    alpha_val <- round(psych::alpha(data[, vars], check.keys=TRUE)$total$raw_alpha,2)
-  } else { alpha_val <- NA }
-  data.frame(
-    Variable = idx_name,
-    Type = "Index",
-    Description = NA,
-    N_observed = NA,
-    N_missing = NA,
     Cronbach_alpha = alpha_val,
     stringsAsFactors = FALSE
   )
 }) %>% bind_rows()
 
-# ---- Combine descriptive and alpha tables ----
-final_table <- bind_rows(desc_table, alpha_table)
-
-# ---- Create flextable for Word ----
-ft_final <- flextable(final_table) %>%
+# ---- Format with flextable ----
+ft_final <- flextable(desc_table) %>%
   autofit() %>%
   set_header_labels(
     Variable = "Variable",
@@ -370,13 +391,15 @@ ft_final <- flextable(final_table) %>%
     Description = "Description (Mean±SD or categories)",
     N_observed = "N Observed",
     N_missing = "N Missing",
-    Cronbach_alpha = "Cronbach's Alpha"
-  )
+    Cronbach_alpha = "Cronbach’s α"
+  ) %>%
+  theme_booktabs() %>%
+  align(align = "center", part = "all")
 
 # ---- Display table ----
 ft_final
 
-# ---- Optionally save to Word ----
+# ---- Optionally export to Word ----
 # save_as_docx(ft_final, path = "Descriptive_Table.docx")
 
 ```
@@ -385,7 +408,7 @@ ft_final
 
 We estimated a series of linear regression models to examine the predictors of algorithmic awareness. The main independent variables were the four dimensions of digital skills and the six social media use indicators, controlling for demographical variables. All continuous variables were mean-centered prior to analysis to facilitate interpretation. Robust standard errors were computed to account for potential heteroskedasticity.
 
-Model diagnostics confirmed the absence of multicollinearity (all VIF < 2.5) and normal distribution of residuals. Analyses were conducted using R 4.4.2 software. Marginal effects and standardized coefficients are reported for comparability. Statistical significance was set at p < .05.
+Model diagnostics confirmed the absence of multicollinearity (all VIF \< 2.5) and normal distribution of residuals. Analyses were conducted using R 4.4.2 software. Marginal effects and standardized coefficients are reported for comparability. Statistical significance was set at p \< .05.
 
 # Results
 
@@ -396,21 +419,34 @@ Model diagnostics confirmed the absence of multicollinearity (all VIF < 2.5) and
 #| tbl-cap: Correlation matrix
 # ---- CORRELATION MATRIX ----
 
-# Select variables for correlation
+# ---- CORRELATION VARIABLES SELECTION ----
+
+# Convert categorical variables (gender, residence) to numeric for correlation
+data <- data %>%
+  mutate(
+    gender_num    = ifelse(gender == "Female", 1, 0),
+    residence_num = ifelse(residence == "Rural", 1, 0)
+  )
+
+# Select variables for correlation matrix
 corr_vars <- data %>%
   select(
     algorithmic_awareness,
     age,
-    residence,
-    gender,
-    education,
-    incomes,
+    gender_num,
+    nse,
+    residence_num,
+    innovative_personality,
+    soc_net,
+    childs,
     tech_operational_skills,
     tech_informative_skills,
     tech_social_skills,
     tech_creative_skills,
-    yt, fb, tw, ig, wsp, tiktok, netflix
+    yt, fb, tw, ig, wsp, tiktok, netflix,
+    media_breadth
   )
+
 
 # Compute correlations with p-values
 corr_test <- Hmisc::rcorr(as.matrix(corr_vars), type = "pearson")
@@ -452,35 +488,50 @@ Three nested models were then specified to assess the explanatory power of demog
 
 The evaluation of the models' goodness-of-fit indicates that Model 2 offers the most parsimonious and robust explanation for the variance in algorithmic awareness. This model, which incorporates both demographic variables and digital skills, presents the highest adjusted R² value (R² adj. = .547) and the lowest Akaike Information Criterion (AIC = 161.033). The inclusion of social media usage variables in Model 3 did not improve the model's fit; rather, it weakened it slightly and reduced the number of observations.
 
-The analysis of the coefficients from the superior Model 2 reveals the preponderant influence of digital skills as the most significant set of predictors. Specifically, operational skills (β = 0.31, p<.001), creative skills (β = 0.16, p<.001), and informative skills (β = 0.12, p<.05) are all positively and significantly associated with greater algorithmic awareness. Regarding demographic variables, the effect of educational level, which was significant in Model 1 (β = 0.04, p<.001), becomes non-significant in Model 2 (β = -0.00, n.s.) after the introduction of digital skills. This result suggests that the impact of formal education on algorithmic awareness is mediated by the development of digital competencies. Furthermore, household income (β = 0.03, p<.01) and residence in urban areas (β = -0.06, p<.01) maintain a positive and significant association. Age presents a small but significant negative relationship (β = -0.00, p<.001).
+The analysis of the coefficients from the superior Model 2 reveals the preponderant influence of digital skills as the most significant set of predictors. Specifically, operational skills (β = 0.31, p\<.001), creative skills (β = 0.16, p\<.001), and informative skills (β = 0.12, p\<.05) are all positively and significantly associated with greater algorithmic awareness. Regarding demographic variables, the effect of educational level, which was significant in Model 1 (β = 0.04, p\<.001), becomes non-significant in Model 2 (β = -0.00, n.s.) after the introduction of digital skills. This result suggests that the impact of formal education on algorithmic awareness is mediated by the development of digital competencies. Furthermore, household income (β = 0.03, p\<.01) and residence in urban areas (β = -0.06, p\<.01) maintain a positive and significant association. Age presents a small but significant negative relationship (β = -0.00, p\<.001).
 
-Although Model 3 demonstrated a weaker fit, its coefficients offer relevant nuances regarding platform use. The use of Twitter (β = 0.04, p<.001) and Netflix (β = 0.04, p<.001) is positively associated with algorithmic awareness, whereas the use of Facebook correlates negatively (β = -0.02, p<.05). The use of other platforms such as YouTube, Instagram, or TikTok yielded no statistically significant effects. In conclusion, the findings demonstrate that digital skills are the central predictor of algorithmic awareness, surpassing the importance of traditional sociodemographic factors and the usage patterns of specific social platforms.
+Although Model 3 demonstrated a weaker fit, its coefficients offer relevant nuances regarding platform use. The use of Twitter (β = 0.04, p\<.001) and Netflix (β = 0.04, p\<.001) is positively associated with algorithmic awareness, whereas the use of Facebook correlates negatively (β = -0.02, p\<.05). The use of other platforms such as YouTube, Instagram, or TikTok yielded no statistically significant effects. In conclusion, the findings demonstrate that digital skills are the central predictor of algorithmic awareness, surpassing the importance of traditional sociodemographic factors and the usage patterns of specific social platforms.
 
 ```{r models}
 #| lbl: models
 #| tbl-cap: Summary linear models
 # ---- REGRESSION MODELS ----
 
+# Ensure categorical variables are properly set
+data <- data %>%
+  mutate(
+    gender = factor(gender, levels = c("Male", "Female")),
+    residence = factor(residence, levels = c("Urban", "Rural"))
+  )
+
 # ---- MODEL 1: Demographics only ----
 model1 <- lm(
-  algorithmic_awareness ~ age + gender + education + incomes + residence,
+  algorithmic_awareness ~ age + gender + nse + residence,
   data = data
 )
 
-# ---- MODEL 2: Adds Digital Skills ----
+# ---- MODEL 2: Adds social and family resources ----
 model2 <- lm(
-  algorithmic_awareness ~age + gender + education + incomes + residence + 
+  algorithmic_awareness ~ age + gender + nse + residence +
+    innovative_personality + soc_net + childs,
+  data = data
+)
+
+# ---- MODEL 3: Adds social media use ----
+model3 <- lm(
+  algorithmic_awareness ~ age + gender + nse + residence +
+    innovative_personality + soc_net + childs +
+    yt + fb + tw + ig + wsp + tiktok + netflix + media_breadth,
+  data = data
+)
+
+# ---- MODEL 4: Adds digital skills ----
+model4 <- lm(
+  algorithmic_awareness ~ age + gender + nse + residence +
+    innovative_personality + soc_net + childs +
+    yt + fb + tw + ig + wsp + tiktok + netflix + media_breadth +
     tech_operational_skills + tech_informative_skills +
     tech_social_skills + tech_creative_skills,
-  data = data
-)
-
-# ---- MODEL 3: Full Model (adds social media use) ----
-model3 <- lm(
-  algorithmic_awareness ~ age + gender + education + incomes + residence +
-    tech_operational_skills + tech_informative_skills +
-    tech_social_skills + tech_creative_skills +
-    yt + fb + tw + ig + wsp + tiktok + netflix,
   data = data
 )
 
@@ -488,11 +539,12 @@ model3 <- lm(
 #cov1 <- vcovHC(model1, type = "HC3")
 #cov2 <- vcovHC(model2, type = "HC3")
 #cov3 <- vcovHC(model3, type = "HC3")
+#cov4 <- vcovHC(model4, type = "HC3")
 
 # ---- Display models with variable labels ----
 tab_model(
-  model1, model2, model3,
-  collapse.se = TRUE,      # muestra errores estándar entre paréntesis
+  model1, model2, model3, model4,
+  collapse.se = TRUE,      
   show.ci = FALSE,
   show.aic = TRUE,
   show.r2 = TRUE,
@@ -500,8 +552,9 @@ tab_model(
   p.style = "stars",
   dv.labels = c(
     "Model 1: Demographics",
-    "Model 2: + Digital Skills",
-    "Model 3: + Social Media Use"
+    "Model 2: + Social Resources",
+    "Model 3: + Social Media Use",
+    "Model 4: + Digital Skills"
   ),
   title = "Linear Regression Models Predicting Algorithmic Awareness",
   
@@ -509,29 +562,32 @@ tab_model(
   pred.labels = c(
     "Intercept",
     "Age",
-    "Gender (ref: Male)",       # ejemplo de categoría de referencia
-    "Educational level",
-    "Household Income",
+    "Gender (ref: Male)",
+    "Socioeconomic Status (NSE)",
     "Residence (ref: Urban)",
-    "Operational Skills",
-    "Informative Skills",
-    "Social Skills",
-    "Creative Skills",
+    "Innovative Personality",
+    "Social Network Support",
+    "Number of Children in Household",
     "YouTube Use",
     "Facebook Use",
-    "Twitter Use",
+    "X (Twitter) Use",
     "Instagram Use",
     "WhatsApp Use",
     "TikTok Use",
-    "Netflix Use"
+    "Netflix Use",
+    "Social Media Breadth",
+    "Operational Skills",
+    "Informative Skills",
+    "Social Skills",
+    "Creative Skills"
   )
 )
 ```
 
 # Revisión Multicoliniealidad (VIF)
+
 ```{r}
 #| lbl: vif
 #| tbl-cap: VIF test model 3
-vif(model3)|>kable()
+vif(model4)|>kable()
 ```
-
