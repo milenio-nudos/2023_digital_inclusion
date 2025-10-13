@@ -366,7 +366,7 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">2</span>,          <span class="co"># Once or three per month</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="dv">3</span>,          <span class="co"># All the weeks</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">5</span> <span class="sc">~</span> <span class="dv">4</span>,          <span class="co"># Once a day or more</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="dv">5</span>,  <span class="co"># Once a day or more</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    e2_3_3 <span class="sc">==</span> <span class="dv">6</span> <span class="sc">~</span> <span class="dv">5</span>,          <span class="co"># Once a day or more</span></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
@@ -409,7 +409,56 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(yt, fb, tw, ig, wsp, tiktok, netflix) <span class="sc">%&gt;%</span></span>
 <span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the number of frequently used platforms</span></span>
 <span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">media_breadth =</span> <span class="fu">rowSums</span>(., <span class="at">na.rm =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(media_breadth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(media_breadth)</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="co"># data$media_breadth</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Temporarily recode use frequency for each social media platform</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">media_breadth_daily =</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>      media_breadth <span class="sc">%in%</span> <span class="fu">c</span> (<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>) <span class="sc">~</span> <span class="dv">2</span>,       <span class="co"># Frequent use (weekly or daily)</span></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>      media_breadth <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>) <span class="sc">~</span> <span class="dv">1</span>,    <span class="co"># Non-frequent use</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>      media_breadth <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">~</span> <span class="dv">0</span>,    <span class="co"># Non use</span></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_integer_</span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">media_breadth_daily =</span> <span class="fu">factor</span>(media_breadth_daily,</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-dialy user"</span>, </span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">"&lt;5 daily user"</span>,</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">"&gt;=5 daily user"</span>)))</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>media_breadth_op <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Temporarily recode use frequency for each social media platform</span></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(yt, fb, tw, ig, wsp, tiktok, netflix),</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>      . <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">~</span> <span class="dv">1</span>,       <span class="co"># Frequent use (weekly or daily)</span></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>      . <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">~</span> <span class="dv">0</span>,    <span class="co"># Infrequent use</span></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_integer_</span></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select only the recoded social media variables</span></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(yt, fb, tw, ig, wsp, tiktok, netflix) <span class="sc">%&gt;%</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute the number of frequently used platforms</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">media_breadth =</span> <span class="fu">rowSums</span>(., <span class="at">na.rm =</span> <span class="cn">FALSE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(media_breadth)</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Temporarily recode use frequency for each social media platform</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">media_breadth_weekly =</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>      media_breadth_op <span class="sc">%in%</span> <span class="fu">c</span> (<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>) <span class="sc">~</span> <span class="dv">2</span>,       <span class="co"># Frequent use (weekly or daily)</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>      media_breadth_op <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>) <span class="sc">~</span> <span class="dv">1</span>,    <span class="co"># Non-frequent use</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>      media_breadth_op <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">~</span> <span class="dv">0</span>,    <span class="co"># Non use</span></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_integer_</span></span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">media_breadth_weekly =</span> <span class="fu">factor</span>(media_breadth_weekly,</span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-weekly user"</span>, </span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">"&lt;5 weekly user"</span>,</span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a>                                                 <span class="st">"&gt;=5 weekly user"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="methods" class="level1">
@@ -422,7 +471,7 @@ Cronbach's alpha coefficient:</code></pre>
 <section id="measures" class="level2">
 <h2 class="anchored" data-anchor-id="measures">Measures</h2>
 <p><em>Algorithmic Awareness</em></p>
-<p>The dependent variable follows the Algorithmic Media Content Awareness (AMCA) scale (Zarouali et al., 2021), capturing respondents’ awareness that algorithms curate online content. It includes three items measuring: content filtering, behavioral dependence, and ethical implications (e.g., “Algorithms use my personal data, which has consequences for my online privacy”). Responses were rated on a five-point Likert scale (1 = Not at all aware to 5 = Completely aware) and averaged into a single scale (α &gt; .80). Higher scores indicate greater algorithmic awareness. Non-response value were codified as 1.</p>
+<p>The dependent variable follows the Algorithmic Media Content Awareness (AMCA) scale (Zarouali et al., 2021), capturing respondents’ awareness that algorithms curate online content. It includes six items measuring: content filtering, behavioral dependence, and ethical implications (e.g., “Algorithms use my personal data, which has consequences for my online privacy”). Responses were rated on a five-point Likert scale (1 = Not at all aware to 5 = Completely aware) and averaged into a single scale (α &gt; .80). Higher scores indicate greater algorithmic awareness. Non-response value were codified as 1.</p>
 <p><em>Digital skills</em></p>
 <p>Digital skills were measured following van Deursen’s (CITA) multidimensional framework, encompassing four subdimensions derived from items in battery C3:</p>
 <ul>
@@ -433,7 +482,9 @@ Cronbach's alpha coefficient:</code></pre>
 </ul>
 <p>Each scales are sumative from dichotomical items phrased as know how to do (1). The scales have different number of items, so to conserve comparability, they were standardized (0–1). Higher values denote stronger digital competencies in each domain.</p>
 <p><em>Social media and platforms use</em></p>
-<p>Social media use was measured through a battery of seven items capturing the frequency of use of major platforms: Facebook, Instagram, YouTube, WhatsApp, TikTok, X (Twitter), and Netflix. Responses ranged from 1 (Never or less than once a month) to 5 (Several times a day). In addition to the individual frequency measures, we constructed a composite scale of social media breadth, which represents the number of platforms each respondent reported using at least weekly. This additive indicator captures the overall diversity of social media engagement, ranging from 0 (no platforms used weekly or more) to 7 (all platforms used weekly or more).</p>
+<p>Social media use was measured through a battery of seven items capturing the frequency of use of major platforms: Facebook, Instagram, YouTube, WhatsApp, TikTok, X (Twitter), and Netflix. Responses ranged from 1 (Never or less than once a month) to 5 (Several times a day). In addition to the individual frequency measures, we constructed a categorical variable of social media breadth, which represents the daily user engagement in overall platforms, ranging from High breadth (Daily use of five to seven social media), Medium breadth (Daily use of two to four social media) and Non-social media breadth (One or less daily use of social media).</p>
+<p><em>Familiar and Social resources</em></p>
+<p>Following the conceptualization of relational capital proposed in Are we there yet? (Correa et al., 2025), social and familial resources were included to capture the networked and dispositional factors that may facilitate digital engagement and awareness. Three indicators were employed. Innovative personality reflects an individual’s openness to experimentation, creativity, and adaptability in the use of technologies, measured through a battery of items assessing self-perceived willingness to explore and adopt new digital tools. Social network support represents the strength of respondents’ interpersonal ties and their access to assistance when facing technological or informational challenges—such as having friends, family members, or community peers who can provide guidance or share resources. Finally, number of children in the household (childs) serves as a proxy for family responsibilities and time constraints that can affect the capacity to engage with digital technologies.</p>
 <p><em>Sociodemographic Controls</em></p>
 <p>Control variables included are age (continuos, in years), gender (0 = male; 1 = female), educational status (1 = primary or less, to 5 = college or more), household income (9 values ordinal scale with ranges adapted to number of members) and the type of residence, coded as urban or rural following the national Statistics Institute’s classification.</p>
 <div class="cell" data-lbl="descriptives">
@@ -447,7 +498,7 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tech_operational_skills"</span>, <span class="st">"tech_informative_skills"</span>, </span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tech_social_skills"</span>, <span class="st">"tech_creative_skills"</span>,</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"yt"</span>, <span class="st">"fb"</span>, <span class="st">"tw"</span>, <span class="st">"ig"</span>, <span class="st">"wsp"</span>, <span class="st">"tiktok"</span>, <span class="st">"netflix"</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"media_breadth"</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"media_breadth_daily"</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data<span class="sc">%&gt;%</span></span>
@@ -479,7 +530,7 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> data[[v]]</span>
 <span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Detect variable type</span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.factor</span>(x) <span class="sc">||</span> v <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"gender"</span>, <span class="st">"residence"</span>)) {</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.factor</span>(x) <span class="sc">||</span> v <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"gender"</span>, <span class="st">"residence"</span>, <span class="st">"media_breadth_daily"</span>)) {</span>
 <span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    tab <span class="ot">&lt;-</span> <span class="fu">table</span>(x, <span class="at">useNA =</span> <span class="st">"ifany"</span>)</span>
 <span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    pct <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">prop.table</span>(tab) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
 <span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    desc <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">names</span>(tab), <span class="st">" ("</span>, <span class="fu">as.vector</span>(tab), <span class="st">", "</span>, <span class="fu">as.vector</span>(pct), <span class="st">"%)"</span>, <span class="at">collapse =</span> <span class="st">"; "</span>)</span>
@@ -524,7 +575,7 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>ft_final</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-c6159eca{}.cl-c6055e3e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c60aa34e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c60ae3d6{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae3e0{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae3ea{width:4.004in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae3f4{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae3f5{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae3fe{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae408{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae412{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae413{width:4.004in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae41c{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae426{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae427{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae430{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae43a{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae444{width:4.004in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae445{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae44e{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c60ae458{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-c6159eca"><caption><p>Descriptive table</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-c60ae3d6"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Variable</span></p></th><th class="cl-c60ae3e0"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Type</span></p></th><th class="cl-c60ae3ea"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Description (Mean±SD or categories)</span></p></th><th class="cl-c60ae3f4"><p class="cl-c60aa34e"><span class="cl-c6055e3e">N Observed</span></p></th><th class="cl-c60ae3f5"><p class="cl-c60aa34e"><span class="cl-c6055e3e">N Missing</span></p></th><th class="cl-c60ae3fe"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Cronbach’s α</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">algorithmic_awareness</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.33 (0.38)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,200</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.97</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">age</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">51.07 (18.6)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,200</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">gender</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Categorical</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Male (508, 42.3%); Female (689, 57.4%); NA (3, 0.2%)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,197</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">3</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">nse</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">2.64 (1.21)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,200</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">residence</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Categorical</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Urban (751, 62.6%); Rural (449, 37.4%)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,200</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">innovative_personality</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">3.06 (0.94)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,197</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">3</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">soc_net</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">5.9 (3.63)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,200</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">childs</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.43 (0.78)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,200</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">tech_operational_skills</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.53 (0.45)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,195</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">5</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.96</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">tech_informative_skills</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.51 (0.39)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,197</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">3</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.84</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">tech_social_skills</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.63 (0.43)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,175</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">25</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.95</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">tech_creative_skills</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.26 (0.38)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,185</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">15</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e">0.86</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">yt</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">3.09 (1.3)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">970</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">230</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">fb</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">3.28 (1.36)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">976</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">224</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">tw</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1.49 (1.04)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">948</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">252</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">ig</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">2.84 (1.65)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">960</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">240</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">wsp</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">4.54 (0.77)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">981</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">219</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">tiktok</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">2.54 (1.58)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">956</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">244</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae408"><p class="cl-c60aa34e"><span class="cl-c6055e3e">netflix</span></p></td><td class="cl-c60ae412"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae413"><p class="cl-c60aa34e"><span class="cl-c6055e3e">2.1 (1.2)</span></p></td><td class="cl-c60ae41c"><p class="cl-c60aa34e"><span class="cl-c6055e3e">1,187</span></p></td><td class="cl-c60ae426"><p class="cl-c60aa34e"><span class="cl-c6055e3e">13</span></p></td><td class="cl-c60ae427"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-c60ae430"><p class="cl-c60aa34e"><span class="cl-c6055e3e">media_breadth</span></p></td><td class="cl-c60ae43a"><p class="cl-c60aa34e"><span class="cl-c6055e3e">Numeric</span></p></td><td class="cl-c60ae444"><p class="cl-c60aa34e"><span class="cl-c6055e3e">3.02 (1.67)</span></p></td><td class="cl-c60ae445"><p class="cl-c60aa34e"><span class="cl-c6055e3e">939</span></p></td><td class="cl-c60ae44e"><p class="cl-c60aa34e"><span class="cl-c6055e3e">261</span></p></td><td class="cl-c60ae458"><p class="cl-c60aa34e"><span class="cl-c6055e3e"></span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-63e79b0a{}.cl-63debf6c{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-63e21270{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-63e23336{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e2334a{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e23354{width:7.236in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e2335e{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e2335f{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e23368{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e23369{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e2336a{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e23372{width:7.236in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e23373{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e2337c{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e23386{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e23390{width:1.848in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e2339a{width:1.058in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e233a4{width:7.236in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e233a5{width:1.109in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e233ae{width:0.998in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-63e233af{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-63e79b0a"><caption><p>Descriptive table</p></caption><thead><tr style="overflow-wrap:break-word;"><th class="cl-63e23336"><p class="cl-63e21270"><span class="cl-63debf6c">Variable</span></p></th><th class="cl-63e2334a"><p class="cl-63e21270"><span class="cl-63debf6c">Type</span></p></th><th class="cl-63e23354"><p class="cl-63e21270"><span class="cl-63debf6c">Description (Mean±SD or categories)</span></p></th><th class="cl-63e2335e"><p class="cl-63e21270"><span class="cl-63debf6c">N Observed</span></p></th><th class="cl-63e2335f"><p class="cl-63e21270"><span class="cl-63debf6c">N Missing</span></p></th><th class="cl-63e23368"><p class="cl-63e21270"><span class="cl-63debf6c">Cronbach’s α</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">algorithmic_awareness</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">0.33 (0.38)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,200</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">0</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c">0.97</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">age</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">51.07 (18.6)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,200</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">0</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">gender</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Categorical</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">Male (508, 42.3%); Female (689, 57.4%); NA (3, 0.2%)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,197</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">3</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">nse</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">2.64 (1.21)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,200</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">0</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">residence</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Categorical</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">Urban (751, 62.6%); Rural (449, 37.4%)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,200</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">0</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">innovative_personality</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">3.06 (0.94)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,197</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">3</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">soc_net</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">5.9 (3.63)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,200</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">0</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">childs</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">0.43 (0.78)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,200</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">0</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">tech_operational_skills</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">0.53 (0.45)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,195</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">5</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c">0.96</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">tech_informative_skills</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">0.51 (0.39)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,197</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">3</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c">0.84</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">tech_social_skills</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">0.63 (0.43)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,175</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">25</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c">0.95</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">tech_creative_skills</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">0.26 (0.38)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,185</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">15</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c">0.86</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">yt</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">3.09 (1.3)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">970</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">230</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">fb</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">3.28 (1.36)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">976</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">224</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">tw</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">1.49 (1.04)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">948</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">252</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">ig</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">2.84 (1.65)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">960</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">240</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">wsp</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">4.54 (0.77)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">981</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">219</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">tiktok</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">2.54 (1.58)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">956</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">244</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23369"><p class="cl-63e21270"><span class="cl-63debf6c">netflix</span></p></td><td class="cl-63e2336a"><p class="cl-63e21270"><span class="cl-63debf6c">Numeric</span></p></td><td class="cl-63e23372"><p class="cl-63e21270"><span class="cl-63debf6c">2.1 (1.2)</span></p></td><td class="cl-63e23373"><p class="cl-63e21270"><span class="cl-63debf6c">1,187</span></p></td><td class="cl-63e2337c"><p class="cl-63e21270"><span class="cl-63debf6c">13</span></p></td><td class="cl-63e23386"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-63e23390"><p class="cl-63e21270"><span class="cl-63debf6c">media_breadth_daily</span></p></td><td class="cl-63e2339a"><p class="cl-63e21270"><span class="cl-63debf6c">Categorical</span></p></td><td class="cl-63e233a4"><p class="cl-63e21270"><span class="cl-63debf6c">Non-dialy user (187, 15.6%); &lt;5 daily user (557, 46.4%); &gt;=5 daily user (195, 16.2%); NA (261, 21.8%)</span></p></td><td class="cl-63e233a5"><p class="cl-63e21270"><span class="cl-63debf6c">939</span></p></td><td class="cl-63e233ae"><p class="cl-63e21270"><span class="cl-63debf6c">261</span></p></td><td class="cl-63e233af"><p class="cl-63e21270"><span class="cl-63debf6c"></span></p></td></tr></tbody></table></div>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -535,7 +586,7 @@ Cronbach's alpha coefficient:</code></pre>
 </section>
 <section id="analytical-strategy" class="level2">
 <h2 class="anchored" data-anchor-id="analytical-strategy">Analytical strategy</h2>
-<p>We estimated a series of linear regression models to examine the predictors of algorithmic awareness. The main independent variables were the four dimensions of digital skills and the six social media use indicators, controlling for demographical variables. All continuous variables were mean-centered prior to analysis to facilitate interpretation. Robust standard errors were computed to account for potential heteroskedasticity.</p>
+<p>We estimated a series of four nested linear regression models (OLS) to examine the increasing explanatory blocks of algorithmic awareness. The main independent variables were the four dimensions of digital skills and the six social media use indicators, controlling for demographical variables. All continuous variables were mean-centered prior to analysis to facilitate interpretation. Robust standard errors were computed to account for potential heteroskedasticity.</p>
 <p>Model diagnostics confirmed the absence of multicollinearity (all VIF &lt; 2.5) and normal distribution of residuals. Analyses were conducted using R 4.4.2 software. Marginal effects and standardized coefficients are reported for comparability. Statistical significance was set at p &lt; .05.</p>
 </section>
 </section>
@@ -543,6 +594,7 @@ Cronbach's alpha coefficient:</code></pre>
 <h1>Results</h1>
 <section id="correlation-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-matrix">Correlation matrix</h2>
+<p>The correlation matrix (Table X) reveals consistent and theoretically coherent associations among the main study variables. Algorithmic awareness is strongly and positively correlated with all four dimensions of digital skills—particularly operational (r ≈ .61) and social (r ≈ .58) skills—while showing moderate associations with socioeconomic status (r ≈ .34) and social network support (r ≈ .29). The breadth of social media use exhibits a smaller but significant positive correlation with algorithmic awareness (r ≈ .30), suggesting that greater platform diversity is modestly linked to higher awareness levels. Age correlates negatively with both digital skills and awareness, whereas NSE and digital competencies display the strongest internal coherence across measures. Overall, the correlation structure supports the proposed analytical model, highlighting the central role of digital skills in the formation of algorithmic awareness.</p>
 <div class="cell" data-lbl="corr-matrix" data-tbl-cap="Correlation matrix">
 <details class="code-fold">
 <summary>Code</summary>
@@ -611,17 +663,20 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-3f7bcd9b12d83724d0d4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3f7bcd9b12d83724d0d4">{"x":{"filter":"none","vertical":false,"caption":"<caption>Pearson Correlation Matrix with p-values<\/caption>","data":[["algorithmic_awareness","age","gender_num","nse","residence_num","innovative_personality","soc_net","childs","tech_operational_skills","tech_informative_skills","tech_social_skills","tech_creative_skills","yt","fb","tw","ig","wsp","tiktok","netflix","media_breadth"],["1\n(NA)","-0.59\n(&lt;.001)","-0.08\n(0.006)","0.47\n(&lt;.001)","-0.23\n(&lt;.001)","0.3\n(&lt;.001)","0.38\n(&lt;.001)","0.17\n(&lt;.001)","0.69\n(&lt;.001)","0.63\n(&lt;.001)","0.58\n(&lt;.001)","0.59\n(&lt;.001)","0.37\n(&lt;.001)","0.13\n(&lt;.001)","0.35\n(&lt;.001)","0.51\n(&lt;.001)","0.17\n(&lt;.001)","0.39\n(&lt;.001)","0.59\n(&lt;.001)","0.45\n(&lt;.001)"],["-0.59\n(&lt;.001)","1\n(NA)","0.01\n(0.727)","-0.29\n(&lt;.001)","0.05\n(0.064)","-0.3\n(&lt;.001)","-0.3\n(&lt;.001)","-0.39\n(&lt;.001)","-0.66\n(&lt;.001)","-0.66\n(&lt;.001)","-0.61\n(&lt;.001)","-0.49\n(&lt;.001)","-0.34\n(&lt;.001)","-0.16\n(&lt;.001)","-0.23\n(&lt;.001)","-0.52\n(&lt;.001)","-0.15\n(&lt;.001)","-0.42\n(&lt;.001)","-0.59\n(&lt;.001)","-0.48\n(&lt;.001)"],["-0.08\n(0.006)","0.01\n(0.727)","1\n(NA)","-0.12\n(&lt;.001)","0.03\n(0.352)","-0.12\n(&lt;.001)","-0.08\n(0.009)","0.09\n(0.003)","-0.01\n(0.648)","-0.01\n(0.78)","0\n(0.912)","-0.06\n(0.048)","-0.06\n(0.051)","0.14\n(&lt;.001)","-0.06\n(0.083)","0.08\n(0.014)","0.05\n(0.12)","0.08\n(0.013)","-0.02\n(0.493)","0.05\n(0.105)"],["0.47\n(&lt;.001)","-0.29\n(&lt;.001)","-0.12\n(&lt;.001)","1\n(NA)","-0.33\n(&lt;.001)","0.32\n(&lt;.001)","0.38\n(&lt;.001)","0.02\n(0.397)","0.47\n(&lt;.001)","0.44\n(&lt;.001)","0.46\n(&lt;.001)","0.39\n(&lt;.001)","0.18\n(&lt;.001)","0.11\n(&lt;.001)","0.28\n(&lt;.001)","0.32\n(&lt;.001)","0.17\n(&lt;.001)","0.13\n(&lt;.001)","0.35\n(&lt;.001)","0.2\n(&lt;.001)"],["-0.23\n(&lt;.001)","0.05\n(0.064)","0.03\n(0.352)","-0.33\n(&lt;.001)","1\n(NA)","-0.2\n(&lt;.001)","-0.08\n(0.005)","-0.02\n(0.413)","-0.23\n(&lt;.001)","-0.18\n(&lt;.001)","-0.19\n(&lt;.001)","-0.13\n(&lt;.001)","-0.06\n(0.048)","0.01\n(0.67)","-0.06\n(0.054)","-0.15\n(&lt;.001)","-0.15\n(&lt;.001)","-0.1\n(0.001)","-0.21\n(&lt;.001)","-0.1\n(0.003)"],["0.3\n(&lt;.001)","-0.3\n(&lt;.001)","-0.12\n(&lt;.001)","0.32\n(&lt;.001)","-0.2\n(&lt;.001)","1\n(NA)","0.16\n(&lt;.001)","0.08\n(0.003)","0.35\n(&lt;.001)","0.29\n(&lt;.001)","0.37\n(&lt;.001)","0.23\n(&lt;.001)","0.13\n(&lt;.001)","0.12\n(&lt;.001)","0.12\n(&lt;.001)","0.25\n(&lt;.001)","0.14\n(&lt;.001)","0.09\n(0.004)","0.28\n(&lt;.001)","0.19\n(&lt;.001)"],["0.38\n(&lt;.001)","-0.3\n(&lt;.001)","-0.08\n(0.009)","0.38\n(&lt;.001)","-0.08\n(0.005)","0.16\n(&lt;.001)","1\n(NA)","0.12\n(&lt;.001)","0.41\n(&lt;.001)","0.38\n(&lt;.001)","0.41\n(&lt;.001)","0.32\n(&lt;.001)","0.19\n(&lt;.001)","0.12\n(&lt;.001)","0.14\n(&lt;.001)","0.24\n(&lt;.001)","0.28\n(&lt;.001)","0.08\n(0.014)","0.37\n(&lt;.001)","0.3\n(&lt;.001)"],["0.17\n(&lt;.001)","-0.39\n(&lt;.001)","0.09\n(0.003)","0.02\n(0.397)","-0.02\n(0.413)","0.08\n(0.003)","0.12\n(&lt;.001)","1\n(NA)","0.27\n(&lt;.001)","0.25\n(&lt;.001)","0.25\n(&lt;.001)","0.2\n(&lt;.001)","0.17\n(&lt;.001)","0.1\n(0.002)","0.02\n(0.583)","0.19\n(&lt;.001)","0.07\n(0.019)","0.21\n(&lt;.001)","0.23\n(&lt;.001)","0.2\n(&lt;.001)"],["0.69\n(&lt;.001)","-0.66\n(&lt;.001)","-0.01\n(0.648)","0.47\n(&lt;.001)","-0.23\n(&lt;.001)","0.35\n(&lt;.001)","0.41\n(&lt;.001)","0.27\n(&lt;.001)","1\n(NA)","0.8\n(&lt;.001)","0.72\n(&lt;.001)","0.61\n(&lt;.001)","0.36\n(&lt;.001)","0.27\n(&lt;.001)","0.32\n(&lt;.001)","0.58\n(&lt;.001)","0.22\n(&lt;.001)","0.38\n(&lt;.001)","0.62\n(&lt;.001)","0.51\n(&lt;.001)"],["0.63\n(&lt;.001)","-0.66\n(&lt;.001)","-0.01\n(0.78)","0.44\n(&lt;.001)","-0.18\n(&lt;.001)","0.29\n(&lt;.001)","0.38\n(&lt;.001)","0.25\n(&lt;.001)","0.8\n(&lt;.001)","1\n(NA)","0.77\n(&lt;.001)","0.58\n(&lt;.001)","0.38\n(&lt;.001)","0.3\n(&lt;.001)","0.35\n(&lt;.001)","0.53\n(&lt;.001)","0.21\n(&lt;.001)","0.38\n(&lt;.001)","0.57\n(&lt;.001)","0.5\n(&lt;.001)"],["0.58\n(&lt;.001)","-0.61\n(&lt;.001)","0\n(0.912)","0.46\n(&lt;.001)","-0.19\n(&lt;.001)","0.37\n(&lt;.001)","0.41\n(&lt;.001)","0.25\n(&lt;.001)","0.72\n(&lt;.001)","0.77\n(&lt;.001)","1\n(NA)","0.5\n(&lt;.001)","0.31\n(&lt;.001)","0.31\n(&lt;.001)","0.26\n(&lt;.001)","0.49\n(&lt;.001)","0.25\n(&lt;.001)","0.31\n(&lt;.001)","0.54\n(&lt;.001)","0.45\n(&lt;.001)"],["0.59\n(&lt;.001)","-0.49\n(&lt;.001)","-0.06\n(0.048)","0.39\n(&lt;.001)","-0.13\n(&lt;.001)","0.23\n(&lt;.001)","0.32\n(&lt;.001)","0.2\n(&lt;.001)","0.61\n(&lt;.001)","0.58\n(&lt;.001)","0.5\n(&lt;.001)","1\n(NA)","0.32\n(&lt;.001)","0.14\n(&lt;.001)","0.37\n(&lt;.001)","0.45\n(&lt;.001)","0.12\n(&lt;.001)","0.32\n(&lt;.001)","0.42\n(&lt;.001)","0.43\n(&lt;.001)"],["0.37\n(&lt;.001)","-0.34\n(&lt;.001)","-0.06\n(0.051)","0.18\n(&lt;.001)","-0.06\n(0.048)","0.13\n(&lt;.001)","0.19\n(&lt;.001)","0.17\n(&lt;.001)","0.36\n(&lt;.001)","0.38\n(&lt;.001)","0.31\n(&lt;.001)","0.32\n(&lt;.001)","1\n(NA)","0.21\n(&lt;.001)","0.26\n(&lt;.001)","0.38\n(&lt;.001)","0.25\n(&lt;.001)","0.32\n(&lt;.001)","0.33\n(&lt;.001)","0.58\n(&lt;.001)"],["0.13\n(&lt;.001)","-0.16\n(&lt;.001)","0.14\n(&lt;.001)","0.11\n(&lt;.001)","0.01\n(0.67)","0.12\n(&lt;.001)","0.12\n(&lt;.001)","0.1\n(0.002)","0.27\n(&lt;.001)","0.3\n(&lt;.001)","0.31\n(&lt;.001)","0.14\n(&lt;.001)","0.21\n(&lt;.001)","1\n(NA)","0.13\n(&lt;.001)","0.38\n(&lt;.001)","0.24\n(&lt;.001)","0.25\n(&lt;.001)","0.22\n(&lt;.001)","0.53\n(&lt;.001)"],["0.35\n(&lt;.001)","-0.23\n(&lt;.001)","-0.06\n(0.083)","0.28\n(&lt;.001)","-0.06\n(0.054)","0.12\n(&lt;.001)","0.14\n(&lt;.001)","0.02\n(0.583)","0.32\n(&lt;.001)","0.35\n(&lt;.001)","0.26\n(&lt;.001)","0.37\n(&lt;.001)","0.26\n(&lt;.001)","0.13\n(&lt;.001)","1\n(NA)","0.34\n(&lt;.001)","0.05\n(0.166)","0.31\n(&lt;.001)","0.21\n(&lt;.001)","0.4\n(&lt;.001)"],["0.51\n(&lt;.001)","-0.52\n(&lt;.001)","0.08\n(0.014)","0.32\n(&lt;.001)","-0.15\n(&lt;.001)","0.25\n(&lt;.001)","0.24\n(&lt;.001)","0.19\n(&lt;.001)","0.58\n(&lt;.001)","0.53\n(&lt;.001)","0.49\n(&lt;.001)","0.45\n(&lt;.001)","0.38\n(&lt;.001)","0.38\n(&lt;.001)","0.34\n(&lt;.001)","1\n(NA)","0.25\n(&lt;.001)","0.49\n(&lt;.001)","0.51\n(&lt;.001)","0.7\n(&lt;.001)"],["0.17\n(&lt;.001)","-0.15\n(&lt;.001)","0.05\n(0.12)","0.17\n(&lt;.001)","-0.15\n(&lt;.001)","0.14\n(&lt;.001)","0.28\n(&lt;.001)","0.07\n(0.019)","0.22\n(&lt;.001)","0.21\n(&lt;.001)","0.25\n(&lt;.001)","0.12\n(&lt;.001)","0.25\n(&lt;.001)","0.24\n(&lt;.001)","0.05\n(0.166)","0.25\n(&lt;.001)","1\n(NA)","0.17\n(&lt;.001)","0.21\n(&lt;.001)","0.39\n(&lt;.001)"],["0.39\n(&lt;.001)","-0.42\n(&lt;.001)","0.08\n(0.013)","0.13\n(&lt;.001)","-0.1\n(0.001)","0.09\n(0.004)","0.08\n(0.014)","0.21\n(&lt;.001)","0.38\n(&lt;.001)","0.38\n(&lt;.001)","0.31\n(&lt;.001)","0.32\n(&lt;.001)","0.32\n(&lt;.001)","0.25\n(&lt;.001)","0.31\n(&lt;.001)","0.49\n(&lt;.001)","0.17\n(&lt;.001)","1\n(NA)","0.4\n(&lt;.001)","0.64\n(&lt;.001)"],["0.59\n(&lt;.001)","-0.59\n(&lt;.001)","-0.02\n(0.493)","0.35\n(&lt;.001)","-0.21\n(&lt;.001)","0.28\n(&lt;.001)","0.37\n(&lt;.001)","0.23\n(&lt;.001)","0.62\n(&lt;.001)","0.57\n(&lt;.001)","0.54\n(&lt;.001)","0.42\n(&lt;.001)","0.33\n(&lt;.001)","0.22\n(&lt;.001)","0.21\n(&lt;.001)","0.51\n(&lt;.001)","0.21\n(&lt;.001)","0.4\n(&lt;.001)","1\n(NA)","0.6\n(&lt;.001)"],["0.45\n(&lt;.001)","-0.48\n(&lt;.001)","0.05\n(0.105)","0.2\n(&lt;.001)","-0.1\n(0.003)","0.19\n(&lt;.001)","0.3\n(&lt;.001)","0.2\n(&lt;.001)","0.51\n(&lt;.001)","0.5\n(&lt;.001)","0.45\n(&lt;.001)","0.43\n(&lt;.001)","0.58\n(&lt;.001)","0.53\n(&lt;.001)","0.4\n(&lt;.001)","0.7\n(&lt;.001)","0.39\n(&lt;.001)","0.64\n(&lt;.001)","0.6\n(&lt;.001)","1\n(NA)"]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>algorithmic_awareness<\/th>\n      <th>age<\/th>\n      <th>gender_num<\/th>\n      <th>nse<\/th>\n      <th>residence_num<\/th>\n      <th>innovative_personality<\/th>\n      <th>soc_net<\/th>\n      <th>childs<\/th>\n      <th>tech_operational_skills<\/th>\n      <th>tech_informative_skills<\/th>\n      <th>tech_social_skills<\/th>\n      <th>tech_creative_skills<\/th>\n      <th>yt<\/th>\n      <th>fb<\/th>\n      <th>tw<\/th>\n      <th>ig<\/th>\n      <th>wsp<\/th>\n      <th>tiktok<\/th>\n      <th>netflix<\/th>\n      <th>media_breadth<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":10,"columnDefs":[{"className":"dt-center","targets":"_all"},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"algorithmic_awareness","targets":1},{"name":"age","targets":2},{"name":"gender_num","targets":3},{"name":"nse","targets":4},{"name":"residence_num","targets":5},{"name":"innovative_personality","targets":6},{"name":"soc_net","targets":7},{"name":"childs","targets":8},{"name":"tech_operational_skills","targets":9},{"name":"tech_informative_skills","targets":10},{"name":"tech_social_skills","targets":11},{"name":"tech_creative_skills","targets":12},{"name":"yt","targets":13},{"name":"fb","targets":14},{"name":"tw","targets":15},{"name":"ig","targets":16},{"name":"wsp","targets":17},{"name":"tiktok","targets":18},{"name":"netflix","targets":19},{"name":"media_breadth","targets":20}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-2c283ad0b22b36ccd7da" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2c283ad0b22b36ccd7da">{"x":{"filter":"none","vertical":false,"caption":"<caption>Pearson Correlation Matrix with p-values<\/caption>","data":[["algorithmic_awareness","age","gender_num","nse","residence_num","innovative_personality","soc_net","childs","tech_operational_skills","tech_informative_skills","tech_social_skills","tech_creative_skills","yt","fb","tw","ig","wsp","tiktok","netflix","media_breadth"],["1\n(NA)","-0.59\n(&lt;.001)","-0.08\n(0.006)","0.47\n(&lt;.001)","-0.23\n(&lt;.001)","0.3\n(&lt;.001)","0.38\n(&lt;.001)","0.17\n(&lt;.001)","0.69\n(&lt;.001)","0.63\n(&lt;.001)","0.58\n(&lt;.001)","0.59\n(&lt;.001)","0.37\n(&lt;.001)","0.13\n(&lt;.001)","0.35\n(&lt;.001)","0.51\n(&lt;.001)","0.17\n(&lt;.001)","0.39\n(&lt;.001)","0.59\n(&lt;.001)","0.45\n(&lt;.001)"],["-0.59\n(&lt;.001)","1\n(NA)","0.01\n(0.727)","-0.29\n(&lt;.001)","0.05\n(0.064)","-0.3\n(&lt;.001)","-0.3\n(&lt;.001)","-0.39\n(&lt;.001)","-0.66\n(&lt;.001)","-0.66\n(&lt;.001)","-0.61\n(&lt;.001)","-0.49\n(&lt;.001)","-0.34\n(&lt;.001)","-0.16\n(&lt;.001)","-0.23\n(&lt;.001)","-0.52\n(&lt;.001)","-0.15\n(&lt;.001)","-0.42\n(&lt;.001)","-0.59\n(&lt;.001)","-0.48\n(&lt;.001)"],["-0.08\n(0.006)","0.01\n(0.727)","1\n(NA)","-0.12\n(&lt;.001)","0.03\n(0.352)","-0.12\n(&lt;.001)","-0.08\n(0.009)","0.09\n(0.003)","-0.01\n(0.648)","-0.01\n(0.78)","0\n(0.912)","-0.06\n(0.048)","-0.06\n(0.051)","0.14\n(&lt;.001)","-0.06\n(0.083)","0.08\n(0.014)","0.05\n(0.12)","0.08\n(0.013)","-0.02\n(0.493)","0.05\n(0.105)"],["0.47\n(&lt;.001)","-0.29\n(&lt;.001)","-0.12\n(&lt;.001)","1\n(NA)","-0.33\n(&lt;.001)","0.32\n(&lt;.001)","0.38\n(&lt;.001)","0.02\n(0.397)","0.47\n(&lt;.001)","0.44\n(&lt;.001)","0.46\n(&lt;.001)","0.39\n(&lt;.001)","0.18\n(&lt;.001)","0.11\n(&lt;.001)","0.28\n(&lt;.001)","0.32\n(&lt;.001)","0.17\n(&lt;.001)","0.13\n(&lt;.001)","0.35\n(&lt;.001)","0.2\n(&lt;.001)"],["-0.23\n(&lt;.001)","0.05\n(0.064)","0.03\n(0.352)","-0.33\n(&lt;.001)","1\n(NA)","-0.2\n(&lt;.001)","-0.08\n(0.005)","-0.02\n(0.413)","-0.23\n(&lt;.001)","-0.18\n(&lt;.001)","-0.19\n(&lt;.001)","-0.13\n(&lt;.001)","-0.06\n(0.048)","0.01\n(0.67)","-0.06\n(0.054)","-0.15\n(&lt;.001)","-0.15\n(&lt;.001)","-0.1\n(0.001)","-0.21\n(&lt;.001)","-0.1\n(0.003)"],["0.3\n(&lt;.001)","-0.3\n(&lt;.001)","-0.12\n(&lt;.001)","0.32\n(&lt;.001)","-0.2\n(&lt;.001)","1\n(NA)","0.16\n(&lt;.001)","0.08\n(0.003)","0.35\n(&lt;.001)","0.29\n(&lt;.001)","0.37\n(&lt;.001)","0.23\n(&lt;.001)","0.13\n(&lt;.001)","0.12\n(&lt;.001)","0.12\n(&lt;.001)","0.25\n(&lt;.001)","0.14\n(&lt;.001)","0.09\n(0.004)","0.28\n(&lt;.001)","0.19\n(&lt;.001)"],["0.38\n(&lt;.001)","-0.3\n(&lt;.001)","-0.08\n(0.009)","0.38\n(&lt;.001)","-0.08\n(0.005)","0.16\n(&lt;.001)","1\n(NA)","0.12\n(&lt;.001)","0.41\n(&lt;.001)","0.38\n(&lt;.001)","0.41\n(&lt;.001)","0.32\n(&lt;.001)","0.19\n(&lt;.001)","0.12\n(&lt;.001)","0.14\n(&lt;.001)","0.24\n(&lt;.001)","0.28\n(&lt;.001)","0.08\n(0.014)","0.37\n(&lt;.001)","0.3\n(&lt;.001)"],["0.17\n(&lt;.001)","-0.39\n(&lt;.001)","0.09\n(0.003)","0.02\n(0.397)","-0.02\n(0.413)","0.08\n(0.003)","0.12\n(&lt;.001)","1\n(NA)","0.27\n(&lt;.001)","0.25\n(&lt;.001)","0.25\n(&lt;.001)","0.2\n(&lt;.001)","0.17\n(&lt;.001)","0.1\n(0.002)","0.02\n(0.583)","0.19\n(&lt;.001)","0.07\n(0.019)","0.21\n(&lt;.001)","0.23\n(&lt;.001)","0.2\n(&lt;.001)"],["0.69\n(&lt;.001)","-0.66\n(&lt;.001)","-0.01\n(0.648)","0.47\n(&lt;.001)","-0.23\n(&lt;.001)","0.35\n(&lt;.001)","0.41\n(&lt;.001)","0.27\n(&lt;.001)","1\n(NA)","0.8\n(&lt;.001)","0.72\n(&lt;.001)","0.61\n(&lt;.001)","0.36\n(&lt;.001)","0.27\n(&lt;.001)","0.32\n(&lt;.001)","0.58\n(&lt;.001)","0.22\n(&lt;.001)","0.38\n(&lt;.001)","0.62\n(&lt;.001)","0.51\n(&lt;.001)"],["0.63\n(&lt;.001)","-0.66\n(&lt;.001)","-0.01\n(0.78)","0.44\n(&lt;.001)","-0.18\n(&lt;.001)","0.29\n(&lt;.001)","0.38\n(&lt;.001)","0.25\n(&lt;.001)","0.8\n(&lt;.001)","1\n(NA)","0.77\n(&lt;.001)","0.58\n(&lt;.001)","0.38\n(&lt;.001)","0.3\n(&lt;.001)","0.35\n(&lt;.001)","0.53\n(&lt;.001)","0.21\n(&lt;.001)","0.38\n(&lt;.001)","0.57\n(&lt;.001)","0.5\n(&lt;.001)"],["0.58\n(&lt;.001)","-0.61\n(&lt;.001)","0\n(0.912)","0.46\n(&lt;.001)","-0.19\n(&lt;.001)","0.37\n(&lt;.001)","0.41\n(&lt;.001)","0.25\n(&lt;.001)","0.72\n(&lt;.001)","0.77\n(&lt;.001)","1\n(NA)","0.5\n(&lt;.001)","0.31\n(&lt;.001)","0.31\n(&lt;.001)","0.26\n(&lt;.001)","0.49\n(&lt;.001)","0.25\n(&lt;.001)","0.31\n(&lt;.001)","0.54\n(&lt;.001)","0.45\n(&lt;.001)"],["0.59\n(&lt;.001)","-0.49\n(&lt;.001)","-0.06\n(0.048)","0.39\n(&lt;.001)","-0.13\n(&lt;.001)","0.23\n(&lt;.001)","0.32\n(&lt;.001)","0.2\n(&lt;.001)","0.61\n(&lt;.001)","0.58\n(&lt;.001)","0.5\n(&lt;.001)","1\n(NA)","0.32\n(&lt;.001)","0.14\n(&lt;.001)","0.37\n(&lt;.001)","0.45\n(&lt;.001)","0.12\n(&lt;.001)","0.32\n(&lt;.001)","0.42\n(&lt;.001)","0.43\n(&lt;.001)"],["0.37\n(&lt;.001)","-0.34\n(&lt;.001)","-0.06\n(0.051)","0.18\n(&lt;.001)","-0.06\n(0.048)","0.13\n(&lt;.001)","0.19\n(&lt;.001)","0.17\n(&lt;.001)","0.36\n(&lt;.001)","0.38\n(&lt;.001)","0.31\n(&lt;.001)","0.32\n(&lt;.001)","1\n(NA)","0.21\n(&lt;.001)","0.26\n(&lt;.001)","0.38\n(&lt;.001)","0.25\n(&lt;.001)","0.32\n(&lt;.001)","0.33\n(&lt;.001)","0.58\n(&lt;.001)"],["0.13\n(&lt;.001)","-0.16\n(&lt;.001)","0.14\n(&lt;.001)","0.11\n(&lt;.001)","0.01\n(0.67)","0.12\n(&lt;.001)","0.12\n(&lt;.001)","0.1\n(0.002)","0.27\n(&lt;.001)","0.3\n(&lt;.001)","0.31\n(&lt;.001)","0.14\n(&lt;.001)","0.21\n(&lt;.001)","1\n(NA)","0.13\n(&lt;.001)","0.38\n(&lt;.001)","0.24\n(&lt;.001)","0.25\n(&lt;.001)","0.22\n(&lt;.001)","0.53\n(&lt;.001)"],["0.35\n(&lt;.001)","-0.23\n(&lt;.001)","-0.06\n(0.083)","0.28\n(&lt;.001)","-0.06\n(0.054)","0.12\n(&lt;.001)","0.14\n(&lt;.001)","0.02\n(0.583)","0.32\n(&lt;.001)","0.35\n(&lt;.001)","0.26\n(&lt;.001)","0.37\n(&lt;.001)","0.26\n(&lt;.001)","0.13\n(&lt;.001)","1\n(NA)","0.34\n(&lt;.001)","0.05\n(0.166)","0.31\n(&lt;.001)","0.21\n(&lt;.001)","0.4\n(&lt;.001)"],["0.51\n(&lt;.001)","-0.52\n(&lt;.001)","0.08\n(0.014)","0.32\n(&lt;.001)","-0.15\n(&lt;.001)","0.25\n(&lt;.001)","0.24\n(&lt;.001)","0.19\n(&lt;.001)","0.58\n(&lt;.001)","0.53\n(&lt;.001)","0.49\n(&lt;.001)","0.45\n(&lt;.001)","0.38\n(&lt;.001)","0.38\n(&lt;.001)","0.34\n(&lt;.001)","1\n(NA)","0.25\n(&lt;.001)","0.49\n(&lt;.001)","0.51\n(&lt;.001)","0.7\n(&lt;.001)"],["0.17\n(&lt;.001)","-0.15\n(&lt;.001)","0.05\n(0.12)","0.17\n(&lt;.001)","-0.15\n(&lt;.001)","0.14\n(&lt;.001)","0.28\n(&lt;.001)","0.07\n(0.019)","0.22\n(&lt;.001)","0.21\n(&lt;.001)","0.25\n(&lt;.001)","0.12\n(&lt;.001)","0.25\n(&lt;.001)","0.24\n(&lt;.001)","0.05\n(0.166)","0.25\n(&lt;.001)","1\n(NA)","0.17\n(&lt;.001)","0.21\n(&lt;.001)","0.39\n(&lt;.001)"],["0.39\n(&lt;.001)","-0.42\n(&lt;.001)","0.08\n(0.013)","0.13\n(&lt;.001)","-0.1\n(0.001)","0.09\n(0.004)","0.08\n(0.014)","0.21\n(&lt;.001)","0.38\n(&lt;.001)","0.38\n(&lt;.001)","0.31\n(&lt;.001)","0.32\n(&lt;.001)","0.32\n(&lt;.001)","0.25\n(&lt;.001)","0.31\n(&lt;.001)","0.49\n(&lt;.001)","0.17\n(&lt;.001)","1\n(NA)","0.4\n(&lt;.001)","0.64\n(&lt;.001)"],["0.59\n(&lt;.001)","-0.59\n(&lt;.001)","-0.02\n(0.493)","0.35\n(&lt;.001)","-0.21\n(&lt;.001)","0.28\n(&lt;.001)","0.37\n(&lt;.001)","0.23\n(&lt;.001)","0.62\n(&lt;.001)","0.57\n(&lt;.001)","0.54\n(&lt;.001)","0.42\n(&lt;.001)","0.33\n(&lt;.001)","0.22\n(&lt;.001)","0.21\n(&lt;.001)","0.51\n(&lt;.001)","0.21\n(&lt;.001)","0.4\n(&lt;.001)","1\n(NA)","0.6\n(&lt;.001)"],["0.45\n(&lt;.001)","-0.48\n(&lt;.001)","0.05\n(0.105)","0.2\n(&lt;.001)","-0.1\n(0.003)","0.19\n(&lt;.001)","0.3\n(&lt;.001)","0.2\n(&lt;.001)","0.51\n(&lt;.001)","0.5\n(&lt;.001)","0.45\n(&lt;.001)","0.43\n(&lt;.001)","0.58\n(&lt;.001)","0.53\n(&lt;.001)","0.4\n(&lt;.001)","0.7\n(&lt;.001)","0.39\n(&lt;.001)","0.64\n(&lt;.001)","0.6\n(&lt;.001)","1\n(NA)"]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>algorithmic_awareness<\/th>\n      <th>age<\/th>\n      <th>gender_num<\/th>\n      <th>nse<\/th>\n      <th>residence_num<\/th>\n      <th>innovative_personality<\/th>\n      <th>soc_net<\/th>\n      <th>childs<\/th>\n      <th>tech_operational_skills<\/th>\n      <th>tech_informative_skills<\/th>\n      <th>tech_social_skills<\/th>\n      <th>tech_creative_skills<\/th>\n      <th>yt<\/th>\n      <th>fb<\/th>\n      <th>tw<\/th>\n      <th>ig<\/th>\n      <th>wsp<\/th>\n      <th>tiktok<\/th>\n      <th>netflix<\/th>\n      <th>media_breadth<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":10,"columnDefs":[{"className":"dt-center","targets":"_all"},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"algorithmic_awareness","targets":1},{"name":"age","targets":2},{"name":"gender_num","targets":3},{"name":"nse","targets":4},{"name":"residence_num","targets":5},{"name":"innovative_personality","targets":6},{"name":"soc_net","targets":7},{"name":"childs","targets":8},{"name":"tech_operational_skills","targets":9},{"name":"tech_informative_skills","targets":10},{"name":"tech_social_skills","targets":11},{"name":"tech_creative_skills","targets":12},{"name":"yt","targets":13},{"name":"fb","targets":14},{"name":"tw","targets":15},{"name":"ig","targets":16},{"name":"wsp","targets":17},{"name":"tiktok","targets":18},{"name":"netflix","targets":19},{"name":"media_breadth","targets":20}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
 <section id="linear-models" class="level2">
 <h2 class="anchored" data-anchor-id="linear-models">Linear Models</h2>
-<p>Three nested models were then specified to assess the explanatory power of demographic factors, digital skills, and social media platform use. Diagnostic tests were performed to ensure the validity of the model, revealing that none of the variables exhibited a Variance Inflation Factor (VIF) greater than 5. This result is favorable, as it indicates that multicollinearity is not a concern, thereby strengthening the reliability and stability of the coefficient estimates.</p>
-<p>The evaluation of the models’ goodness-of-fit indicates that Model 2 offers the most parsimonious and robust explanation for the variance in algorithmic awareness. This model, which incorporates both demographic variables and digital skills, presents the highest adjusted R² value (R² adj. = .547) and the lowest Akaike Information Criterion (AIC = 161.033). The inclusion of social media usage variables in Model 3 did not improve the model’s fit; rather, it weakened it slightly and reduced the number of observations.</p>
-<p>The analysis of the coefficients from the superior Model 2 reveals the preponderant influence of digital skills as the most significant set of predictors. Specifically, operational skills (β = 0.31, p&lt;.001), creative skills (β = 0.16, p&lt;.001), and informative skills (β = 0.12, p&lt;.05) are all positively and significantly associated with greater algorithmic awareness. Regarding demographic variables, the effect of educational level, which was significant in Model 1 (β = 0.04, p&lt;.001), becomes non-significant in Model 2 (β = -0.00, n.s.) after the introduction of digital skills. This result suggests that the impact of formal education on algorithmic awareness is mediated by the development of digital competencies. Furthermore, household income (β = 0.03, p&lt;.01) and residence in urban areas (β = -0.06, p&lt;.01) maintain a positive and significant association. Age presents a small but significant negative relationship (β = -0.00, p&lt;.001).</p>
-<p>Although Model 3 demonstrated a weaker fit, its coefficients offer relevant nuances regarding platform use. The use of Twitter (β = 0.04, p&lt;.001) and Netflix (β = 0.04, p&lt;.001) is positively associated with algorithmic awareness, whereas the use of Facebook correlates negatively (β = -0.02, p&lt;.05). The use of other platforms such as YouTube, Instagram, or TikTok yielded no statistically significant effects. In conclusion, the findings demonstrate that digital skills are the central predictor of algorithmic awareness, surpassing the importance of traditional sociodemographic factors and the usage patterns of specific social platforms.</p>
+<p>Four hierarchical linear models were specified to assess the explanatory power of demographic factors, social and family resources, social media use, and digital skills on algorithmic awareness. Diagnostic tests were performed to ensure the validity of the estimations, confirming that none of the predictors presented a Variance Inflation Factor (VIF) greater than 3.5. This indicates that multicollinearity is not a concern, reinforcing the robustness and interpretability of the coefficients.</p>
+<p>The assessment of model fit shows that Model 4, which incorporates digital skills in addition to demographic, social resource, and media variables, provides the most comprehensive and robust explanation for the variance in algorithmic awareness. This full model displays the highest adjusted R² (R² adj. = .558) and the lowest Akaike Information Criterion (AIC = 171.033), indicating an optimal balance between explanatory power and parsimony.</p>
+<p>Model 1 (Demographics) demonstrates that socioeconomic status (β = 0.09, p &lt; .001) and residence in urban areas (β = −0.09, p &lt; .001) are significant predictors of algorithmic awareness, while gender differences are non-significant. Age exhibits a small but consistent negative effect (β = −0.01, p &lt; .001), suggesting lower algorithmic awareness among older respondents.</p>
+<p>Model 2 (Social and Family Resources) adds innovative personality, social network support, and number of children in the household. The inclusion of these variables slightly improves model fit, though the overall pattern remains stable. Social network support shows a positive and significant association with algorithmic awareness (β = 0.02, p &lt; .001), while the number of children is negatively associated (β = −0.03, p &lt; .01). The effect of innovative personality is positive but not statistically significant.</p>
+<p>Model 3 (Social Media Use) incorporates the frequency of use of seven platforms—YouTube, Facebook, Twitter (X), Instagram, WhatsApp, TikTok, and Netflix—along with the composite index of social media breadth, which reflects the number of platforms used weekly or more. Although this addition only marginally increases the model’s explanatory power, several noteworthy patterns emerge. The use of Twitter (β = 0.04, p &lt; .001) and Netflix (β = 0.03, p &lt; .01) is positively associated with algorithmic awareness, whereas Facebook shows a negative relationship (β = −0.02, p &lt; .05). The non-breadth of social media use also exhibits a small negative gap (β = 0.02, p &lt; .05) over High breadth users, suggesting that exposure to a wider range of platforms may modestly enhance users’ capacity to recognize algorithmic curation mechanisms.</p>
+<p>Model 4 (Digital Skills) introduces the four dimensions of digital competence—operational, informative, social, and creative skills—based on van Deursen’s typology. The inclusion of these competencies substantially improves model fit, underscoring their pivotal role in shaping algorithmic awareness. Operational skills (β = 0.20, p &lt; .001) and creative skills (β = 0.16, p &lt; .001) emerge as the strongest predictors, followed by social skills (β = 0.07, p &lt; .05) and informative skills (β = 0.05, n.s.). Once these skills are included, most demographic and social variables lose significance, indicating that the effects of socioeconomic position and social capital are largely mediated by the level of digital competence.</p>
+<p>In sum, the sequential modeling confirms that digital skills constitute the central explanatory factor for algorithmic awareness. While social resources and the diversity of social media use contribute marginally, their influence is secondary to users’ actual digital competencies. The progressive attenuation of demographic effects across models reinforces the notion that algorithmic awareness is primarily a matter of digital literacy, rather than demographic privilege or media exposure alone.</p>
 <div class="cell" data-lbl="models">
 <details class="code-fold">
 <summary>Code</summary>
@@ -651,7 +706,7 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  algorithmic_awareness <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> nse <span class="sc">+</span> residence <span class="sc">+</span></span>
 <span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    innovative_personality <span class="sc">+</span> soc_net <span class="sc">+</span> childs <span class="sc">+</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    yt <span class="sc">+</span> fb <span class="sc">+</span> tw <span class="sc">+</span> ig <span class="sc">+</span> wsp <span class="sc">+</span> tiktok <span class="sc">+</span> netflix <span class="sc">+</span> media_breadth,</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    yt <span class="sc">+</span> fb <span class="sc">+</span> tw <span class="sc">+</span> ig <span class="sc">+</span> wsp <span class="sc">+</span> tiktok <span class="sc">+</span> netflix <span class="sc">+</span> media_breadth_daily,</span>
 <span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data</span>
 <span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
@@ -659,59 +714,62 @@ Cronbach's alpha coefficient:</code></pre>
 <span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  algorithmic_awareness <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> nse <span class="sc">+</span> residence <span class="sc">+</span></span>
 <span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    innovative_personality <span class="sc">+</span> soc_net <span class="sc">+</span> childs <span class="sc">+</span></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    yt <span class="sc">+</span> fb <span class="sc">+</span> tw <span class="sc">+</span> ig <span class="sc">+</span> wsp <span class="sc">+</span> tiktok <span class="sc">+</span> netflix <span class="sc">+</span> media_breadth <span class="sc">+</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    yt <span class="sc">+</span> fb <span class="sc">+</span> tw <span class="sc">+</span> ig <span class="sc">+</span> wsp <span class="sc">+</span> tiktok <span class="sc">+</span> netflix <span class="sc">+</span> media_breadth_daily <span class="sc">+</span></span>
 <span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    tech_operational_skills <span class="sc">+</span> tech_informative_skills <span class="sc">+</span></span>
 <span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    tech_social_skills <span class="sc">+</span> tech_creative_skills,</span>
 <span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data</span>
 <span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Apply robust standard errors (HC3) ----</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="co">#cov1 &lt;- vcovHC(model1, type = "HC3")</span></span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co">#cov2 &lt;- vcovHC(model2, type = "HC3")</span></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">#cov3 &lt;- vcovHC(model3, type = "HC3")</span></span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#cov4 &lt;- vcovHC(model4, type = "HC3")</span></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Display models with variable labels ----</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  model1, model2, model3, model4,</span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse.se =</span> <span class="cn">TRUE</span>,      </span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.aic =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.r2 =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.fstat =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv.labels =</span> <span class="fu">c</span>(</span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 1: Demographics"</span>,</span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 2: + Social Resources"</span>,</span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 3: + Social Media Use"</span>,</span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 4: + Digital Skills"</span></span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Linear Regression Models Predicting Algorithmic Awareness"</span>,</span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ---- Variable labels ----</span></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> <span class="fu">c</span>(</span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Intercept"</span>,</span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>,</span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Gender (ref: Male)"</span>,</span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Socioeconomic Status (NSE)"</span>,</span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Residence (ref: Urban)"</span>,</span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Innovative Personality"</span>,</span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Social Network Support"</span>,</span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of Children in Household"</span>,</span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>    <span class="st">"YouTube Use"</span>,</span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Facebook Use"</span>,</span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"X (Twitter) Use"</span>,</span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Instagram Use"</span>,</span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">"WhatsApp Use"</span>,</span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TikTok Use"</span>,</span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Netflix Use"</span>,</span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Social Media Breadth"</span>,</span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Operational Skills"</span>,</span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Informative Skills"</span>,</span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Social Skills"</span>,</span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Creative Skills"</span></span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Apply robust standard errors (HC3) ----</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="co">#cov1 &lt;- vcovHC(model1, type = "HC3")</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="co">#cov2 &lt;- vcovHC(model2, type = "HC3")</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="co">#cov3 &lt;- vcovHC(model3, type = "HC3")</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="co">#cov4 &lt;- vcovHC(model4, type = "HC3")</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Display models with variable labels ----</span></span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  model1, model2, model3, model4,</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">collapse.se =</span> <span class="cn">TRUE</span>,      </span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.ci =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.aic =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.r2 =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.fstat =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">p.style =</span> <span class="st">"stars"</span>,</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv.labels =</span> <span class="fu">c</span>(</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 1: Demographics"</span>,</span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 2: + Social Resources"</span>,</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 3: + Social Media Use"</span>,</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model 4: + Digital Skills"</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Linear Regression Models Predicting Algorithmic Awareness"</span>,</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ---- Variable labels ----</span></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> <span class="fu">c</span>(</span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Intercept"</span>,</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age"</span>,</span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Gender (ref: Male)"</span>,</span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Socioeconomic Status (SES)"</span>,</span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Residence (ref: Urban)"</span>,</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Innovative Personality"</span>,</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Social Network Support"</span>,</span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Number of Children in Household"</span>,</span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"YouTube Use"</span>,</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Facebook Use"</span>,</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">"X (Twitter) Use"</span>,</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Instagram Use"</span>,</span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>    <span class="st">"WhatsApp Use"</span>,</span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TikTok Use"</span>,</span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Netflix Use"</span>,</span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Medium breadth (Ref: Non-social media breadth)"</span>,</span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>    <span class="st">"High breadth (Ref: Non-social media breadth)"</span>,</span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Operational Skills"</span>,</span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Informative Skills"</span>,</span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Social Skills"</span>,</span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Creative Skills"</span></span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
@@ -744,9 +802,9 @@ Cronbach's alpha coefficient:</code></pre>
 (0.04)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.55 <sup>***</sup><br>
 (0.05)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.15 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.17 <sup></sup><br>
 (0.09)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.08 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.09 <sup></sup><br>
 (0.09)</td>
 </tr>
 <tr class="even">
@@ -772,14 +830,14 @@ Cronbach's alpha coefficient:</code></pre>
 (0.02)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomic Status (NSE)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Socioeconomic Status (SES)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.09 <sup>***</sup><br>
 (0.01)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.07 <sup>***</sup><br>
 (0.01)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup>***</sup><br>
 (0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.02 <sup>**</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.03 <sup>**</sup><br>
 (0.01)</td>
 </tr>
 <tr class="odd">
@@ -800,7 +858,7 @@ Cronbach's alpha coefficient:</code></pre>
 (0.01)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01 <sup></sup><br>
 (0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.00 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.00 <sup></sup><br>
 (0.01)</td>
 </tr>
 <tr class="odd">
@@ -818,7 +876,7 @@ Cronbach's alpha coefficient:</code></pre>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup>*</sup><br>
 (0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.03 <sup>**</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.04 <sup>**</sup><br>
 (0.01)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.04 <sup>***</sup><br>
 (0.01)</td>
@@ -838,16 +896,16 @@ Cronbach's alpha coefficient:</code></pre>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup></sup><br>
 (0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup>*</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup>**</sup><br>
 (0.01)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">X (Twitter) Use</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup>***</sup><br>
 (0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.03 <sup>**</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.02 <sup>*</sup><br>
 (0.01)</td>
 </tr>
 <tr class="even">
@@ -863,9 +921,9 @@ Cronbach's alpha coefficient:</code></pre>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">WhatsApp Use</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup></sup><br>
 (0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.01 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup></sup><br>
 (0.01)</td>
 </tr>
 <tr class="even">
@@ -883,19 +941,28 @@ Cronbach's alpha coefficient:</code></pre>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.06 <sup>***</sup><br>
 (0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup>***</sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup>***</sup><br>
 (0.01)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Social Media Breadth</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Medium breadth (Ref: Non-social media breadth)</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.03 <sup>**</sup><br>
-(0.01)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.03 <sup>*</sup><br>
-(0.01)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02 <sup></sup><br>
+(0.03)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.04 <sup></sup><br>
+(0.03)</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">High breadth (Ref: Non-social media breadth)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.11 <sup>*</sup><br>
+(0.05)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.10 <sup>*</sup><br>
+(0.05)</td>
+</tr>
+<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Operational Skills</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
@@ -903,15 +970,15 @@ Cronbach's alpha coefficient:</code></pre>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.20 <sup>***</sup><br>
 (0.04)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Informative Skills</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.05 <sup></sup><br>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.04 <sup></sup><br>
 (0.04)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Social Skills</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
@@ -919,7 +986,7 @@ Cronbach's alpha coefficient:</code></pre>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.07 <sup>*</sup><br>
 (0.03)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">Creative Skills</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
@@ -927,28 +994,28 @@ Cronbach's alpha coefficient:</code></pre>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.16 <sup>***</sup><br>
 (0.03)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">1197</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">1194</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">937</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">928</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.454 / 0.452</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.474 / 0.471</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.508 / 0.500</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.567 / 0.558</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.568 / 0.558</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">AIC</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">379.360</td>
 <td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">341.571</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">283.444</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">171.033</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">285.012</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">172.153</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td colspan="5" style="text-align: right; font-style: italic; border-top: double black;">* p&lt;0.05&nbsp;&nbsp;&nbsp;** p&lt;0.01&nbsp;&nbsp;&nbsp;*** p&lt;0.001</td>
 </tr>
 </tbody>
@@ -958,9 +1025,11 @@ Cronbach's alpha coefficient:</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="revisión-multicoliniealidad-vif" class="level1">
-<h1>Revisión Multicoliniealidad (VIF)</h1>
+<section id="vif" class="level2">
+<h2 class="anchored" data-anchor-id="vif">VIF</h2>
+<p>VIF values for all predictors in Model 4 remain below acceptable thresholds (all &lt; 5, with social media breadth being highest). Residual inspection suggests approximate normality and homoskedastic behavior.</p>
+<p>*media_breadth_daily: only -.10 significant &gt;= daily use. 3.5 VIF</p>
+<p>*media_breadth_weekly: non-significant differences between groups. 5.0 VIF</p>
 <div class="cell" data-lbl="vif">
 <details class="code-fold">
 <summary>Code</summary>
@@ -972,90 +1041,131 @@ Cronbach's alpha coefficient:</code></pre>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
-<th style="text-align: right;">x</th>
+<th style="text-align: right;">GVIF</th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">GVIF^(1/(2*Df))</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">age</td>
-<td style="text-align: right;">2.139913</td>
+<td style="text-align: right;">2.140091</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.462905</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">gender</td>
-<td style="text-align: right;">1.104143</td>
+<td style="text-align: right;">1.106498</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.051902</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">nse</td>
-<td style="text-align: right;">1.602388</td>
+<td style="text-align: right;">1.581619</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.257624</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">residence</td>
-<td style="text-align: right;">1.217344</td>
+<td style="text-align: right;">1.217706</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.103497</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">innovative_personality</td>
-<td style="text-align: right;">1.258350</td>
+<td style="text-align: right;">1.264072</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.124310</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">soc_net</td>
-<td style="text-align: right;">1.405007</td>
+<td style="text-align: right;">1.402270</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.184175</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">childs</td>
-<td style="text-align: right;">1.180872</td>
+<td style="text-align: right;">1.184492</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.088344</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">yt</td>
-<td style="text-align: right;">1.666066</td>
+<td style="text-align: right;">1.586740</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.259659</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">fb</td>
-<td style="text-align: right;">1.653450</td>
+<td style="text-align: right;">1.516080</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.231292</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tw</td>
-<td style="text-align: right;">1.385107</td>
+<td style="text-align: right;">1.357606</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.165163</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ig</td>
-<td style="text-align: right;">2.522893</td>
+<td style="text-align: right;">2.238794</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.496260</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">wsp</td>
-<td style="text-align: right;">1.332709</td>
+<td style="text-align: right;">1.314948</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.146712</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tiktok</td>
-<td style="text-align: right;">1.903141</td>
+<td style="text-align: right;">1.759698</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.326536</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">netflix</td>
-<td style="text-align: right;">1.991354</td>
+<td style="text-align: right;">1.842662</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.357447</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">media_breadth</td>
-<td style="text-align: right;">5.284705</td>
+<td style="text-align: left;">media_breadth_daily</td>
+<td style="text-align: right;">3.503032</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.368078</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tech_operational_skills</td>
-<td style="text-align: right;">3.186325</td>
+<td style="text-align: right;">3.171272</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.780807</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tech_informative_skills</td>
-<td style="text-align: right;">2.776416</td>
+<td style="text-align: right;">2.801857</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.673875</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">tech_social_skills</td>
-<td style="text-align: right;">2.137196</td>
+<td style="text-align: right;">2.153738</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.467562</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">tech_creative_skills</td>
-<td style="text-align: right;">1.692217</td>
+<td style="text-align: right;">1.687409</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.299003</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</section>
 </section>
 
 </main>
