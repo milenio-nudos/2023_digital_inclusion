@@ -506,7 +506,7 @@ DT::datatable(
 
 ## Linear Models
 
-Four hierarchical linear models were specified to assess the explanatory power of demographic factors, social and family resources, social media use, and digital skills on algorithmic awareness. Diagnostic tests were performed to ensure the validity of the estimations, confirming that none of the predictors presented a Variance Inflation Factor (VIF) greater than 3.5. This indicates that multicollinearity is not a concern, reinforcing the robustness and interpretability of the coefficients.
+Four hierarchical linear models were specified to assess the explanatory power of demographic factors, social and family resources, social media use and breadth, and digital skills on algorithmic awareness. As media breadth was constructed with the different social media variables, they were introduced by separate in the models to avoid multicolinearity. Diagnostic tests were performed to ensure the validity of the estimations, confirming that none of the predictors presented a Variance Inflation Factor (VIF) greater than 3.5. This indicates that multicollinearity is not a concern, reinforcing the robustness and interpretability of the coefficients.
 
 The assessment of model fit shows that Model 4, which incorporates digital skills in addition to demographic, social resource, and media variables, provides the most comprehensive and robust explanation for the variance in algorithmic awareness. This full model displays the highest adjusted R² (R² adj. = .558) and the lowest Akaike Information Criterion (AIC = 171.033), indicating an optimal balance between explanatory power and parsimony.
 
@@ -514,11 +514,13 @@ Model 1 (Demographics) demonstrates that socioeconomic status (β = 0.09, p < .0
 
 Model 2 (Social and Family Resources) adds innovative personality, social network support, and number of children in the household. The inclusion of these variables slightly improves model fit, though the overall pattern remains stable. Social network support shows a positive and significant association with algorithmic awareness (β = 0.02, p < .001), while the number of children is negatively associated (β = −0.03, p < .01). The effect of innovative personality is positive but not statistically significant.
 
-Model 3 (Media breadth) add the social media breadth qualitative construct. Medium and High breadth present advantages over Non-social media breadth (β = 0.06, p < .05 and β = 0.16, p < .01 respectively)
+Model 3 (Media breadth) add the social media breadth qualitative construct. Medium and High breadth present advantages over Non-social media breadth (β = 0.06, p < .05 and β = 0.16, p < .01 respectively).
 
-Model 4 (Social Media Use) incorporates the frequency of use of seven platforms—YouTube, Facebook, Twitter (X), Instagram, WhatsApp, TikTok, and Netflix. Although this addition only marginally increases the model’s explanatory power, several noteworthy patterns emerge. The use of Twitter (β = 0.04, p < .001) and Netflix (β = 0.03, p < .01) is positively associated with algorithmic awareness, whereas Facebook shows a negative relationship (β = −0.02, p < .05). As a result of the introduction of these new variables the High media breadth of social media change its effect and exhibits a significant negative gap (β = -0.10, p < .05) over Non-social media breadth, suggesting that exposure to a wider range of platforms may modestly diminish users’ capacity to recognize algorithmic curation mechanisms.
+Model 4 (Social Media Use) incorporates the frequency of use of seven platforms—YouTube, Facebook, Twitter (X), Instagram, WhatsApp, TikTok, and Netflix. Although this addition only marginally increases the model’s explanatory power, several noteworthy patterns emerge. The use of Twitter (β = 0.04, p < .001) and Netflix (β = 0.03, p < .01) is positively associated with algorithmic awareness, whereas Facebook shows a negative relationship (β = −0.02, p < .05).
 
-Model 5 (Digital Skills) introduces the four dimensions of digital competence—operational, informative, social, and creative skills—based on van Deursen’s typology. The inclusion of these competencies substantially improves model fit, underscoring their pivotal role in shaping algorithmic awareness. Operational skills (β = 0.20, p < .001) and creative skills (β = 0.16, p < .001) emerge as the strongest predictors, followed by social skills (β = 0.07, p < .05) and informative skills (β = 0.05, n.s.). Once these skills are included, most demographic and social variables lose significance, indicating that the effects of socioeconomic position and social capital are largely mediated by the level of digital competence.
+Model 5 (Digital Skills with Media breadth) introduces the four dimensions of digital competence—operational, informative, social, and creative skills—based on van Deursen’s typology. The inclusion of these competencies substantially improves model fit, underscoring their pivotal role in shaping algorithmic awareness. Operational skills (β = 0.20, p < .001) and creative skills (β = 0.16, p < .001) emerge as the strongest predictors, followed by social skills (β = 0.07, p < .05) and informative skills (β = 0.05, n.s.). Once these skills are included, most demographic and social variables lose significance, indicating that the effects of socioeconomic position, social capital and media breadth are largely mediated by the level of digital competence. 
+
+Model 6 (Digital Skills with Social media frequency use) show similar effects as Model 5 on digital skills dimensions, and demonstrate that with this controls, the different social media use maintain relatively equal effects previously presented on Model 4.
 
 In sum, the sequential modeling confirms that digital skills constitute the central explanatory factor for algorithmic awareness. While social resources and the diversity of social media use contribute marginally, their influence is secondary to users’ actual digital competencies. The progressive attenuation of demographic effects across models reinforces the notion that algorithmic awareness is primarily a matter of digital literacy, rather than demographic privilege or media exposure alone.
 
@@ -560,23 +562,28 @@ model3 <- lm(
 model4 <- lm(
   algorithmic_awareness ~ age + gender + nse + residence +
     innovative_personality + soc_net + childs +
-    media_breadth_daily + 
     yt + fb + tw + ig + wsp + tiktok + netflix,
   data = data
 )
 
-# ---- MODEL 5: Adds digital skills ----
+# ---- MODEL 5 & 6: Adds digital skills ----
 model5 <- lm(
   algorithmic_awareness ~ age + gender + nse + residence +
     innovative_personality + soc_net + childs +
-    media_breadth_daily + 
-    yt + fb + tw + ig + wsp + tiktok + netflix + 
+    media_breadth_daily +
     tech_operational_skills + tech_informative_skills +
     tech_social_skills + tech_creative_skills,
   data = data
 )
 
-
+model6 <- lm(
+  algorithmic_awareness ~ age + gender + nse + residence +
+    innovative_personality + soc_net + childs +
+    yt + fb + tw + ig + wsp + tiktok + netflix + 
+    tech_operational_skills + tech_informative_skills +
+    tech_social_skills + tech_creative_skills,
+  data = data
+)
 
 # ---- Apply robust standard errors (HC3) ----
 #cov1 <- vcovHC(model1, type = "HC3")
@@ -586,7 +593,7 @@ model5 <- lm(
 
 # ---- Display models with variable labels ----
 tab_model(
-  model1, model2, model3, model4, model5,
+  model1, model2, model3, model4, model5, model6,
   collapse.se = TRUE,      
   show.ci = FALSE,
   show.aic = TRUE,
@@ -598,7 +605,8 @@ tab_model(
     "Model 2: + Social Resources",
     "Model 3: + Media breadth",
     "Model 4: + Social Media Use",
-    "Model 5: + Digital Skills"
+    "Model 5: + Digital Skills (Media breadth)",
+    "Model 6: + Digital Skills (Media use)"
   ),
   title = "Linear Regression Models Predicting Algorithmic Awareness",
   
@@ -628,6 +636,7 @@ tab_model(
   )
 )
 ```
+
 
 ## VIF
 
