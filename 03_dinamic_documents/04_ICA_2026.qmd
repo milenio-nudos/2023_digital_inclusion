@@ -15,7 +15,7 @@ editor: visual
 ```{r intro}
 # ---- PACKAGE MANAGEMENT ----
 # This block loads (and installs if necessary) all required packages
-if (!require("pacman")) install.packages("pacman")
+# if (!require("pacman")) install.packages("pacman")
 
 pacman::p_load(
   tidyverse,    # data wrangling (dplyr, ggplot2, etc.)
@@ -200,7 +200,8 @@ normalize <- function(x) (x - min(x, na.rm = TRUE)) /
 
 data <- data %>%
   mutate(
-    algorithmic_awareness = normalize(algorithmic_awareness)
+    algorithmic_awareness = normalize(algorithmic_awareness),
+    tech_self_efficacy = as.numeric(normalize(tech_self_efficacy))
   )
 
 # 4. Reliability check (Cronbach’s alpha)
@@ -211,6 +212,12 @@ alpha_awareness <- psych::alpha(data %>% select(all_of(awareness_items)))
 cat("\nCronbach's alpha coefficient:\n")
 cat("Algorithmic awareness: ", round(alpha_awareness$total$raw_alpha, 2), "\n")
 
+tech_self_efficacy_items <- names(select(data, starts_with("c2_")))
+
+tech_self_efficacy <- psych::alpha(data %>% select(all_of(tech_self_efficacy_items)))
+
+cat("\nCronbach's alpha coefficient:\n")
+cat("Internet Self-efficacy: ", round(tech_self_efficacy$total$raw_alpha, 2), "\n")
 ```
 
 ```{r proc social media}
@@ -289,6 +296,7 @@ data <- data %>%
                                       labels = c("Non-daily user", 
                                                  "<5 daily user",
                                                  ">=5 daily user")))
+
 ```
 
 # Methods
@@ -325,7 +333,7 @@ Social media use was measured through a battery of seven items capturing the fre
 
 *Familiar and Social resources*
 
-Following the conceptualization of relational capital proposed in Are we there yet? (Correa et al., 2025), social and familial resources were included to capture the networked and dispositional factors that may facilitate digital engagement and awareness. Three indicators were employed. Innovative personality reflects an individual’s openness to experimentation, creativity, and adaptability in the use of technologies, measured through a battery of items assessing self-perceived willingness to explore and adopt new digital tools. Social network support represents the strength of respondents’ interpersonal ties and their access to assistance when facing technological or informational challenges—such as having friends, family members, or community peers who can provide guidance or share resources. Finally, number of children in the household (childs) serves as a proxy for family responsibilities and time constraints that can affect the capacity to engage with digital technologies. 
+Following the conceptualization of relational capital proposed in Are we there yet? (Correa et al., 2025), social and familial resources were included to capture the networked and dispositional factors that may facilitate digital engagement and awareness. Three indicators were employed. Innovative personality reflects an individual’s openness to experimentation, creativity, and adaptability in the use of technologies, measured through a battery of items assessing self-perceived willingness to explore and adopt new digital tools. Social network support represents the strength of respondents’ interpersonal ties and their access to assistance when facing technological or informational challenges—such as having friends, family members, or community peers who can provide guidance or share resources. Finally, number of children in the household (childs) serves as a proxy for family responsibilities and time constraints that can affect the capacity to engage with digital technologies.
 
 *Sociodemographic Controls*
 
@@ -340,6 +348,7 @@ model_vars <- c(
   "algorithmic_awareness", 
   "age", "gender", "nse", "residence",
   "innovative_personality", "soc_net", "childs",
+  "tech_self_efficacy",
   "tech_operational_skills", "tech_informative_skills", 
   "tech_social_skills", "tech_creative_skills",
   "yt", "fb", "tw", "ig", "wsp", "tiktok", "netflix",
@@ -352,6 +361,7 @@ data <- data%>%
 # ---- Predefine item sets for Cronbach’s alpha ----
 index_items <- list(
   algorithmic_awareness   = grep("^d2_", names(data), value = TRUE),
+  tech_self_efficacy      = grep("^c2_", names(data), value = TRUE),
   tech_operational_skills = grep("^c3_1_", names(data), value = TRUE),
   tech_informative_skills = grep("^c3_2_", names(data), value = TRUE),
   tech_social_skills      = grep("^c3_3_", names(data), value = TRUE),
@@ -420,7 +430,7 @@ ft_final <- flextable(desc_table) %>%
 ft_final
 
 # ---- Optionally export to Word ----
-# save_as_docx(ft_final, path = "Descriptive_Table.docx")
+save_as_docx(ft_final, path = "Descriptive_Table.docx")
 
 ```
 
@@ -439,69 +449,96 @@ The correlation matrix (Table X) reveals consistent and theoretically coherent a
 ```{r corr}
 #| lbl: corr-matrix
 #| tbl-cap: Correlation matrix
-# ---- CORRELATION MATRIX ----
+# ---- MULTIPLE CORRELATION MATRICES FOR WORD ----
+library(Hmisc)
+library(dplyr)
+library(flextable)
+library(officer)
 
-# ---- CORRELATION VARIABLES SELECTION ----
-
-# Convert categorical variables (gender, residence) to numeric for correlation
+# Ensure numeric versions for factors
 data <- data %>%
   mutate(
     gender_num    = ifelse(gender == "Female", 1, 0),
     residence_num = ifelse(residence == "Rural", 1, 0)
   )
 
-# Select variables for correlation matrix
-corr_vars <- data %>%
-  select(
-    algorithmic_awareness,
-    age,
-    gender_num,
-    nse,
-    residence_num,
-    innovative_personality,
-    soc_net,
-    childs,
-    tech_operational_skills,
-    tech_informative_skills,
-    tech_social_skills,
-    tech_creative_skills,
-    yt, fb, tw, ig, wsp, tiktok, netflix,
-    media_breadth
+# ---- Function to create correlation tables ----
+create_corr_table <- function(vars, title){
+  
+  corr_vars <- data %>% select(all_of(vars))
+  corr_test <- Hmisc::rcorr(as.matrix(corr_vars), type = "pearson")
+  
+  r <- round(corr_test$r, 2)
+  p <- corr_test$P
+  
+  corr_table <- matrix(
+    paste0(r, "\n(", ifelse(p < 0.001, "<.001", round(p, 3)), ")"),
+    ncol = ncol(r)
   )
+  colnames(corr_table) <- colnames(r)
+  rownames(corr_table) <- rownames(r)
+  corr_table_df <- as.data.frame(corr_table)
+  corr_table_df <- tibble::rownames_to_column(corr_table_df, var = "Variable")
+  
+  flextable(corr_table_df) %>%
+    autofit() %>%
+    set_table_properties(width = 1, layout = "autofit") %>%
+    set_caption(title) %>%
+    theme_booktabs() %>%
+    fontsize(size = 8, part = "all") %>%
+    align(align = "center", part = "all")
+}
 
-
-# Compute correlations with p-values
-corr_test <- Hmisc::rcorr(as.matrix(corr_vars), type = "pearson")
-
-# Extract correlation coefficients and p-values
-r <- round(corr_test$r, 2)
-p <- corr_test$P
-
-# Combine correlation and p-value into one string
-corr_table <- matrix(
-  paste0(r, "\n(", ifelse(p < 0.001, "<.001", round(p, 3)), ")"),
-  ncol = ncol(r)
+# ---- Define variable groups ----
+vars_demo <- c(
+  "algorithmic_awareness",
+  "age", "gender_num", "nse", "residence_num",
+  "soc_net", "childs"
 )
-colnames(corr_table) <- colnames(r)
-rownames(corr_table) <- rownames(r)
 
-# Convert to data frame for printing
-corr_table_df <- as.data.frame(corr_table)
-
-# --- Usa tu mismo código para preparar la tabla ---
-# (Selección de variables, cálculo de corrs, etc.)
-
-# Solo cambia el paso final de knitr::kable a DT::datatable
-DT::datatable(
-  corr_table_df,
-  caption = "Pearson Correlation Matrix with p-values",
-  options = list(
-    scrollX = TRUE,  # ¡Esta es la opción clave para el desplazamiento horizontal!
-    pageLength = 10, # Controla cuántas filas se muestran por página
-    columnDefs = list(list(className = 'dt-center', targets = "_all")) # Centrar texto
-  ),
-  class = 'cell-border stripe' # Estilo visual
+vars_social <- c(
+  "algorithmic_awareness",
+  "yt", "fb", "tw", "ig", "wsp", "tiktok", "netflix", "media_breadth"
 )
+
+vars_skills <- c(
+  "algorithmic_awareness",
+  "tech_self_efficacy",
+  "innovative_personality",
+  "tech_operational_skills", "tech_informative_skills",
+  "tech_social_skills", "tech_creative_skills"
+)
+
+# ---- Create the three tables ----
+ft_demo   <- create_corr_table(vars_demo, "Table 1. Correlations: Sociodemographics and Social Resources")
+ft_social <- create_corr_table(vars_social, "Table 2. Correlations: Social Media Use")
+ft_skills <- create_corr_table(vars_skills, "Table 3. Correlations: Digital Skills")
+
+ft_all <- create_corr_table(c("age", "gender_num", "nse", "residence_num",
+  "soc_net", "childs",  "yt", "fb", "tw", "ig", "wsp", "tiktok", "netflix", "media_breadth",  "algorithmic_awareness",
+  "tech_self_efficacy",
+  "innovative_personality",
+  "tech_operational_skills", "tech_informative_skills",
+  "tech_social_skills", "tech_creative_skills"
+), "Table X. Correlations")
+
+# ---- Export all to a single Word file ----
+save_as_docx(
+  ft_demo, ft_social, ft_skills,
+  path = "Correlation_Tables_Separated.docx"
+)
+
+save_as_docx(
+  ft_all,
+  path = "Correlation_Table.docx"
+)
+
+# ---- Preview first table ----
+ft_all
+ft_demo
+
+
+
 ```
 
 ## Linear Models
@@ -510,15 +547,15 @@ Four hierarchical linear models were specified to assess the explanatory power o
 
 The assessment of model fit shows that Model 4, which incorporates digital skills in addition to demographic, social resource, and media variables, provides the most comprehensive and robust explanation for the variance in algorithmic awareness. This full model displays the highest adjusted R² (R² adj. = .558) and the lowest Akaike Information Criterion (AIC = 171.033), indicating an optimal balance between explanatory power and parsimony.
 
-Model 1 (Demographics) demonstrates that socioeconomic status (β = 0.09, p < .001) and residence in rural areas (β = −0.09, p < .001) are significant predictors of algorithmic awareness, while gender differences are non-significant. Age exhibits a small but consistent negative effect (β = −0.01, p < .001), suggesting lower algorithmic awareness among older respondents.
+Model 1 (Demographics) demonstrates that socioeconomic status (β = 0.09, p \< .001) and residence in rural areas (β = −0.09, p \< .001) are significant predictors of algorithmic awareness, while gender differences are non-significant. Age exhibits a small but consistent negative effect (β = −0.01, p \< .001), suggesting lower algorithmic awareness among older respondents.
 
-Model 2 (Social and Family Resources) adds innovative personality, social network support, and number of children in the household. The inclusion of these variables slightly improves model fit, though the overall pattern remains stable. Social network support shows a positive and significant association with algorithmic awareness (β = 0.02, p < .001), while the number of children is negatively associated (β = −0.03, p < .01). The effect of innovative personality is positive but not statistically significant.
+Model 2 (Social and Family Resources) adds innovative personality, social network support, and number of children in the household. The inclusion of these variables slightly improves model fit, though the overall pattern remains stable. Social network support shows a positive and significant association with algorithmic awareness (β = 0.02, p \< .001), while the number of children is negatively associated (β = −0.03, p \< .01). The effect of innovative personality is positive but not statistically significant.
 
-Model 3 (Media breadth) add the social media breadth qualitative construct. Medium and High breadth present advantages over Non-social media breadth (β = 0.06, p < .05 and β = 0.16, p < .01 respectively).
+Model 3 (Media breadth) add the social media breadth qualitative construct. Medium and High breadth present advantages over Non-social media breadth (β = 0.06, p \< .05 and β = 0.16, p \< .01 respectively).
 
-Model 4 (Social Media Use) incorporates the frequency of use of seven platforms—YouTube, Facebook, Twitter (X), Instagram, WhatsApp, TikTok, and Netflix. Although this addition only marginally increases the model’s explanatory power, several noteworthy patterns emerge. The use of Twitter (β = 0.04, p < .001) and Netflix (β = 0.03, p < .01) is positively associated with algorithmic awareness, whereas Facebook shows a negative relationship (β = −0.02, p < .05).
+Model 4 (Social Media Use) incorporates the frequency of use of seven platforms—YouTube, Facebook, Twitter (X), Instagram, WhatsApp, TikTok, and Netflix. Although this addition only marginally increases the model’s explanatory power, several noteworthy patterns emerge. The use of Twitter (β = 0.04, p \< .001) and Netflix (β = 0.03, p \< .01) is positively associated with algorithmic awareness, whereas Facebook shows a negative relationship (β = −0.02, p \< .05).
 
-Model 5 (Digital Skills with Media breadth) introduces the four dimensions of digital competence—operational, informative, social, and creative skills—based on van Deursen’s typology. The inclusion of these competencies substantially improves model fit, underscoring their pivotal role in shaping algorithmic awareness. Operational skills (β = 0.20, p < .001) and creative skills (β = 0.16, p < .001) emerge as the strongest predictors, followed by social skills (β = 0.07, p < .05) and informative skills (β = 0.05, n.s.). Once these skills are included, most demographic and social variables lose significance, indicating that the effects of socioeconomic position, social capital and media breadth are largely mediated by the level of digital competence. 
+Model 5 (Digital Skills with Media breadth) introduces the four dimensions of digital competence—operational, informative, social, and creative skills—based on van Deursen’s typology. The inclusion of these competencies substantially improves model fit, underscoring their pivotal role in shaping algorithmic awareness. Operational skills (β = 0.20, p \< .001) and creative skills (β = 0.16, p \< .001) emerge as the strongest predictors, followed by social skills (β = 0.07, p \< .05) and informative skills (β = 0.05, n.s.). Once these skills are included, most demographic and social variables lose significance, indicating that the effects of socioeconomic position, social capital and media breadth are largely mediated by the level of digital competence.
 
 Model 6 (Digital Skills with Social media frequency use) show similar effects as Model 5 on digital skills dimensions, and demonstrate that with this controls, the different social media use maintain relatively equal effects previously presented on Model 4.
 
@@ -537,49 +574,52 @@ data <- data %>%
     media_breadth_daily = factor(media_breadth_daily, levels = c("Non-daily user", "<5 daily user", ">=5 daily user"))
   )
 
-# ---- MODEL 1: Demographics only ----
+# ---- MODEL 1: Personal Resources ----
 model1 <- lm(
-  algorithmic_awareness ~ age + gender + nse + residence,
+  algorithmic_awareness ~ age + gender + nse + residence +
+  innovative_personality + tech_self_efficacy,
   data = data
 )
 
-# ---- MODEL 2: Adds social and family resources ----
+# ---- MODEL 2: Social resources ----
 model2 <- lm(
   algorithmic_awareness ~ age + gender + nse + residence +
-    innovative_personality + soc_net + childs,
+  innovative_personality + tech_self_efficacy + 
+  soc_net + childs,
   data = data
 )
 
-# ---- MODEL 3: Social media breadth ----
+# ---- MODEL 3: Digital media use ----
 model3 <- lm(
   algorithmic_awareness ~ age + gender + nse + residence +
-    innovative_personality + soc_net + childs +
+    innovative_personality + tech_self_efficacy + soc_net + childs +
+    yt + fb + tw + ig + wsp + tiktok + netflix,
+  data = data
+)
+# ---- MODEL 4: Adds Media breadth ----
+
+model4 <- lm(
+  algorithmic_awareness ~ age + gender + nse + residence +
+    innovative_personality + tech_self_efficacy + soc_net + childs +
     media_breadth_daily,
   data = data
 )
 
-# ---- MODEL 4: Adds social media use ----
-model4 <- lm(
-  algorithmic_awareness ~ age + gender + nse + residence +
-    innovative_personality + soc_net + childs +
-    yt + fb + tw + ig + wsp + tiktok + netflix,
-  data = data
-)
-
-# ---- MODEL 5 & 6: Adds digital skills ----
+# ---- MODEL 6 & 7: Adds digital skills ----
 model5 <- lm(
   algorithmic_awareness ~ age + gender + nse + residence +
-    innovative_personality + soc_net + childs +
-    media_breadth_daily +
+    innovative_personality + tech_self_efficacy + soc_net + childs +
+    yt + fb + tw + ig + wsp + tiktok + netflix + 
     tech_operational_skills + tech_informative_skills +
     tech_social_skills + tech_creative_skills,
   data = data
 )
 
+
 model6 <- lm(
   algorithmic_awareness ~ age + gender + nse + residence +
-    innovative_personality + soc_net + childs +
-    yt + fb + tw + ig + wsp + tiktok + netflix + 
+    innovative_personality + tech_self_efficacy + soc_net + childs +
+    media_breadth_daily +
     tech_operational_skills + tech_informative_skills +
     tech_social_skills + tech_creative_skills,
   data = data
@@ -592,7 +632,7 @@ model6 <- lm(
 #cov4 <- vcovHC(model4, type = "HC3")
 
 # ---- Display models with variable labels ----
-tab_model(
+reg_table <- tab_model(
   model1, model2, model3, model4, model5, model6,
   collapse.se = TRUE,      
   show.ci = FALSE,
@@ -601,12 +641,12 @@ tab_model(
   show.fstat = TRUE,
   p.style = "stars",
   dv.labels = c(
-    "Model 1: Demographics",
-    "Model 2: + Social Resources",
-    "Model 3: + Media breadth",
-    "Model 4: + Social Media Use",
-    "Model 5: + Digital Skills (Media breadth)",
-    "Model 6: + Digital Skills (Media use)"
+    "Model 1: Personal resources",
+    "Model 2: + Social resources",
+    "Model 3: + Digital media Use",
+    "Model 4: + Media breadth",
+    "Model 5: + Digital Skills (Media use)",
+    "Model 6: + Digital Skills (Media breadth)"
   ),
   title = "Linear Regression Models Predicting Algorithmic Awareness",
   
@@ -618,10 +658,83 @@ tab_model(
     "Socioeconomic Status (SES)",
     "Rural Residence",
     "Innovative Personality",
+    "Internet Self-efficacy",
     "Social Network Support",
     "Number of Children in Household",
+    "YouTube Use",
+    "Facebook Use",
+    "X (Twitter) Use",
+    "Instagram Use",
+    "WhatsApp Use",
+    "TikTok Use",
+    "Netflix Use",
     "Medium breadth (Ref: Non-social media breadth)",
-    "High breadth (Ref: Non-social media breadth)",
+    "High breadth (Ref: Non-social media breadth)",    
+    "Operational Skills",
+    "Informative Skills",
+    "Social Skills",
+    "Creative Skills"
+  )
+)
+
+sjPlot::save_html(reg_table, file = "Algorithmic_Awareness_Models.docx")
+
+reg_table
+
+```
+
+## VIF
+
+VIF values for all predictors in Model 4 remain below acceptable thresholds (all \< 5, with social media breadth being highest). Residual inspection suggests approximate normality and homoskedastic behavior.
+
+\*media_breadth_daily: only -.10 significant \>= daily use. 3.5 VIF
+
+\*media_breadth_weekly: non-significant differences between groups. 5.0 VIF
+
+```{r}
+#| lbl: vif
+#| tbl-cap: VIF test model 3
+vif(model7)|>kable()
+vif(model8)|>kable()
+
+```
+
+# Appendix
+
+## Models without demographics
+
+```{r}
+# Ver R cuadrado sin variables demográficas
+model1_1 <- lm(
+  algorithmic_awareness ~
+    yt + fb + tw + ig + wsp + tiktok + netflix,
+  data = data
+)
+
+model1_2 <- lm(
+  algorithmic_awareness ~
+    tech_operational_skills + tech_informative_skills +
+    tech_social_skills + tech_creative_skills,
+  data = data
+)
+
+reg_table <- tab_model(
+  model1_1,model1_2,
+  collapse.se = TRUE,      
+  show.ci = FALSE,
+  show.aic = TRUE,
+  show.r2 = TRUE,
+  show.fstat = TRUE,
+  p.style = "stars",
+  dv.labels = c(
+    "Model 1: Media Use - demographics",
+    "Model 2: Digital skills - demographics"
+  ),
+  title = "Linear Regression Models without demographics",
+  
+  # ---- Variable labels ----
+  pred.labels = c(
+    "Intercept",
     "YouTube Use",
     "Facebook Use",
     "X (Twitter) Use",
@@ -635,19 +748,6 @@ tab_model(
     "Creative Skills"
   )
 )
-```
 
-
-## VIF
-
-VIF values for all predictors in Model 4 remain below acceptable thresholds (all < 5, with social media breadth being highest). Residual inspection suggests approximate normality and homoskedastic behavior.
-
-*media_breadth_daily: only -.10 significant >= daily use. 3.5 VIF
-
-*media_breadth_weekly: non-significant differences between groups. 5.0 VIF
-
-```{r}
-#| lbl: vif
-#| tbl-cap: VIF test model 3
-vif(model4)|>kable()
+reg_table
 ```
